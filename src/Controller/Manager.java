@@ -134,6 +134,21 @@ public class Manager {
         competitorsInLevel.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
         System.out.println(competitorsInLevel.get(0).getFullDetails());
     }
+    public void searchCompetitor(int id)
+    {
+        CompetitorList competitorList = new CompetitorList();
+        Competitor competitorIs=competitorList.getCompetitor(id);
+        if(competitorIs==null)
+        {
+            System.out.println("\nInvalid Competitor Number");
+        }
+        else
+        {
+            System.out.println(competitorIs.getShortDetails());
+        }
+
+
+    }
 
 
 }
