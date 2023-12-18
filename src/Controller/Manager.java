@@ -127,5 +127,13 @@ public class Manager {
         }
     }
 
+    public void highestScoringCompetitor(String category, Level level)
+    {
+        CompetitorList newCompetitorListInstance = new CompetitorList();
+        ArrayList<Competitor> competitorsInLevel=newCompetitorListInstance.searchCompetitorsByLevel("ICE SKATING",level);
+        competitorsInLevel.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
+        System.out.println(competitorsInLevel.get(0).getFullDetails());
+    }
+
 
 }
