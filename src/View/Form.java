@@ -4,27 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import Model.Level;  // Make sure to import the Level enum
+import Model.Gamer;
+import Model.IceSkater;
 
 public class Form extends JPanel {
-
     private JTextField nameField;
     private JTextField emailField;
     private JTextField ageField;
     private ButtonGroup genderGroup;   // Group for gender radio buttons
     private JRadioButton maleButton, femaleButton;  // Gender radio buttons
     private JTextField countryField;
+    private JComboBox<String> userTypeComboBox;  // ComboBox for User Type
     private JComboBox<Level> levelComboBox;  // ComboBox for Level
 
     private JButton addButton;
     private JButton viewButton;
 
     public Form() {
-        // Labels
         JLabel nameLabel = new JLabel("Full Name: ");
         JLabel emailLabel = new JLabel("Email: ");
         JLabel ageLabel = new JLabel("Age: ");
         JLabel genderLabel = new JLabel("Gender: ");
         JLabel countryLabel = new JLabel("Country: ");
+        JLabel userTypeLabel = new JLabel("User Type: ");
         JLabel levelLabel = new JLabel("Level: ");
 
         // Text fields
@@ -32,6 +34,9 @@ public class Form extends JPanel {
         emailField = new JTextField(25);
         ageField = new JTextField(25);
         countryField = new JTextField(25);
+
+        // User Type ComboBox
+        userTypeComboBox = new JComboBox<>(new String[]{"Gamer", "Ice Skater"});
 
         // Gender Radio Buttons
         genderGroup = new ButtonGroup();
@@ -60,6 +65,7 @@ public class Form extends JPanel {
         gridBagConstraints.fill = GridBagConstraints.NONE;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
 
+        // Add components to the layout
         // Name
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -109,24 +115,32 @@ public class Form extends JPanel {
         gridBagConstraints.gridy = 4;
         add(countryField, gridBagConstraints);
 
-        // Level
+        // User Type
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
-        add(levelLabel, gridBagConstraints);
+        add(userTypeLabel, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
-        add(levelComboBox, gridBagConstraints);
+        add(userTypeComboBox, gridBagConstraints);
 
-        // Add Button
+        // Level
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
+        add(levelLabel, gridBagConstraints);
+
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        add(levelComboBox, gridBagConstraints);
+
+        // Buttons
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = buttonInset;
         add(addButton, gridBagConstraints);
 
-        // View Button
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.insets = buttonInset;
         add(viewButton, gridBagConstraints);
     }
@@ -163,7 +177,9 @@ public class Form extends JPanel {
     public void submitUsers(ActionListener actionListener) {
         addButton.addActionListener(actionListener);
     }
-
+    public String getUserType() {
+        return (String) userTypeComboBox.getSelectedItem();
+    }
     public void viewUsers(ActionListener actionListener) {
         viewButton.addActionListener(actionListener);
     }
@@ -176,7 +192,40 @@ public class Form extends JPanel {
             ageField.setText("");
             genderGroup.clearSelection();
             countryField.setText("");
+            userTypeComboBox.setSelectedIndex(0);
             levelComboBox.setSelectedIndex(0);
         }
     }
+
+    public void createUser() {
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String age = ageField.getText();  // Assuming age is stored as a String
+        String gender;
+        // For gender, you need to determine which radio button is selected
+        if (maleButton.isSelected()) {
+            gender = "Male";
+        } else if (femaleButton.isSelected()) {
+            gender = "Female";
+        } else {
+            gender = ""; // or any default value you prefer
+        }
+
+        String country = countryField.getText();
+        String userType = (String) userTypeComboBox.getSelectedItem();
+
+        // Assuming you want to store the level as a string
+        String level = levelComboBox.getSelectedItem().toString();
+
+        // Print the stored values
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
+        System.out.println("Age: " + age);
+        System.out.println("Gender: " +gender);
+        System.out.println("Country: " +country);
+        System.out.println("User Type: " + userType);
+        System.out.println("Level: " +level);
+    }
+
+
 }
