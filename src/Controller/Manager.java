@@ -27,8 +27,7 @@ public class Manager {
                 String category = data[5].trim();
                 String country = data[6].trim();
 
-                int[] scores = parseScores(data, data.length);
-
+                int[] scores = parseScores(data, 7);
                 Competitor competitor = createCompetitor(category, name, email, age, gender, country, level, scores);
                 competitorList.addCompetitor(competitor);
             }
@@ -45,12 +44,14 @@ public class Manager {
             try {
                 scores[i - startIndex] = Integer.parseInt(data[i].trim());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid score format: " + data[i]);
-                // Handle the error - perhaps assign a default value or skip this score
+                System.out.println("Invalid score format at index " + i + ": " + data[i]);
+                // Set a default score value, e.g., 0, or handle as needed
+                scores[i - startIndex] = 0;
             }
         }
         return scores;
     }
+
 
     private Competitor createCompetitor(String category, Name name, String email, int age, String gender, String country, Level level, int[] scores) {
         Competitor competitor;
@@ -78,6 +79,7 @@ public class Manager {
     }
 
     private String formatCompetitorData(Competitor competitor) {
+        System.out.println(competitor.getScores());
         return competitor.getCompetitorNumber() + "," +
                 competitor.getName() + "," +
                 competitor.getEmail() + "," +
@@ -85,8 +87,8 @@ public class Manager {
                 competitor.getGender() + "," +
                 competitor.getCountry() + "," +
                 competitor.getCategory() + "," +
-                competitor.getLevel() + "," +
-                competitor.getScores();
+                competitor.getLevel() + "," +competitor.getScores();
+
     }
 
     public Name createNameFromFullName(String fullName) {

@@ -84,10 +84,6 @@ public class Main {
     public static void managerClassTest() {
         Manager manager = new Manager();
 
-
-        Name name1 = new Name("John", "Doe");
-        Gamer gamer1 = new Gamer(name1, "john.doe@example.com", 25, "Male", "US", Level.INTERMEDIATE);
-        manager.addCompetitor(gamer1);
         /*
 
         System.out.println(manager.getCompetitor(100).getFullDetails());
@@ -98,11 +94,20 @@ public class Main {
 
         System.out.println("All Competitors:"+manager.getAllCompetitors().size());*/
         System.out.println("All Competitors:"+manager.getAllCompetitors().size());
-        CompetitorList competitorList=new CompetitorList();
-        System.out.println("All Competitors:"+competitorList.getAllCompetitors().size());
 
-        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/RunCompetitor.csv");
-        manager.writeToFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
+
+        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
+        System.out.println("Competitors after reading from file: " + manager.getAllCompetitors().size());
+
+
+// Adding a new competitor
+        Name name1 = new Name("John", "Doe");
+        Gamer gamer1 = new Gamer(name1, "john.doe@example.com", 25, "Male", "US", Level.INTERMEDIATE);
+        manager.addCompetitor(gamer1);
+
+// Checking the size of the competitor list
+        System.out.println("Competitors after adding a new one: " + manager.getAllCompetitors().size());
+        //manager.writeToFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
     }
 
 
