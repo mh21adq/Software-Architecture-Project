@@ -67,6 +67,8 @@ public abstract class Competitor {
     }
     public abstract double getOverallScore() ;
     public abstract void setScores(int[] scores);
+    public abstract String getCategory();
+    public abstract Level getLevel();
 
 
 
