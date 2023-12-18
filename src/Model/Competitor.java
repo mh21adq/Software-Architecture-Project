@@ -76,6 +76,12 @@ public abstract class Competitor {
                 this.name.getFirstName()+" is a "+this.getLevel()+ " aged "+this.getAge()+".";
         return details;
     }
+    public String getShortDetails() {
+        String shortDetails = "CN " + this.competitorNumber +
+                " (" + name.getInitials() + ")" +
+                " has an overall score of " + this.getOverallScore();
+        return shortDetails;
+    }
 
 
 
