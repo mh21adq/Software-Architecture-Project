@@ -82,4 +82,5 @@ public class IceSkater extends Competitor {
 
     }
 
+
 }

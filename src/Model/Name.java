@@ -1,10 +1,10 @@
 package Model;
-public class Name {
-    private String firstName="";
-    private String middleName="";
-    private String surname="";
 
-    // Constructors
+public class Name {
+    private String firstName;
+    private String middleName;
+    private String surname;
+
     public Name(String firstName) {
         this.firstName = firstName;
     }
@@ -20,9 +20,6 @@ public class Name {
         this.surname = surname;
     }
 
-
-
-    // Getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -48,13 +45,23 @@ public class Name {
     }
 
     public String getFullName() {
-        return this.firstName + " " + this.middleName + " " + this.surname;
+        StringBuilder fullName = new StringBuilder();
+        if (firstName != null && !firstName.isEmpty()) {
+            fullName.append(firstName);
+        }
+        if (middleName != null && !middleName.isEmpty()) {
+            if (fullName.length() > 0) fullName.append(" ");
+            fullName.append(middleName);
+        }
+        if (surname != null && !surname.isEmpty()) {
+            if (fullName.length() > 0) fullName.append(" ");
+            fullName.append(surname);
+        }
+        return fullName.toString();
     }
 
-    // Method to get initials
     public String getInitials() {
         StringBuilder initials = new StringBuilder();
-
         if (firstName != null && !firstName.isEmpty()) {
             initials.append(firstName.charAt(0));
         }
@@ -64,7 +71,6 @@ public class Name {
         if (surname != null && !surname.isEmpty()) {
             initials.append(surname.charAt(0));
         }
-
         return initials.toString().toUpperCase();
     }
 }

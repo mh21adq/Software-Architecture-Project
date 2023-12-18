@@ -76,7 +76,33 @@ public class Manager {
             e.printStackTrace();
         }
     }
+    public void writeToFile(String filename) {
+        try (FileWriter fileWriter = new FileWriter(filename, true);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
+            ArrayList<Competitor> competitors = competitorList.getAllCompetitors();
+            for (Competitor competitor : competitors) {
+                String competitorData = formatCompetitorData(competitor);
+                bufferedWriter.write(competitorData);
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String formatCompetitorData(Competitor competitor) {
+        // Format the competitor's data into a string
+        return competitor.getCompetitorNumber() + "," +
+                competitor.getName() + "," +
+                competitor.getEmail() + "," +
+                competitor.getAge() + "," +
+                competitor.getGender() + "," +
+                competitor.getCountry() + "," +
+                competitor.getCategory() + "," +
+                competitor.getLevel() + "," ;
+                //competitor.getScores();
+    }
     public Name createNameFromFullName(String fullName) {
         String[] nameParts = fullName.trim().split("\\s+");
         Name name;
@@ -153,5 +179,33 @@ public class Manager {
 
         return competitorList.getAllCompetitors();
     }
+
+    public void addCompetitor(Competitor competitor) {
+        competitorList.addCompetitor(competitor);
+    }
+
+    // New method to remove a competitor
+    public void removeCompetitor(Competitor competitor) {
+        competitorList.removeCompetitor(competitor);
+    }
+
+    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
+        return competitorList.getCompetitorsByCategory(category);
+    }
+
+    // New method to search competitors by level
+    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
+        return competitorList.searchCompetitorsByLevel(category, level);
+    }
+
+    // New method to get a competitor by id
+    public Competitor getCompetitor(int id) {
+        return competitorList.getCompetitor(id);
+    }
+
+    // Adjusted method to use the existing competitorList member
+
+
+
 
 }

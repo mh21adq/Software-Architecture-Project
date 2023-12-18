@@ -1,106 +1,83 @@
 package View;
-import Controller.Manager;
 import Model.*;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-     /*   // Create a Name object for the Gamer
-        Name gamerName = new Name("John", "Doe");
-
-        // Create a Gamer object
-        Gamer gamer = new Gamer(gamerName, "john@example.com", 25, "Male", "USA", Level.INTERMEDIATE);
-
-        // Set scores for the Gamer
-        int[] scores = {90, 85, 78, 92, 88};
-        gamer.setScores(scores);
-
-        // Display full details of the Gamer
-        System.out.println("Full Details:");
-        System.out.println(gamer.getFullDetails());
-
-        // Display short details of the Gamer
-        System.out.println("\nShort Details:");
-        System.out.println(gamer.getShortDetails());
-
-         *//* System.out.println("Name class test\n");
-        Name firstname = new Name("Numan");
-        System.out.println(firstname.getFirstName());
-        System.out.println(firstname.getMiddleName());
-        System.out.println(firstname.getFullName());
-        System.out.println(firstname.getInitials());
-
-        Name firstAndMiddle = new Name("Numan", "Hussain");
-        System.out.println(firstAndMiddle.getFirstName());
-        System.out.println(firstAndMiddle.getMiddleName());
-        System.out.println(firstAndMiddle.getFullName());
-        System.out.println(firstAndMiddle.getInitials());
-
-        Name fullName = new Name("Numan", "Hussain", "Mahim");
-        System.out.println(fullName.getFirstName());
-        System.out.println(fullName.getMiddleName());
-        System.out.println(fullName.getFullName());
-        System.out.println(fullName.getInitials());
-
-
-        Name name = new Name("John Doe");
-
-        // Create a Gamer
-        Gamer gamer = new Gamer(name, "johndoe@example.com", 25, "Male", "USA", LevelInteger.LEVEL_TWO);
-        CompetitorList competitorList=new CompetitorList();
-        competitorList.addCompetitor(gamer);
-        gamer.setScores(new int[]{80, 90, 95, 87, 88});
-        System.out.println("Gamer Full Details: " + gamer.getFullDetails());
-        System.out.println("Gamer Short Details: " + gamer.getShortDetails());
-        System.out.println("Gamer Category: " + Gamer.getCategory());
-        System.out.println("Gamer Level: " + gamer.getLevel().getLevelValue());
-
-        // Create an IceSkater
-        IceSkater iceSkater = new IceSkater(name, "janedoe@example.com", 22, "Female", "Canada", LevelString.ADVANCED);
-        competitorList.addCompetitor(iceSkater);
-        System.out.println("IceSkater Full Details: " + iceSkater.getFullDetails());
-        System.out.println("IceSkater Short Details: " + iceSkater.getShortDetails());
-        System.out.println("IceSkater Category: " + IceSkater.getCategory());
-        System.out.println("IceSkater Level: " + iceSkater.getLevel().name());
-
-        *//*
-        Manager manager=new Manager();
-        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
-        Name name = new Name("John Doe");
-        IceSkater iceSkater = new IceSkater(name, "janedoe@example.com", 22, "Female", "Canada", Level.ADVANCED);
-        //System.out.println(iceSkater.getCategory());
-        int[] scores1 = new int[]{1, 2, 3, 4};
-        iceSkater.setScores(scores1);
-        //System.out.println(iceSkater.getOverallScore(3));
-        // System.out.println(iceSkater.getOverallScore());
-        CompetitorList newCompetitorListInstance = new CompetitorList();
-        //newCompetitorListInstance.addCompetitor(iceSkater);
-
-        ArrayList<Competitor> iceSkaters=newCompetitorListInstance.searchCompetitorsByLevel("GAMING", Level.BEGINNER);
-        //manager.printCompetitorsTable();
-
-
-
-       for (Competitor competitor : iceSkaters) {
-          System.out.println(competitor.getFullDetails());
-      }
-
-        manager.printCompetitorsTable();
-
-
-
-        manager.highestScoringCompetitor("GAMING", Level.BEGINNER);
-
-        //manager.searchCompetitor(100);*/
-
-        Manager manager=new Manager();
-        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
-        //manager.printCompetitorsTable();
-        for (Competitor competitor : manager.getAllCompetitors()) {
-            System.out.println(competitor.getFullDetails());
-        }
-
+        //nameClassTest();
+        //gamerClassTest();
+        competitorListClassTest();
 
     }
+    public static void nameClassTest()
+    {
+        System.out.println("\n*******************Name Class Test******************");
+        Name firstName=new Name("Numan");
+        System.out.println("Full Name:"+firstName.getFullName());
+        System.out.println("Initials:"+firstName.getInitials());
+        System.out.println("First Name:"+firstName.getFirstName());
+        firstName.setFirstName("Muhammad");
+        System.out.println("New First Name:"+firstName.getFirstName());
+
+        System.out.println("Middle Name:"+firstName.getMiddleName());
+        firstName.setMiddleName("Numan");
+        System.out.println("New Middle Name:"+firstName.getMiddleName());
+
+        System.out.println("Surname Name:"+firstName.getSurname());
+        firstName.setSurname("Hussain");
+        System.out.println("New Surname Name:"+firstName.getSurname());
+
+
+        Name firstAndLastName=new Name("Numan","Hussain");
+        System.out.println("Full Name:"+firstAndLastName.getFullName());
+        System.out.println("Initials:"+firstAndLastName.getInitials());
+        Name fullName =new Name("Md","Numan","Hussain");
+        System.out.println("Full Name:"+fullName.getFullName());
+        System.out.println("Initials:"+fullName.getInitials());
+        System.out.println("\n************************************************\n");
+    }
+    public static void gamerClassTest()
+    {
+        Name fullName =new Name("Md","Numan","Hussain");
+        Gamer gamer =new Gamer(fullName,"mh21adq@herts.ac.uk",23,"Male","BD",Level.ADVANCED);
+        System.out.println("Number:"+gamer.getCompetitorNumber());
+        System.out.println(gamer.getFullDetails());
+    }
+    public static void competitorListClassTest() {
+        // Create Competitor List
+        CompetitorList competitorList = new CompetitorList();
+
+        // Create Competitors
+        Name fullName = new Name("Md", "Numan", "Hussain");
+        Gamer gamer = new Gamer(fullName, "mh21adq@herts.ac.uk", 23, "Male", "BD", Level.ADVANCED);
+        Name fullName1 = new Name("Jane", "Doe");
+        Gamer gamer1 = new Gamer(fullName1, "jane.doe@example.com", 25, "Female", "US", Level.BEGINNER);
+
+        // Add competitors
+        competitorList.addCompetitor(gamer);
+        competitorList.addCompetitor(gamer1);
+
+        // Check if competitors are added
+        System.out.println("Competitors Added: " + competitorList.getAllCompetitors().size());
+
+        // Attempt to add a duplicate
+        competitorList.addCompetitor(gamer);  // Assuming your system allows duplicates
+        System.out.println("Competitors after adding duplicate: " + competitorList.getAllCompetitors().size());
+
+        // Remove a competitor
+        competitorList.removeCompetitor(gamer1);
+        System.out.println("Competitors after removal: " + competitorList.getAllCompetitors().size());
+
+        // Retrieve by Category
+        System.out.println("Competitors in ADVANCED: " + competitorList.getCompetitorsByCategory("ADVANCED").size());
+
+        // Retrieve by Level
+        System.out.println("Competitors in Level BEGINNER: " + competitorList.searchCompetitorsByLevel("GAMING", Level.ADVANCED).size());
+
+        // Retrieve by ID
+        Competitor foundCompetitor = competitorList.getCompetitor(gamer.getCompetitorNumber());
+        System.out.println("Found Competitor: " + (foundCompetitor != null ? foundCompetitor.getName() : "Not Found"));
+    }
+
 }

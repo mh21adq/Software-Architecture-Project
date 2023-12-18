@@ -197,10 +197,16 @@ public class Form extends JPanel {
     }
 
 
-    public void createUser() {
+    public Competitor createUser() {
         String fullName = nameField.getText();
         String email = emailField.getText();
-        int age = Integer.parseInt(ageField.getText());  // Assuming age is stored as an int
+        int age;
+        try {
+            age = Integer.parseInt(ageField.getText());
+        } catch (NumberFormatException e) {
+            // Handle invalid age input
+            age = 0; // or some default value or throw an exception
+        }
         String gender = maleButton.isSelected() ? "Male" : (femaleButton.isSelected() ? "Female" : "");
         String country = countryField.getText();
         String userType = (String) userTypeComboBox.getSelectedItem();
@@ -208,36 +214,35 @@ public class Form extends JPanel {
 
         // Create a Name object from the full name
         Name name = createNameFromFullName(fullName);
-        if ("GAMER".equals(userType.toUpperCase())) {
-            Gamer gamer = new Gamer(name, email, age, gender, country, level);
-            // Set default scores for Gamer
-            gamer.setScores(new int[]{0, 0, 0, 0, 0});
-            System.out.println(gamer.getCompetitorNumber());
-            CompetitorList competitorList = new CompetitorList();
-            competitorList.addCompetitor(gamer);
-        } else if ("ICE SKATER".equals(userType.toUpperCase())) {
-            IceSkater iceSkater = new IceSkater(name, email, age, gender, country, level);
-            // Set default scores for IceSkater
-            iceSkater.setScores(new int[]{0, 0, 0, 0});
-            System.out.println(iceSkater.getCompetitorNumber());
-            CompetitorList competitorList = new CompetitorList();
-            competitorList.addCompetitor(iceSkater);
 
+        Competitor competitor = null;
+        if ("GAMER".equalsIgnoreCase(userType)) {
+            competitor = new Gamer(name, email, age, gender, country, level);
+            competitor.setScores(new int[]{0, 0, 0, 0, 0});
+        } else if ("ICE SKATER".equalsIgnoreCase(userType)) {
+            competitor = new IceSkater(name, email, age, gender, country, level);
+            competitor.setScores(new int[]{0, 0, 0, 0});
         }
 
+        // Optional: Print competitor number, handle it outside if necessary
+        // System.out.println(competitor != null ? competitor.getCompetitorNumber() : "No competitor created");
 
+        return competitor;
     }
 
     private Name createNameFromFullName(String fullName) {
         String[] nameParts = fullName.trim().split("\\s+");
-        if (nameParts.length == 2) {
-            return new Name(nameParts[0], nameParts[1]);
-        } else if (nameParts.length > 2) {
-            return new Name(nameParts[0], nameParts[1], nameParts[2]);
-        } else {
-            return new Name(nameParts[0]);
+        switch (nameParts.length) {
+            case 1:
+                return new Name(nameParts[0]);
+            case 2:
+                return new Name(nameParts[0], nameParts[1]);
+            case 3:
+            default:
+                return new Name(nameParts[0], nameParts[1], nameParts[2]);
         }
     }
+
 
 
 

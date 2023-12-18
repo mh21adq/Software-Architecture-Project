@@ -24,7 +24,9 @@ public class MainFrame extends JFrame {
         form.viewUsers(e -> {
             manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
 
-            form.createUser();
+            Competitor competitor=form.createUser();
+            manager.addCompetitor(competitor);
+
             java.util.List<Competitor> competitors = manager.getAllCompetitors();
             userDetails.setUsers(competitors);
             cardLayout.show(MainFrame.this.getContentPane(), "user details");

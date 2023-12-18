@@ -3,59 +3,61 @@ package Model;
 import java.util.ArrayList;
 
 public class CompetitorList {
-    private static ArrayList<Competitor> competitors = new ArrayList<>();
+    private static ArrayList<Competitor> allCompetitors = new ArrayList<>();
 
-    // Method to add a competitor
-    public void addCompetitor(Competitor competitor) {
-        CompetitorList.competitors.add(competitor);
+    public void addCompetitor(Competitor newCompetitor) {
+        for (Competitor existingCompetitor : allCompetitors) {
+            // Check if the competitor already exists with the same email and category
+            if (existingCompetitor.getEmail().equalsIgnoreCase(newCompetitor.getEmail()) &&
+                    existingCompetitor.getCategory().equalsIgnoreCase(newCompetitor.getCategory())) {
+                //System.out.println("Competitor with the same email already exists in the same category.");
+                return; // Do not add the competitor
+            }
+        }
+        // Add the competitor if no duplicate is found in the same category
+        allCompetitors.add(newCompetitor);
     }
 
     // Method to remove a competitor
     public void removeCompetitor(Competitor competitor) {
-        CompetitorList.competitors.remove(competitor);
+        allCompetitors.remove(competitor);
     }
-    public  ArrayList<Competitor> getAllCompetitors() {
 
-        return new ArrayList<>(CompetitorList.competitors);
+    // Method to get all competitors
+    public ArrayList<Competitor> getAllCompetitors() {
+        return new ArrayList<>(allCompetitors);
     }
-    public ArrayList<Competitor> getCompetitorsByCategory(String category)
-    {
-        ArrayList<Competitor> comepetitor=new ArrayList<>();
-        for(Competitor competitor:this.getAllCompetitors())
-        {
-            if(competitor.getCategory().toUpperCase()==category.toUpperCase())
-            {
-                comepetitor.add(competitor);
-            }
 
-        }
-        return comepetitor;
-    }
-    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level)
-    {
-
-        ArrayList<Competitor> inCategory= this.getCompetitorsByCategory(category);
-        ArrayList<Competitor> inLevel=new ArrayList<>();
-        for(Competitor competitor:inCategory)
-        {
-            if(competitor.getLevel()==level)
-            {
-                inLevel.add(competitor);
-            }
-
-        }
-        return inLevel;
-    }
-    public Competitor getCompetitor(int id)
-    {
-        Competitor competitorIS=null;
-        for(Competitor competitor:competitors)
-        {
-            if(competitor.getCompetitorNumber()==id)
-            {
-                competitorIS=competitor;
+    // Method to get competitors by category
+    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
+        ArrayList<Competitor> competitorsInCategory = new ArrayList<>();
+        for (Competitor competitor : this.getAllCompetitors()) {
+            if (competitor.getCategory().equalsIgnoreCase(category)) {
+                competitorsInCategory.add(competitor);
             }
         }
-        return competitorIS;
+        return competitorsInCategory;
+    }
+
+    // Method to search competitors by level
+    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
+        ArrayList<Competitor> competitorsInCategory = this.getCompetitorsByCategory(category);
+        ArrayList<Competitor> competitorsInLevel = new ArrayList<>();
+        for (Competitor competitor : competitorsInCategory) {
+            if (competitor.getLevel() == level) {
+                competitorsInLevel.add(competitor);
+            }
+        }
+        return competitorsInLevel;
+    }
+
+    // Method to get a competitor by ID
+    public Competitor getCompetitor(int competitorId) {
+        for (Competitor competitor : allCompetitors) {
+            if (competitor.getCompetitorNumber() == competitorId) {
+                return competitor;
+            }
+        }
+        return null;
     }
 }
