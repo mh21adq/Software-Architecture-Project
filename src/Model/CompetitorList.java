@@ -18,4 +18,17 @@ public class CompetitorList {
 
         return new ArrayList<>(CompetitorList.competitors);
     }
+    public ArrayList<Competitor> getCompetitorsByCategory(String category)
+    {
+        ArrayList<Competitor> comepetitors=new ArrayList<>();
+        for(Competitor competitor:this.getAllCompetitors())
+        {
+            if(competitor.getCategory()==category.toUpperCase())
+            {
+                comepetitors.add(competitor);
+            }
+
+        }
+        return comepetitors;
+    }
 }
