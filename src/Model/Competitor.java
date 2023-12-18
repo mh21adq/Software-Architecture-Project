@@ -10,4 +10,12 @@ public abstract class Competitor {
     private String gender;
     private String country;
     private String level;
+    public Competitor(Name name, String email, int age, String gender, String country) {
+        this.competitorNumber = lastNumber++;
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.gender = gender;
+        this.country = country;
+    }
 }
