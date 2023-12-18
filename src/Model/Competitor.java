@@ -65,6 +65,9 @@ public abstract class Competitor {
     public void setCountry(String country) {
         this.country = country;
     }
+    public abstract double getOverallScore() ;
+    public abstract void setScores(int[] scores);
+
 
 
 }
