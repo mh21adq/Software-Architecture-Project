@@ -18,7 +18,7 @@ public class Manager {
 
             while ((line = bufferedReader.readLine()) != null) {
                 String[] data = line.split(",");
-                int competitorNumber = Integer.parseInt(data[0].trim());
+                //int competitorNumber = Integer.parseInt(data[0].trim());
                 String fullName = data[1].trim();
                 //converting to Name typ from String
                 Name name=this.createNameFromFullName(fullName);
@@ -53,7 +53,7 @@ public class Manager {
                 {
 
                     IceSkater iceSkater=new IceSkater(name,email,age,gender,country,levelEnum);
-                    iceSkater.setCompetitorNumber(competitorNumber);
+                    //iceSkater.setCompetitorNumber(competitorNumber);
                     iceSkater.setScores(scores);
                     competitorList.addCompetitor(iceSkater);
 
@@ -61,7 +61,7 @@ public class Manager {
                 }
                 else if(category.toUpperCase().equals("GAMING")){
                     Gamer gamer=new Gamer(name,email,age,gender,country,levelEnum);
-                    gamer.setCompetitorNumber(competitorNumber);
+                    //gamer.setCompetitorNumber(competitorNumber);
                     gamer.setScores(scores);
                     competitorList.addCompetitor(gamer);
 

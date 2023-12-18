@@ -1,7 +1,7 @@
 package Model;
 
 public abstract class Competitor {
-    private static int lastNumber = 99;
+    private static int lastNumber = 100;
 
     private int competitorNumber;
     private Name name;
@@ -22,9 +22,6 @@ public abstract class Competitor {
         return competitorNumber;
     }
 
-    public void setCompetitorNumber(int competitorNumber) {
-        this.competitorNumber = competitorNumber;
-    }
 
     public String getName() {
         return this.name.getFullName();

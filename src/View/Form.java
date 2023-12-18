@@ -196,6 +196,7 @@ public class Form extends JPanel {
         }
     }
 
+
     public void createUser() {
         String fullName = nameField.getText();
         String email = emailField.getText();
@@ -211,12 +212,14 @@ public class Form extends JPanel {
             Gamer gamer = new Gamer(name, email, age, gender, country, level);
             // Set default scores for Gamer
             gamer.setScores(new int[]{0, 0, 0, 0, 0});
+            System.out.println(gamer.getCompetitorNumber());
             CompetitorList competitorList = new CompetitorList();
             competitorList.addCompetitor(gamer);
         } else if ("ICE SKATER".equals(userType.toUpperCase())) {
             IceSkater iceSkater = new IceSkater(name, email, age, gender, country, level);
             // Set default scores for IceSkater
             iceSkater.setScores(new int[]{0, 0, 0, 0});
+            System.out.println(iceSkater.getCompetitorNumber());
             CompetitorList competitorList = new CompetitorList();
             competitorList.addCompetitor(iceSkater);
 
@@ -235,6 +238,7 @@ public class Form extends JPanel {
             return new Name(nameParts[0]);
         }
     }
+
 
 
 }
