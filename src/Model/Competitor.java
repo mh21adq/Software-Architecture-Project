@@ -70,6 +70,13 @@ public abstract class Competitor {
     public abstract String getCategory();
     public abstract Level getLevel();
 
+    public String getFullDetails() {
+        String details="\n*****************************************************\n"+
+                "Competitor Number "+ this.competitorNumber+",name "+this.name.getFullName() +",country " +this.getCountry()+".\n"+
+                this.name.getFirstName()+" is a "+this.getLevel()+ " aged "+this.getAge()+".";
+        return details;
+    }
+
 
 
 }
