@@ -14,4 +14,8 @@ public class CompetitorList {
     public void removeCompetitor(Competitor competitor) {
         CompetitorList.competitors.remove(competitor);
     }
+    public  ArrayList<Competitor> getAllCompetitors() {
+
+        return new ArrayList<>(CompetitorList.competitors);
+    }
 }
