@@ -9,79 +9,65 @@ import java.io.*;
 import java.util.*;
 public class Manager {
     private CompetitorList competitorList = new CompetitorList();
-    public void readFromFile(String fname) {
+
+    public void readFromFile(String fileName) {
         try {
-            File file = new File(fname);
+            File file = new File(fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
                 String[] data = line.split(",");
-                //int competitorNumber = Integer.parseInt(data[0].trim());
-                String fullName = data[1].trim();
-                //converting to Name typ from String
-                Name name=this.createNameFromFullName(fullName);
-                String email = data[2].trim();
-                int age = Integer.parseInt(data[3].trim());
-                String gender = data[4].trim();
-                String levelString = data[5].trim().toUpperCase(); // Convert to uppercase to match enum constants
-                Level levelEnum;
+                Name name = createNameFromFullName(data[0].trim());
+                String email = data[1].trim();
+                int age = Integer.parseInt(data[2].trim());
+                String gender = data[3].trim();
+                Level level = Level.valueOf(data[4].trim().toUpperCase());
+                String category = data[5].trim();
+                String country = data[6].trim();
 
-                try {
-                    levelEnum = Level.valueOf(levelString);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid level: " + levelString);
-                    // Handle the invalid level case, maybe set a default value or throw an exception
-                    levelEnum = Level.BEGINNER; // Example of setting a default value
-                }
+                int[] scores = parseScores(data, data.length);
 
-                String category = data[6].trim();
-                String country = data[7].trim();
-                // Scores start from the 8th index, parse until the end of the array
-                int[] scores = new int[data.length - 8];
-                for (int i = 8; i < data.length; i++) {
-                    try {
-                        scores[i - 8] = Integer.parseInt(data[i].trim());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid score format: " + data[i]);
-                        // Handle the error or assign a default value
-                    }
-                }
-
-                if (category.toUpperCase().equals("ICE SKATING"))
-                {
-
-                    IceSkater iceSkater=new IceSkater(name,email,age,gender,country,levelEnum);
-                    //iceSkater.setCompetitorNumber(competitorNumber);
-                    iceSkater.setScores(scores);
-                    competitorList.addCompetitor(iceSkater);
-
-
-                }
-                else if(category.toUpperCase().equals("GAMING")){
-                    Gamer gamer=new Gamer(name,email,age,gender,country,levelEnum);
-                    //gamer.setCompetitorNumber(competitorNumber);
-                    gamer.setScores(scores);
-                    competitorList.addCompetitor(gamer);
-
-
-                }
-
-
-
+                Competitor competitor = createCompetitor(category, name, email, age, gender, country, level, scores);
+                competitorList.addCompetitor(competitor);
             }
             bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid data format: " + e.getMessage());
         }
     }
+    private int[] parseScores(String[] data, int startIndex) {
+        int[] scores = new int[data.length - startIndex];
+        for (int i = startIndex; i < data.length; i++) {
+            try {
+                scores[i - startIndex] = Integer.parseInt(data[i].trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid score format: " + data[i]);
+                // Handle the error - perhaps assign a default value or skip this score
+            }
+        }
+        return scores;
+    }
+
+    private Competitor createCompetitor(String category, Name name, String email, int age, String gender, String country, Level level, int[] scores) {
+        Competitor competitor;
+        if ("ICE SKATING".equalsIgnoreCase(category)) {
+            competitor = new IceSkater(name, email, age, gender, country, level);
+        } else {
+            competitor = new Gamer(name, email, age, gender, country, level);
+        }
+        competitor.setScores(scores);
+        return competitor;
+    }
+
     public void writeToFile(String filename) {
         try (FileWriter fileWriter = new FileWriter(filename, true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            ArrayList<Competitor> competitors = competitorList.getAllCompetitors();
-            for (Competitor competitor : competitors) {
+            for (Competitor competitor : competitorList.getAllCompetitors()) {
                 String competitorData = formatCompetitorData(competitor);
                 bufferedWriter.write(competitorData);
                 bufferedWriter.newLine();
@@ -92,7 +78,6 @@ public class Manager {
     }
 
     private String formatCompetitorData(Competitor competitor) {
-        // Format the competitor's data into a string
         return competitor.getCompetitorNumber() + "," +
                 competitor.getName() + "," +
                 competitor.getEmail() + "," +
@@ -100,34 +85,43 @@ public class Manager {
                 competitor.getGender() + "," +
                 competitor.getCountry() + "," +
                 competitor.getCategory() + "," +
-                competitor.getLevel() + "," ;
-                //competitor.getScores();
+                competitor.getLevel() + "," +
+                competitor.getScores();
     }
+
     public Name createNameFromFullName(String fullName) {
         String[] nameParts = fullName.trim().split("\\s+");
-        Name name;
-
         switch (nameParts.length) {
-            case 1:
-                // Only one name part
-                name = new Name(nameParts[0]);
-                break;
-            case 2:
-                // Two name parts
-                name = new Name(nameParts[0], nameParts[1]);
-                break;
-            case 3:
-                // Three name parts
-                name = new Name(nameParts[0], nameParts[1], nameParts[2]);
-                break;
-            default:
-                // Handle the case where there are more than three name parts
-                // For example, use only the first three, or handle it as an error
-                name = new Name(nameParts[0], nameParts[1], nameParts[2]);
-                break;
+            case 1: return new Name(nameParts[0]);
+            case 2: return new Name(nameParts[0], nameParts[1]);
+            case 3: return new Name(nameParts[0], nameParts[1], nameParts[2]);
+            default: return new Name(nameParts[0], nameParts[1], nameParts[2]); // Handle more than three parts
         }
+    }
 
-        return name;
+    // Delegated methods to CompetitorList
+    public void addCompetitor(Competitor competitor) {
+        competitorList.addCompetitor(competitor);
+    }
+
+    public void removeCompetitor(Competitor competitor) {
+        competitorList.removeCompetitor(competitor);
+    }
+
+    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
+        return competitorList.getCompetitorsByCategory(category);
+    }
+
+    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
+        return competitorList.searchCompetitorsByLevel(category, level);
+    }
+
+    public Competitor getCompetitor(int competitorId) {
+        return competitorList.getCompetitor(competitorId);
+    }
+
+    public ArrayList<Competitor> getAllCompetitors() {
+        return competitorList.getAllCompetitors();
     }
 
     public void Print()
@@ -175,36 +169,6 @@ public class Manager {
 
 
     }
-    public  ArrayList<Competitor> getAllCompetitors() {
-
-        return competitorList.getAllCompetitors();
-    }
-
-    public void addCompetitor(Competitor competitor) {
-        competitorList.addCompetitor(competitor);
-    }
-
-    // New method to remove a competitor
-    public void removeCompetitor(Competitor competitor) {
-        competitorList.removeCompetitor(competitor);
-    }
-
-    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
-        return competitorList.getCompetitorsByCategory(category);
-    }
-
-    // New method to search competitors by level
-    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
-        return competitorList.searchCompetitorsByLevel(category, level);
-    }
-
-    // New method to get a competitor by id
-    public Competitor getCompetitor(int id) {
-        return competitorList.getCompetitor(id);
-    }
-
-    // Adjusted method to use the existing competitorList member
-
 
 
 

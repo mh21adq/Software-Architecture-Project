@@ -1,5 +1,6 @@
 package View;
 import Model.*;
+import Controller.*;
 
 import java.util.ArrayList;
 
@@ -7,7 +8,8 @@ public class Main {
     public static void main(String[] args) {
         //nameClassTest();
         //gamerClassTest();
-        competitorListClassTest();
+       // competitorListClassTest();
+        managerClassTest();
 
     }
     public static void nameClassTest()
@@ -79,5 +81,30 @@ public class Main {
         Competitor foundCompetitor = competitorList.getCompetitor(gamer.getCompetitorNumber());
         System.out.println("Found Competitor: " + (foundCompetitor != null ? foundCompetitor.getName() : "Not Found"));
     }
+    public static void managerClassTest() {
+        Manager manager = new Manager();
+
+
+        Name name1 = new Name("John", "Doe");
+        Gamer gamer1 = new Gamer(name1, "john.doe@example.com", 25, "Male", "US", Level.INTERMEDIATE);
+        manager.addCompetitor(gamer1);
+        /*
+
+        System.out.println(manager.getCompetitor(100).getFullDetails());
+        gamer1.setScores(new int[]{1, 2, 3, 4});
+        System.out.println(manager.getCompetitor(100).getFullDetails());
+        manager.writeToFile("RunCompetitor.csv");
+        System.out.println("All Competitors:"+manager.getAllCompetitors().size());
+
+        System.out.println("All Competitors:"+manager.getAllCompetitors().size());*/
+        System.out.println("All Competitors:"+manager.getAllCompetitors().size());
+        CompetitorList competitorList=new CompetitorList();
+        System.out.println("All Competitors:"+competitorList.getAllCompetitors().size());
+
+        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/RunCompetitor.csv");
+        manager.writeToFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
+    }
+
+
 
 }

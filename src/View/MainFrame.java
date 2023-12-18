@@ -25,7 +25,7 @@ public class MainFrame extends JFrame {
             manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
 
             Competitor competitor=form.createUser();
-            manager.addCompetitor(competitor);
+            //manager.addCompetitor(competitor);
 
             java.util.List<Competitor> competitors = manager.getAllCompetitors();
             userDetails.setUsers(competitors);

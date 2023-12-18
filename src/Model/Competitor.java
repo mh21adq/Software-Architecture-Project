@@ -66,6 +66,7 @@ public abstract class Competitor {
     public abstract void setScores(int[] scores);
     public abstract String getCategory();
     public abstract Level getLevel();
+    public abstract String getScores();
 
     public String getFullDetails() {
         String details="\n*****************************************************\n"+
