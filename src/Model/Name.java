@@ -51,5 +51,20 @@ public class Name {
         return this.firstName + " " + this.middleName + " " + this.surname;
     }
 
+    // Method to get initials
+    public String getInitials() {
+        StringBuilder initials = new StringBuilder();
 
+        if (firstName != null && !firstName.isEmpty()) {
+            initials.append(firstName.charAt(0));
+        }
+        if (middleName != null && !middleName.isEmpty()) {
+            initials.append(middleName.charAt(0));
+        }
+        if (surname != null && !surname.isEmpty()) {
+            initials.append(surname.charAt(0));
+        }
+
+        return initials.toString().toUpperCase();
+    }
 }
