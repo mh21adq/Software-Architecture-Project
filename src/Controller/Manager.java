@@ -112,6 +112,20 @@ public class Manager {
 
         }
     }
+    public void printCompetitorsTable() {
+        CompetitorList newCompetitorListInstance = new CompetitorList();
+        ArrayList<Competitor> iceSkaters=newCompetitorListInstance.getCompetitorsByCategory("ICE SKATING");
+        for (Competitor competitor : iceSkaters) {
+            System.out.println("#########################Ice Skaters#########################\n"+
+                    competitor.getFullDetails());
+        }
+
+        ArrayList<Competitor> gamers=newCompetitorListInstance.getCompetitorsByCategory("Gamers");
+        for (Competitor competitor : gamers) {
+            System.out.println("#########################Electronic Gamer#########################\n"+
+                    competitor.getFullDetails());
+        }
+    }
 
 
 }
