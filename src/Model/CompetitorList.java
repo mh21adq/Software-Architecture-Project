@@ -46,4 +46,16 @@ public class CompetitorList {
         }
         return inLevel;
     }
+    public Competitor getCompetitor(int id)
+    {
+        Competitor competitorIS=null;
+        for(Competitor competitor:competitors)
+        {
+            if(competitor.getCompetitorNumber()==id)
+            {
+                competitorIS=competitor;
+            }
+        }
+        return competitorIS;
+    }
 }
