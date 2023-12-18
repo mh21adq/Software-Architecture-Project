@@ -31,4 +31,19 @@ public class CompetitorList {
         }
         return comepetitors;
     }
+    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level)
+    {
+
+        ArrayList<Competitor> inCategory= this.getCompetitorsByCategory(category);
+        ArrayList<Competitor> inLevel=new ArrayList<>();
+        for(Competitor competitor:inCategory)
+        {
+            if(competitor.getLevel()==level)
+            {
+                inLevel.add(competitor);
+            }
+
+        }
+        return inLevel;
+    }
 }
