@@ -3,9 +3,8 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import Model.Level;  // Make sure to import the Level enum
-import Model.Gamer;
-import Model.IceSkater;
+
+import Model.*;
 
 public class Form extends JPanel {
     private JTextField nameField;
@@ -198,33 +197,43 @@ public class Form extends JPanel {
     }
 
     public void createUser() {
-        String name = nameField.getText();
+        String fullName = nameField.getText();
         String email = emailField.getText();
-        String age = ageField.getText();  // Assuming age is stored as a String
-        String gender;
-        // For gender, you need to determine which radio button is selected
-        if (maleButton.isSelected()) {
-            gender = "Male";
-        } else if (femaleButton.isSelected()) {
-            gender = "Female";
-        } else {
-            gender = ""; // or any default value you prefer
-        }
-
+        int age = Integer.parseInt(ageField.getText());  // Assuming age is stored as an int
+        String gender = maleButton.isSelected() ? "Male" : (femaleButton.isSelected() ? "Female" : "");
         String country = countryField.getText();
         String userType = (String) userTypeComboBox.getSelectedItem();
+        Level level = Level.valueOf(levelComboBox.getSelectedItem().toString().toUpperCase());
 
-        // Assuming you want to store the level as a string
-        String level = levelComboBox.getSelectedItem().toString();
+        // Create a Name object from the full name
+        Name name = createNameFromFullName(fullName);
+        if ("GAMER".equals(userType.toUpperCase())) {
+            Gamer gamer = new Gamer(name, email, age, gender, country, level);
+            // Set default scores for Gamer
+            gamer.setScores(new int[]{0, 0, 0, 0, 0});
+            CompetitorList competitorList = new CompetitorList();
+            competitorList.addCompetitor(gamer);
+        } else if ("ICE SKATER".equals(userType.toUpperCase())) {
+            IceSkater iceSkater = new IceSkater(name, email, age, gender, country, level);
+            // Set default scores for IceSkater
+            iceSkater.setScores(new int[]{0, 0, 0, 0});
+            CompetitorList competitorList = new CompetitorList();
+            competitorList.addCompetitor(iceSkater);
 
-        // Print the stored values
-        System.out.println("Name: " + name);
-        System.out.println("Email: " + email);
-        System.out.println("Age: " + age);
-        System.out.println("Gender: " +gender);
-        System.out.println("Country: " +country);
-        System.out.println("User Type: " + userType);
-        System.out.println("Level: " +level);
+        }
+
+
+    }
+
+    private Name createNameFromFullName(String fullName) {
+        String[] nameParts = fullName.trim().split("\\s+");
+        if (nameParts.length == 2) {
+            return new Name(nameParts[0], nameParts[1]);
+        } else if (nameParts.length > 2) {
+            return new Name(nameParts[0], nameParts[1], nameParts[2]);
+        } else {
+            return new Name(nameParts[0]);
+        }
     }
 
 

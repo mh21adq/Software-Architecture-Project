@@ -1,31 +1,36 @@
 package View;
 
 import Controller.Manager;
-
+import Model.Competitor;
 import javax.swing.*;
 import java.awt.*;
-public class MainFrame extends JFrame {
 
-    // Card layout for switching view
+public class MainFrame extends JFrame {
     private CardLayout cardLayout;
 
     public MainFrame() {
-        super("MVC Pattern Example ");
+        super("MVC Pattern Example");
         cardLayout = new CardLayout();
         Form form = new Form();
-        //UserDetails userDetails = new UserDetails();
+        UserDetails userDetails = new UserDetails();
+        Manager manager = new Manager();  // Assuming Manager can provide competitor data
+
 
         setLayout(cardLayout);
 
         add(form, "form");
-        //add();
+        add(userDetails, "user details");
 
-        form.viewUsers(e -> cardLayout.show(MainFrame.this.getContentPane(), "user details"));
-        //userDetails.backButton(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
+        form.viewUsers(e -> {
+            manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
 
-        form.submitUsers(e -> {
-            form.createUser(); // This will call the createUser method and print the data
+            form.createUser();
+            java.util.List<Competitor> competitors = manager.getAllCompetitors();
+            userDetails.setUsers(competitors);
+            cardLayout.show(MainFrame.this.getContentPane(), "user details");
         });
+
+        userDetails.backButton(e -> cardLayout.show(MainFrame.this.getContentPane(), "form"));
 
         int FRAME_WIDTH = 1200;
         int FRAME_HEIGHT = 700;
@@ -33,7 +38,4 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
-
 }
-

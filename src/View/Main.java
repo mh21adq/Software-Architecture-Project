@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // Create a Name object for the Gamer
+     /*   // Create a Name object for the Gamer
         Name gamerName = new Name("John", "Doe");
 
         // Create a Gamer object
@@ -24,7 +24,7 @@ public class Main {
         System.out.println("\nShort Details:");
         System.out.println(gamer.getShortDetails());
 
-         /* System.out.println("Name class test\n");
+         *//* System.out.println("Name class test\n");
         Name firstname = new Name("Numan");
         System.out.println(firstname.getFirstName());
         System.out.println(firstname.getMiddleName());
@@ -64,7 +64,7 @@ public class Main {
         System.out.println("IceSkater Category: " + IceSkater.getCategory());
         System.out.println("IceSkater Level: " + iceSkater.getLevel().name());
 
-        */
+        *//*
         Manager manager=new Manager();
         manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
         Name name = new Name("John Doe");
@@ -81,17 +81,26 @@ public class Main {
         //manager.printCompetitorsTable();
 
 
-/*
+
        for (Competitor competitor : iceSkaters) {
           System.out.println(competitor.getFullDetails());
       }
 
+        manager.printCompetitorsTable();
+
+
+
+        manager.highestScoringCompetitor("GAMING", Level.BEGINNER);
+
+        //manager.searchCompetitor(100);*/
+
+        Manager manager=new Manager();
+        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/AssignmentPart-2/src/RunCompetitor.csv");
         //manager.printCompetitorsTable();
+        for (Competitor competitor : manager.getAllCompetitors()) {
+            System.out.println(competitor.getFullDetails());
+        }
 
-*/
 
-        // manager.highestScoringCompetitor("GAMING", Level.BEGINNER);
-
-        //manager.searchCompetitor(100);
     }
 }

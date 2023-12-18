@@ -20,16 +20,16 @@ public class CompetitorList {
     }
     public ArrayList<Competitor> getCompetitorsByCategory(String category)
     {
-        ArrayList<Competitor> comepetitors=new ArrayList<>();
+        ArrayList<Competitor> comepetitor=new ArrayList<>();
         for(Competitor competitor:this.getAllCompetitors())
         {
-            if(competitor.getCategory()==category.toUpperCase())
+            if(competitor.getCategory().toUpperCase()==category.toUpperCase())
             {
-                comepetitors.add(competitor);
+                comepetitor.add(competitor);
             }
 
         }
-        return comepetitors;
+        return comepetitor;
     }
     public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level)
     {

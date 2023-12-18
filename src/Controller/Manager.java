@@ -115,15 +115,15 @@ public class Manager {
     public void printCompetitorsTable() {
         CompetitorList newCompetitorListInstance = new CompetitorList();
         ArrayList<Competitor> iceSkaters=newCompetitorListInstance.getCompetitorsByCategory("ICE SKATING");
+        System.out.println("#########################Ice Skaters#########################\n");
         for (Competitor competitor : iceSkaters) {
-            System.out.println("#########################Ice Skaters#########################\n"+
-                    competitor.getFullDetails());
+            System.out.println(competitor.getFullDetails());
         }
 
-        ArrayList<Competitor> gamers=newCompetitorListInstance.getCompetitorsByCategory("Gamers");
+        ArrayList<Competitor> gamers=newCompetitorListInstance.getCompetitorsByCategory("GAMING");
+        System.out.println("#########################Electronic Gamer#########################\n");
         for (Competitor competitor : gamers) {
-            System.out.println("#########################Electronic Gamer#########################\n"+
-                    competitor.getFullDetails());
+            System.out.println(competitor.getFullDetails());
         }
     }
 
@@ -149,6 +149,9 @@ public class Manager {
 
 
     }
+    public  ArrayList<Competitor> getAllCompetitors() {
 
+        return competitorList.getAllCompetitors();
+    }
 
 }
