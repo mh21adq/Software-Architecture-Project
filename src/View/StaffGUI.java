@@ -11,8 +11,8 @@ import java.util.*;
 
 public class StaffGUI {
     private JFrame frame;
-    private JButton btnSearchCompetitor, btnAddScore, btnManageCompetitor, btnRegisterCompetitor,
-            btnRemoveCompetitor, btnAllCompetitors,btnCompetitorInCategory,btnCompetitorInLevel;
+    private JButton btnReadFromFile ,btnSearchCompetitor, btnAddScore, btnManageCompetitor, btnRegisterCompetitor,
+            btnRemoveCompetitor, btnAllCompetitors,btnCompetitorInCategory,btnCompetitorInLevel,btnCheckCompletion, btnClose;;
 
     public StaffGUI() {
         initializeGUI();
@@ -22,8 +22,8 @@ public class StaffGUI {
         frame = new JFrame("Staff Competitor Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
-        frame.setSize(800, 600); // Set the window size
-
+        frame.setSize(800, 600);
+        btnReadFromFile=new JButton("Read From File");
         btnSearchCompetitor = new JButton("Search Competitor");
         btnAddScore = new JButton("Add Scores");
         btnManageCompetitor = new JButton("Manage Competitor");
@@ -32,8 +32,10 @@ public class StaffGUI {
         btnAllCompetitors = new JButton("All Competitors");
         btnCompetitorInCategory = new JButton("Competitors in Category");
         btnCompetitorInLevel = new JButton("Competitors in Level");
+        btnCheckCompletion = new JButton("Check Competition Completion");
+        btnClose=new JButton("Close The Application");
 
-
+        frame.add(btnReadFromFile);
         frame.add(btnSearchCompetitor);
         frame.add(btnAddScore);
         frame.add(btnManageCompetitor);
@@ -42,8 +44,16 @@ public class StaffGUI {
         frame.add(btnAllCompetitors);
         frame.add(btnCompetitorInCategory);
         frame.add(btnCompetitorInLevel);
+        frame.add(btnCheckCompletion);
+        frame.add(btnClose);
 
         // Add action listeners to buttons
+        btnReadFromFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openReadFromFileDialog();
+            }
+        });
         btnSearchCompetitor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,6 +103,19 @@ public class StaffGUI {
                 openCompetitorInLevelDialog();
             }
         });
+        btnCheckCompletion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCheckCompletionDialog();
+            }
+        });
+        btnClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCloseDialog();
+            }
+        });
+
 
 
         frame.setVisible(true);
@@ -424,6 +447,57 @@ public class StaffGUI {
             JOptionPane.showMessageDialog(frame, scrollPane, "Competitors in " + selectedCategory + " - " + selectedLevel, JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(frame, "No competitors found in the category: " + selectedCategory + " and level: " + selectedLevel, "No Competitors", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void openCheckCompletionDialog() {
+        // Ask for category
+        String category = JOptionPane.showInputDialog(frame, "Enter Category (Gaming or Ice Skating):", "Select Category", JOptionPane.QUESTION_MESSAGE);
+        if (category == null || category.isEmpty()) return;
+
+        // Ask for level
+        String[] levels = {"Beginner", "Intermediate", "Advanced", "Professional"};
+        String levelStr = (String) JOptionPane.showInputDialog(frame, "Select Level:", "Level", JOptionPane.QUESTION_MESSAGE, null, levels, levels[0]);
+        if (levelStr == null) return;
+
+        Level level = Level.valueOf(levelStr.toUpperCase());
+
+        // Check competition completion
+        Manager manager = new Manager();
+        boolean isComplete = manager.isCompetitionCompleted(category, level);
+
+        String message = isComplete ? "Competition in " + category + " (" + levelStr + ") is complete." : "Competition in " + category + " (" + levelStr + ") is not complete.";
+        JOptionPane.showMessageDialog(frame, message, "Competition Status", JOptionPane.INFORMATION_MESSAGE);
+    }
+    private void openCloseDialog() {
+        int confirm = JOptionPane.showConfirmDialog(
+                frame,
+                "Are you sure you want to close the application and save the data?",
+                "Confirm Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            Manager manager = new Manager();
+            manager.writeToFile("competitor_report.txt");
+            frame.dispose(); // Close the GUI window
+        }
+    }
+    private void openReadFromFileDialog() {
+        String filePath = JOptionPane.showInputDialog(
+                frame,
+                "Enter the file path to read from:",
+                "Read From File",
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (filePath != null && !filePath.isEmpty()) {
+            Manager manager = new Manager();
+            manager.readFromFile(filePath);
+            JOptionPane.showMessageDialog(frame, "Data successfully read from file.", "Read Successful", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "File path not provided or invalid.", "Read Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
