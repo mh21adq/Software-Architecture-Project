@@ -1,6 +1,4 @@
 package MainApp;
-import View.MainFrame;
-
 
 
 public class App {
