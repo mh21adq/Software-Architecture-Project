@@ -23,6 +23,11 @@ public class StaffGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
         frame.setSize(800, 600);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = frame.getSize().width;
+        int height = frame.getSize().height;
+        frame.setLocation(screenSize.width - width, (screenSize.height - height) / 2);
+
         btnReadFromFile=new JButton("Read From File");
         btnSearchCompetitor = new JButton("Search Competitor");
         btnAddScore = new JButton("Add Scores");

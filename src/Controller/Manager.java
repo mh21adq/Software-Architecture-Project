@@ -206,7 +206,10 @@ public class Manager {
         // Directly create and display the StaffGUI
         new StaffGUI();
     }
-
+    public void openCompetitorGUI() {
+        // Directly create and display the StaffGUI
+        new CompetitorGUI();
+    }
 
 
 }
