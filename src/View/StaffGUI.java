@@ -490,21 +490,23 @@ public class StaffGUI {
         }
     }
     private void openReadFromFileDialog() {
-        String filePath = JOptionPane.showInputDialog(
+        String fileName = JOptionPane.showInputDialog(
                 frame,
-                "Enter the file path to read from:",
+                "Enter the file name to read from (e.g., RunCompetitor.csv):",
                 "Read From File",
                 JOptionPane.QUESTION_MESSAGE
         );
 
-        if (filePath != null && !filePath.isEmpty()) {
+        if (fileName != null && !fileName.isEmpty()) {
+            String filePath = "src/" + fileName; // Prepend the src directory to the file name
             Manager manager = new Manager();
             manager.readFromFile(filePath);
-            JOptionPane.showMessageDialog(frame, "Data successfully read from file.", "Read Successful", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "Data successfully read from file: " + fileName, "Read Successful", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(frame, "File path not provided or invalid.", "Read Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "File name not provided or invalid.", "Read Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
 
 

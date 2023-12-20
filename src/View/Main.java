@@ -96,7 +96,7 @@ public class Main {
         System.out.println("All Competitors:"+manager.getAllCompetitors().size());
 
 
-        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
+        manager.readFromFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/RunCompetitor.csv");
         System.out.println("Competitors after reading from file: " + manager.getAllCompetitors().size());
 
 
