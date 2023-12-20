@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import  java.util.*;
 
 public class CompetitorList {
     private static ArrayList<Competitor> allCompetitors = new ArrayList<>();
@@ -48,6 +49,8 @@ public class CompetitorList {
                 competitorsInLevel.add(competitor);
             }
         }
+        competitorsInLevel.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
+
         return competitorsInLevel;
     }
 

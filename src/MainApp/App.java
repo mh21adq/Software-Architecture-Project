@@ -9,5 +9,6 @@ public class App {
         Manager manager= new Manager();
          manager.openStaffGUI();
          manager.openCompetitorGUI();
+         manager.openAudienceGUI(manager);
     }
 }
