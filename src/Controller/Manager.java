@@ -135,19 +135,21 @@ public class Manager {
 
         }
     }
-    public void printCompetitorsTable() {
+    public String printCompetitorsTable() {
         CompetitorList newCompetitorListInstance = new CompetitorList();
         ArrayList<Competitor> iceSkaters=newCompetitorListInstance.getCompetitorsByCategory("ICE SKATING");
-        System.out.println("#########################Ice Skaters#########################\n");
+        String allCompetitors="";
+        allCompetitors+="\n################Ice Skaters###############\n";
         for (Competitor competitor : iceSkaters) {
-            System.out.println(competitor.getFullDetails());
+            allCompetitors+=competitor.getFullDetails();
         }
 
         ArrayList<Competitor> gamers=newCompetitorListInstance.getCompetitorsByCategory("GAMING");
-        System.out.println("#########################Electronic Gamer#########################\n");
+        allCompetitors+="\n########Electronic Gamers################\n";
         for (Competitor competitor : gamers) {
-            System.out.println(competitor.getFullDetails());
+            allCompetitors+=competitor.getFullDetails();
         }
+        return allCompetitors;
     }
 
     public void highestScoringCompetitor(String category, Level level)

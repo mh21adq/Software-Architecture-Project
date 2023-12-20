@@ -11,7 +11,8 @@ import java.util.*;
 
 public class StaffGUI {
     private JFrame frame;
-    private JButton btnSearchCompetitor,btnAddScore, btnManageCompetitor, btnRegisterCompetitor, btnRemoveCompetitor;
+    private JButton btnSearchCompetitor, btnAddScore, btnManageCompetitor, btnRegisterCompetitor,
+            btnRemoveCompetitor, btnAllCompetitors;
 
     public StaffGUI() {
         initializeGUI();
@@ -24,10 +25,12 @@ public class StaffGUI {
         frame.setSize(800, 600); // Set the window size
 
         btnSearchCompetitor = new JButton("Search Competitor");
-        btnAddScore=new JButton("Add Scores");
+        btnAddScore = new JButton("Add Scores");
         btnManageCompetitor = new JButton("Manage Competitor");
         btnRegisterCompetitor = new JButton("Register Competitor");
         btnRemoveCompetitor = new JButton("Remove Competitor");
+        btnAllCompetitors = new JButton("All Competitors");
+        frame.add(btnAllCompetitors);
 
 
         frame.add(btnSearchCompetitor);
@@ -35,6 +38,7 @@ public class StaffGUI {
         frame.add(btnManageCompetitor);
         frame.add(btnRegisterCompetitor);
         frame.add(btnRemoveCompetitor);
+        frame.add(btnAllCompetitors);
 
         // Add action listeners to buttons
         btnSearchCompetitor.addActionListener(new ActionListener() {
@@ -62,13 +66,19 @@ public class StaffGUI {
                 openRegisterCompetitorDialog();
             }
         });
-
+        btnAllCompetitors.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openAllCompetitorsDialog();
+            }
+        });
         btnRemoveCompetitor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openRemoveCompetitorDialog();
             }
         });
+
 
         frame.setVisible(true);
     }
@@ -79,8 +89,8 @@ public class StaffGUI {
         if (competitorIdStr != null && !competitorIdStr.isEmpty()) {
             try {
                 int competitorId = Integer.parseInt(competitorIdStr);
-                Manager manager=new Manager();
-               Competitor competitor=manager.searchCompetitor(competitorId);
+                Manager manager = new Manager();
+                Competitor competitor = manager.searchCompetitor(competitorId);
                 if (competitor != null) {
                     // Using getFullDetails() to display competitor details
                     String details = competitor.getFullDetails();
@@ -90,12 +100,12 @@ public class StaffGUI {
                 }
 
 
-
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
+
     private void openAddScoreDialog() {
         String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID:", "Search Competitor", JOptionPane.QUESTION_MESSAGE);
 
@@ -174,7 +184,7 @@ public class StaffGUI {
         int result = JOptionPane.showConfirmDialog(frame, panel, "Manage Competitor Options", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
+            for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements(); ) {
                 AbstractButton button = buttons.nextElement();
 
                 if (button.isSelected()) {
@@ -243,6 +253,26 @@ public class StaffGUI {
     private void openRegisterCompetitorDialog() {
         new RegistrationGUI();
     }
+
+    private void openAllCompetitorsDialog() {
+        Manager manager = new Manager();
+        String allCompetitors = manager.printCompetitorsTable();
+
+        // Create a JTextArea and put the text in it
+        JTextArea textArea = new JTextArea(allCompetitors);
+        textArea.setEditable(false); // Make it read-only
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
+        // Create a JScrollPane and add the JTextArea to it
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new Dimension(500, 300)); // Set your preferred size
+
+        // Show the dialog with the JScrollPane
+        JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
     private void openRemoveCompetitorDialog() {
         String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID to remove:", "Remove Competitor", JOptionPane.QUESTION_MESSAGE);
 
@@ -266,9 +296,5 @@ public class StaffGUI {
                 JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(StaffGUI::new);
     }
 }
