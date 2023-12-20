@@ -241,10 +241,31 @@ public class StaffGUI {
 
 
     private void openRegisterCompetitorDialog() {
-        new RegistrationGUI(); // This will open the Registration GUI
+        new RegistrationGUI();
     }
     private void openRemoveCompetitorDialog() {
-        // Implement the logic to open the Remove Competitor dialog
+        String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID to remove:", "Remove Competitor", JOptionPane.QUESTION_MESSAGE);
+
+        if (competitorIdStr != null && !competitorIdStr.isEmpty()) {
+            try {
+                int competitorId = Integer.parseInt(competitorIdStr);
+                Manager manager = new Manager();
+                Competitor competitor = manager.searchCompetitor(competitorId);
+
+                if (competitor != null) {
+                    int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to remove " + competitor.getName() + "?", "Confirm Removal", JOptionPane.YES_NO_OPTION);
+
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        manager.removeCompetitor(competitor);
+                        JOptionPane.showMessageDialog(frame, "Competitor removed successfully.", "Removal Successful", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Competitor not found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public static void main(String[] args) {

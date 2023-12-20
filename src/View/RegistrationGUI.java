@@ -4,9 +4,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Controller.Manager;
+import Model.*;
 public class RegistrationGUI {
     private JFrame frame;
-    private JTextField nameField, emailField, ageField;
+    private JTextField nameField, emailField, ageField,countryField;
     private JComboBox<String> categoryComboBox, levelComboBox;
     private JRadioButton maleButton, femaleButton;
     private JButton registerButton;
@@ -34,6 +36,10 @@ public class RegistrationGUI {
         frame.add(new JLabel("Age:"));
         ageField = new JTextField(20);
         frame.add(ageField);
+        //country
+        frame.add(new JLabel("Country:"));
+        countryField = new JTextField(20);
+        frame.add(countryField);
 
         // Gender
         frame.add(new JLabel("Gender:"));
@@ -73,18 +79,43 @@ public class RegistrationGUI {
     }
 
     private void handleRegistration() {
-        // Logic to handle registration
-        // Fetch data from fields and perform registration
-        String name = nameField.getText();
-        String email = emailField.getText();
-        int age = Integer.parseInt(ageField.getText());
-        String gender = maleButton.isSelected() ? "Male" : "Female";
-        String category = (String) categoryComboBox.getSelectedItem();
-        String level = (String) levelComboBox.getSelectedItem();
+        try {
+            String name = nameField.getText();
+            String email = emailField.getText();
+            int age = Integer.parseInt(ageField.getText());
+            String country=countryField.getText();
+            String gender = maleButton.isSelected() ? "Male" : (femaleButton.isSelected() ? "Female" : "");
+            String category = (String) categoryComboBox.getSelectedItem();
+            String level = (String) levelComboBox.getSelectedItem();
 
-        // TODO: Add your registration logic here
+            // Assuming Level is an enum and matches the string options in the combo box
+            Level levelEnum = Level.valueOf(level.toUpperCase());
 
-        JOptionPane.showMessageDialog(frame, "Registration Successful!");
+            // Creating a competitor based on the category
+            Competitor competitor;
+            if ("Gaming".equals(category)) {
+                competitor = new Gamer(new Name(name), email, age, gender, country, levelEnum);
+            } else if ("Ice Skating".equals(category)) {
+                competitor = new IceSkater(new Name(name), email, age, gender, country, levelEnum);
+            } else {
+                // Handle other categories if exist
+                competitor = null;
+            }
+
+            if (competitor != null) {
+                Manager manager=new Manager();
+                manager.addCompetitor(competitor);
+
+                JOptionPane.showMessageDialog(frame, "Registration Successful for " + competitor.getName());
+            } else {
+                JOptionPane.showMessageDialog(frame, "Invalid category.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid age format. Please enter a numeric age.", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid level selected.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static void main(String[] args) {
