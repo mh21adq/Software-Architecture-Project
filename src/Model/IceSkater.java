@@ -59,6 +59,9 @@ public class IceSkater extends Competitor {
         }
         return sum/scores.length;
     }
+    public int[] getScoresArray() {
+        return this.scores;
+    }
 
     public void setScores(int[] scores) {
         this.scores=scores;

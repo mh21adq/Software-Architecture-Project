@@ -170,6 +170,36 @@ public class Manager {
 
         return competitorIs;
     }
+    public boolean isCompetitionCompleted(String category, Level level) {
+        ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
+        if (competitorsInLevel.isEmpty()) {
+            return false; // No competitors in the given category and level
+        }
+
+        for (Competitor competitor : competitorsInLevel) {
+            if (!isCompetitorScoreComplete(competitor)) {
+                return false; // Found a competitor with incomplete scores
+            }
+        }
+
+        return true; // All competitors in the specified category and level have complete scores
+    }
+
+    private boolean isCompetitorScoreComplete(Competitor competitor) {
+        int[] scores = competitor.getScoresArray(); // Assuming Competitor class has this method
+        if (scores == null || scores.length == 0) {
+            return false;
+        }
+
+        for (int score : scores) {
+            if (score == 0) {
+                return false; // Score is incomplete
+            }
+        }
+
+        return true; // All scores are non-zero
+    }
+
 
 
     public void openStaffGUI() {

@@ -12,7 +12,7 @@ import java.util.*;
 public class StaffGUI {
     private JFrame frame;
     private JButton btnSearchCompetitor, btnAddScore, btnManageCompetitor, btnRegisterCompetitor,
-            btnRemoveCompetitor, btnAllCompetitors;
+            btnRemoveCompetitor, btnAllCompetitors,btnCompetitorInCategory,btnCompetitorInLevel;
 
     public StaffGUI() {
         initializeGUI();
@@ -30,7 +30,8 @@ public class StaffGUI {
         btnRegisterCompetitor = new JButton("Register Competitor");
         btnRemoveCompetitor = new JButton("Remove Competitor");
         btnAllCompetitors = new JButton("All Competitors");
-        frame.add(btnAllCompetitors);
+        btnCompetitorInCategory = new JButton("Competitors in Category");
+        btnCompetitorInLevel = new JButton("Competitors in Level");
 
 
         frame.add(btnSearchCompetitor);
@@ -39,6 +40,8 @@ public class StaffGUI {
         frame.add(btnRegisterCompetitor);
         frame.add(btnRemoveCompetitor);
         frame.add(btnAllCompetitors);
+        frame.add(btnCompetitorInCategory);
+        frame.add(btnCompetitorInLevel);
 
         // Add action listeners to buttons
         btnSearchCompetitor.addActionListener(new ActionListener() {
@@ -76,6 +79,18 @@ public class StaffGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 openRemoveCompetitorDialog();
+            }
+        });
+        btnCompetitorInCategory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCompetitorInCategoryDialog();
+            }
+        });
+        btnCompetitorInLevel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openCompetitorInLevelDialog();
             }
         });
 
@@ -297,4 +312,121 @@ public class StaffGUI {
             }
         }
     }
+    private void openCompetitorInCategoryDialog() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        ButtonGroup group = new ButtonGroup();
+
+        // Adding radio buttons for each category
+        JRadioButton gamingButton = new JRadioButton("Gaming");
+        JRadioButton iceSkatingButton = new JRadioButton("Ice Skating");
+        group.add(gamingButton);
+        group.add(iceSkatingButton);
+        panel.add(gamingButton);
+        panel.add(iceSkatingButton);
+
+        int result = JOptionPane.showConfirmDialog(frame, panel, "Select Category", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String selectedCategory = gamingButton.isSelected() ? "Gaming" : (iceSkatingButton.isSelected() ? "Ice Skating" : null);
+
+            if (selectedCategory != null) {
+                Manager manager = new Manager();
+                ArrayList<Competitor> competitorsInCategory = manager.getCompetitorsByCategory(selectedCategory);
+
+                if (!competitorsInCategory.isEmpty()) {
+                    StringBuilder competitorsDetails = new StringBuilder();
+                    for (Competitor competitor : competitorsInCategory) {
+                        competitorsDetails.append(competitor.getFullDetails()).append("\n");
+                    }
+
+                    JTextArea textArea = new JTextArea(competitorsDetails.toString());
+                    textArea.setEditable(false);
+                    textArea.setLineWrap(true);
+                    textArea.setWrapStyleWord(true);
+
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    scrollPane.setPreferredSize(new Dimension(500, 300));
+
+                    JOptionPane.showMessageDialog(frame, scrollPane, "Competitors in " + selectedCategory, JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No competitors found in the category: " + selectedCategory, "No Competitors", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }
+    }
+    private void openCompetitorInLevelDialog() {
+        // First, let the user select a category
+        JPanel categoryPanel = new JPanel();
+        categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
+        ButtonGroup categoryGroup = new ButtonGroup();
+
+        JRadioButton gamingButton = new JRadioButton("Gaming");
+        JRadioButton iceSkatingButton = new JRadioButton("Ice Skating");
+        categoryGroup.add(gamingButton);
+        categoryGroup.add(iceSkatingButton);
+        categoryPanel.add(gamingButton);
+        categoryPanel.add(iceSkatingButton);
+
+        int categoryResult = JOptionPane.showConfirmDialog(frame, categoryPanel, "Select Category", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        String selectedCategory = null;
+
+        if (categoryResult == JOptionPane.OK_OPTION) {
+            selectedCategory = gamingButton.isSelected() ? "Gaming" : (iceSkatingButton.isSelected() ? "Ice Skating" : null);
+        }
+
+        if (selectedCategory == null) return; // Exit if no category is selected
+
+        // Next, let the user select a level
+        JPanel levelPanel = new JPanel();
+        levelPanel.setLayout(new BoxLayout(levelPanel, BoxLayout.Y_AXIS));
+        ButtonGroup levelGroup = new ButtonGroup();
+
+        String[] levels = {"Beginner", "Intermediate", "Advanced", "Professional"};
+        for (String level : levels) {
+            JRadioButton levelButton = new JRadioButton(level);
+            levelGroup.add(levelButton);
+            levelPanel.add(levelButton);
+        }
+
+        int levelResult = JOptionPane.showConfirmDialog(frame, levelPanel, "Select Level", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        String selectedLevel = null;
+
+        for (Enumeration<AbstractButton> buttons = levelGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                selectedLevel = button.getText();
+                break;
+            }
+        }
+
+        if (selectedLevel == null) return; // Exit if no level is selected
+
+        // Fetch and display competitors in the selected category and level
+        Manager manager = new Manager();
+        ArrayList<Competitor> competitorsInLevel = manager.searchCompetitorsByLevel(selectedCategory, Level.valueOf(selectedLevel.toUpperCase()));
+
+        if (!competitorsInLevel.isEmpty()) {
+            StringBuilder competitorsDetails = new StringBuilder();
+            for (Competitor competitor : competitorsInLevel) {
+                competitorsDetails.append(competitor.getFullDetails()).append("\n");
+            }
+
+            JTextArea textArea = new JTextArea(competitorsDetails.toString());
+            textArea.setEditable(false);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(500, 300));
+
+            JOptionPane.showMessageDialog(frame, scrollPane, "Competitors in " + selectedCategory + " - " + selectedLevel, JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(frame, "No competitors found in the category: " + selectedCategory + " and level: " + selectedLevel, "No Competitors", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+
+
 }

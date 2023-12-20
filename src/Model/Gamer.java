@@ -61,6 +61,10 @@ public class Gamer extends Competitor {
         }
         return sum/scores.length;
     }
+    @Override
+    public int[] getScoresArray() {
+        return this.scores;
+    }
 
     public void setScores(int[] scores) {
         this.scores=scores;
