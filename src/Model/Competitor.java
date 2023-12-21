@@ -23,8 +23,8 @@ public abstract class Competitor {
     }
 
 
-    public String getName() {
-        return this.name.getFullName();
+    public Name getName() {
+        return this.name;
     }
 
     public void setName(Name name) {
