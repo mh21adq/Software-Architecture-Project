@@ -22,11 +22,15 @@ public class StaffGUI {
         frame = new JFrame("Staff Competitor Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout());
-        frame.setSize(800, 600);
+        frame.setSize(450, 800);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = frame.getSize().width;
         int height = frame.getSize().height;
-        frame.setLocation(screenSize.width - width, (screenSize.height - height) / 2);
+        int xPosition = (screenSize.width - width) / 2; // This will center the frame horizontally
+        int yPosition = (screenSize.height - height) / 2; // This will center the frame vertically
+
+        // Set the location of the frame to the calculated position
+        frame.setLocation(xPosition, yPosition);
 
         btnReadFromFile=new JButton("Read From File");
         btnSearchCompetitor = new JButton("Search Competitor");

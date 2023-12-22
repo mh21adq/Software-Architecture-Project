@@ -24,7 +24,9 @@ public class AudienceGUI {
     private void initializeGUI() {frame = new JFrame("Live Competition Results");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setSize(800, 600);
+        frame.setSize(550, 800);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(0, 0);
 
         // Create the text areas for gamers and ice skaters
         gamersTextArea = new JTextArea();

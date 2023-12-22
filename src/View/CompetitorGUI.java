@@ -20,11 +20,15 @@ public class CompetitorGUI {
         frame = new JFrame("Competitor Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new FlowLayout()); // Layout for the main window
-        frame.setSize(300, 200);
+        frame.setSize(450, 800);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = frame.getSize().width;
         int height = frame.getSize().height;
-        frame.setLocation(0, (screenSize.height - height) / 2);
+        int xPosition = screenSize.width - width; // This will position the frame at the right edge of the screen
+        int yPosition = (screenSize.height - height) / 2; // This will center the frame vertically
+
+        // Set the location of the frame to the calculated position
+        frame.setLocation(xPosition, yPosition);
 
         // Register button
         registerButton = new JButton("Register Competitor");
