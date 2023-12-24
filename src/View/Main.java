@@ -9,7 +9,8 @@ public class Main {
         //nameClassTest();
         //gamerClassTest();
        // competitorListClassTest();
-        managerClassTest();
+        //managerClassTest();
+        staffListClassTest();
 
     }
     public static void nameClassTest()
@@ -109,7 +110,29 @@ public class Main {
         System.out.println("Competitors after adding a new one: " + manager.getAllCompetitors().size());
         //manager.writeToFile("/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/writing_test.csv");
     }
+    public static void staffListClassTest()
+    {
+        StaffList staffList = new StaffList();
+
+        // Provide the path to your CSV file
+        String filePath = "/Users/mdnumanhussain/Documents/Software Architecture/SoftwareArchitectureProject/src/RunStaff.csv";
+
+        // Read the staff information from the CSV file
+        staffList.readFile(filePath);
+
+        // Get the list of staff members
+        ArrayList<Staff> staffMembers = staffList.getStaffList();
+
+        // Print the staff information
+        for (Staff staff : staffMembers) {
+            System.out.println("Name: " + staff.getName());
+            System.out.println("ID: " + staff.getId());
+            System.out.println("Role: " + staff.getRole());
+            System.out.println();
+        }
+    }
+    }
 
 
 
-}
+

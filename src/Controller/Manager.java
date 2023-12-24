@@ -1,11 +1,6 @@
 package Controller;
-import Model.CompetitorList;
+import Model.*;
 import View.*;
-import Model.Name;
-import Model.Level;
-import Model.Competitor;
-import Model.IceSkater;
-import Model.Gamer;
 import java.io.*;
 import java.util.*;
 public class Manager {
@@ -202,10 +197,10 @@ public class Manager {
 
 
 
-    public void openStaffGUI() {
-        // Directly create and display the StaffGUI
-        new StaffGUI();
+    public void openStaffGUI(Manager manager) {
+      new StaffGUI(manager);
     }
+
     public void openCompetitorGUI() {
         // Directly create and display the StaffGUI
         new CompetitorGUI();

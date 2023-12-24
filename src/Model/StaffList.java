@@ -33,4 +33,12 @@ public class StaffList {
     public ArrayList<Staff> getStaffList() {
         return staffList;
     }
+    public Staff findStaffById(int id) {
+        for (Staff staff : staffList) {
+            if (staff.getId() == id) {
+                return staff;
+            }
+        }
+        return null;
+    }
 }
