@@ -130,18 +130,11 @@ public class Manager {
 
         }
     }
-    public String printCompetitorsTable() {
+    public String competitorsTable(String category) {
         CompetitorList newCompetitorListInstance = new CompetitorList();
-        ArrayList<Competitor> iceSkaters=newCompetitorListInstance.getCompetitorsByCategory("ICE SKATING");
+        ArrayList<Competitor> competitors=newCompetitorListInstance.getCompetitorsByCategory(category);
         String allCompetitors="";
-        allCompetitors+="\n################Ice Skaters###############\n";
-        for (Competitor competitor : iceSkaters) {
-            allCompetitors+=competitor.getFullDetails();
-        }
-
-        ArrayList<Competitor> gamers=newCompetitorListInstance.getCompetitorsByCategory("GAMING");
-        allCompetitors+="\n########Electronic Gamers################\n";
-        for (Competitor competitor : gamers) {
+        for (Competitor competitor : competitors) {
             allCompetitors+=competitor.getFullDetails();
         }
         return allCompetitors;

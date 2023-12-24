@@ -70,7 +70,7 @@ public abstract class Competitor {
     public abstract int[] getScoresArray();
 
     public String getFullDetails() {
-        String details= "Competitor Number "+ this.competitorNumber+",name "+this.name.getFullName() +",country " +this.getCountry()+".\n"+
+        String details= "\n\nCompetitor Number "+ this.competitorNumber+",name "+this.name.getFullName() +",country " +this.getCountry()+".\n"+
                 this.name.getFirstName()+" is a "+this.getLevel()+ " aged "+this.getAge()+".";
         return details;
     }

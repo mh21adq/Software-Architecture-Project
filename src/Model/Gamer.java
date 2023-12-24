@@ -1,4 +1,6 @@
 package Model;
+import java.math.RoundingMode;
+import java.math.BigDecimal;
 
 public class Gamer extends Competitor {
 
@@ -53,14 +55,15 @@ public class Gamer extends Competitor {
 
     @Override
     public double getOverallScore() {
-        int [] scores=this.scores;
-        double sum=0;
-        for(int i=0;i<scores.length;i++)
-        {
-            sum+=scores[i];
+        int[] scores = this.scores;
+        double sum = 0;
+        for (int score : scores) {
+            sum += score;
         }
-        return sum/scores.length;
+        double average = sum / scores.length;
+        return new BigDecimal(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
     }
+
     @Override
     public int[] getScoresArray() {
         return this.scores;

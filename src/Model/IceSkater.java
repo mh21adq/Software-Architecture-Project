@@ -1,4 +1,6 @@
 package Model;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 public class IceSkater extends Competitor {
     private int[] scores;
@@ -57,7 +59,9 @@ public class IceSkater extends Competitor {
         {
             sum+=scores[i];
         }
-        return sum/scores.length;
+        double average = sum / scores.length;
+        return new BigDecimal(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
+
     }
     public int[] getScoresArray() {
         return this.scores;
@@ -81,7 +85,8 @@ public class IceSkater extends Competitor {
         {
             sum+=scores[i];
         }
-        return sum/top;
+        double average = sum / scores.length;
+        return new BigDecimal(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
 
     }
 
