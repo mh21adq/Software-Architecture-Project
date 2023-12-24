@@ -18,10 +18,25 @@ public class StaffList {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
-                    String name = parts[0].trim();
+                    String[] nameParts = parts[0].trim().split("\\s+");
+                    Name name;
+
+                    // Handling different name formats
+                    if (nameParts.length == 1) {
+                        // Only first name
+                        name = new Name(nameParts[0]);
+                    } else if (nameParts.length == 2) {
+                        // First name and surname
+                        name = new Name(nameParts[0], nameParts[1]);
+                    } else {
+                        // First name, middle name, and surname
+                        name = new Name(nameParts[0], nameParts[1], nameParts[2]);
+                    }
+
                     int id = Integer.parseInt(parts[1].trim());
                     Role role = Role.valueOf(parts[2].trim());
-                    Staff staff = new Staff(name, id, role);
+
+                    Staff staff = new Staff(id, name, role);
                     staffList.add(staff);
                 }
             }
@@ -33,9 +48,10 @@ public class StaffList {
     public ArrayList<Staff> getStaffList() {
         return staffList;
     }
+
     public Staff findStaffById(int id) {
         for (Staff staff : staffList) {
-            if (staff.getId() == id) {
+            if (staff.getStaffId() == id) {
                 return staff;
             }
         }

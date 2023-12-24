@@ -1,83 +1,83 @@
 package Model;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+
 public class IceSkater extends Competitor {
+    private static final int SCORES_ARRAY_SIZE = 4;
+    private static final String CATEGORY = "ICE SKATING";
+
     private int[] scores;
     private Level level;
-    private   String category ;
 
     public IceSkater(Name name, String email, int age, String gender, String country, Level level) {
         super(name, email, age, gender, country);
-        this.level = level;
-        this.category = "ICE SKATING";
-        this.scores = new int[4];
+        setLevel(level); // Use the setter to apply validation
+        this.scores = new int[SCORES_ARRAY_SIZE];
     }
 
     public Level getLevel() {
         return level;
     }
 
-
     public void setLevel(Level level) {
-        this.level = level;
+        // Check if level is one of the specified values
+        if (level == Level.BEGINNER || level == Level.INTERMEDIATE || level == Level.ADVANCED) {
+            this.level = level;
+        } else {
+            throw new IllegalArgumentException("Level must be either BEGINNER, INTERMEDIATE, or ADVANCED for an IceSkater.");
+        }
     }
 
-    public  String getCategory() {
-        return this.category;
-    }
-
-    // Override methods or add additional methods specific to IceSkatingCompetitor
-
-    @Override
-    public String getFullDetails() {
-        String details = super.getFullDetails()+"\nand received these scores :"+this.getScores()+"\nThis gives him an overall score of "+this.getOverallScore(3);
-        return details;
-    }
-    @Override
-    public String getShortDetails() {
-        String shortDetails = super.getShortDetails() + " in category " + category+" Scores:"+this.getScores();
-        return shortDetails;
+    public String getCategory() {
+        return CATEGORY;
     }
 
     @Override
     public double getOverallScore() {
-        int [] scores=this.scores;
-        double sum=0;
-        for(int i=0;i<scores.length;i++)
-        {
-            sum+=scores[i];
-        }
-        double average = sum / scores.length;
-        return new BigDecimal(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
-
+        return calculateAverageScore(scores);
     }
+
+    @Override
     public int[] getScoresArray() {
-        return this.scores;
+        return scores;
     }
 
     public void setScores(int[] scores) {
-        this.scores=scores;
-    }
-    public int[] getScoreArray()
-    {
-        return this.scores;
-    }
-
-
-    // Overloaded method specific to SubclassB
-    public double getOverallScore(int top) {
-        int [] scores=this.scores;
-        Arrays.sort(scores);
-        double sum=0;
-        for(int i=0;i<top;i++)
-        {
-            sum+=scores[i];
+        if (scores == null || scores.length != SCORES_ARRAY_SIZE) {
+            throw new IllegalArgumentException("Scores array must not be null and must have " + SCORES_ARRAY_SIZE + " elements.");
         }
-        double average = sum / scores.length;
-        return new BigDecimal(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
-
+        this.scores = scores;
     }
 
+    @Override
+    public String getFullDetails() {
+        return super.getFullDetails() + "\nReceived scores: " + this.getScores() +
+                "\nOverall score: " + getOverallScore();
+    }
 
+    @Override
+    public String getShortDetails() {
+        return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.getScores();
+    }
+
+    // Overloaded method specific to IceSkater
+    public double getOverallScore(int top) {
+        if (top > scores.length) {
+            throw new IllegalArgumentException("Top scores requested exceeds the number of available scores.");
+        }
+        int[] sortedScores = Arrays.copyOf(scores, scores.length);
+        Arrays.sort(sortedScores);
+        return calculateAverageScore(Arrays.copyOfRange(sortedScores, 0, top));
+    }
+
+    private double calculateAverageScore(int[] scoresArray) {
+        double sum = 0;
+        for (int score : scoresArray) {
+            sum += score;
+        }
+        double average = sum / scoresArray.length;
+        return BigDecimal.valueOf(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
+    }
 }

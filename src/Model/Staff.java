@@ -1,42 +1,38 @@
 package Model;
 
 public class Staff {
-    private String name;
-    private int id;
-    private Role role;
+    private Name staffName;
+    private final int staffId;
+    private final Role staffRole;
 
-    // Constructor
-    public Staff(String name, int id, Role role) {
-        this.name = name;
-        this.id = id;
-        this.role = role;
+    public Staff(int staffId, Name staffName, Role staffRole) {
+        this.staffId = staffId;
+        setStaffName(staffName); // Using setter for validation
+        this.staffRole = staffRole;
     }
 
-    // Getters and setters
-
-    public String getName() {
-        return name;
+    public Name getStaffName() {
+        return staffName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStaffName(Name name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null.");
+        }
+
+        if (name.getMiddleName() == null && name.getSurname() == null) {
+            this.staffName = new Name(name.getFirstName());
+        } else if (name.getMiddleName() == null) {
+            this.staffName = new Name(name.getFirstName(), name.getSurname());
+        } else {
+            this.staffName = new Name(name.getFirstName(), name.getMiddleName(), name.getSurname());
+        }
+    }
+    public int getStaffId() {
+        return staffId;
     }
 
-    public int getId() {
-        return id;
+    public Role getStaffRole() {
+        return staffRole;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-
 }
