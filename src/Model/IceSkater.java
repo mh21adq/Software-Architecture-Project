@@ -34,17 +34,6 @@ public class IceSkater extends Competitor {
         String details = super.getFullDetails()+"\nand received these scores :"+this.getScores()+"\nThis gives him an overall score of "+this.getOverallScore(3);
         return details;
     }
-    public String getScores()
-    {
-        String ss = "";
-        for (int i = 0; i < this.scores.length; i++) {
-            ss += this.scores[i];
-            if (i < this.scores.length - 1) {
-                ss += ",";
-            }
-        }
-        return ss;
-    }
     @Override
     public String getShortDetails() {
         String shortDetails = super.getShortDetails() + " in category " + category+" Scores:"+this.getScores();

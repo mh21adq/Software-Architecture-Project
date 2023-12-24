@@ -6,20 +6,28 @@ public class Name {
     private String surname;
 
     public Name(String firstName) {
-        this.firstName = firstName;
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty.");
+        }
+        this.firstName = firstName.trim();
     }
 
     public Name(String firstName, String surname) {
-        this.firstName = firstName;
-        this.surname = surname;
+        if (firstName == null || firstName.trim().isEmpty() || surname == null || surname.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name and surname cannot be null or empty.");
+        }
+        this.firstName = firstName.trim();
+        this.surname = surname.trim();
     }
 
     public Name(String firstName, String middleName, String surname) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.surname = surname;
+        if (firstName == null || firstName.trim().isEmpty() || middleName == null || middleName.trim().isEmpty() || surname == null || surname.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name, middle name, and surname cannot be null or empty.");
+        }
+        this.firstName = firstName.trim();
+        this.middleName = middleName.trim();
+        this.surname = surname.trim();
     }
-
     public String getFirstName() {
         return firstName;
     }

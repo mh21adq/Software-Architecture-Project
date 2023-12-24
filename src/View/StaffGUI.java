@@ -429,7 +429,7 @@ public class StaffGUI {
                                     competitor.setAge(Integer.parseInt(newValue));
                                     break;
                                 case "Gender":
-                                    competitor.setGender(newValue);
+                                   // competitor.setGender();
                                     break;
                                 case "Country":
                                     competitor.setCountry(newValue);
