@@ -11,9 +11,11 @@ public class CompetitorGUI {
 
     private JFrame frame;
     private JButton registerButton,btnSearchCompetitor;
+    private Manager manager;
 
-    public CompetitorGUI() {
+    public CompetitorGUI(Manager manager) {
         initializeGUI();
+        this.manager=manager;
     }
 
     private void initializeGUI() {
@@ -54,7 +56,7 @@ public class CompetitorGUI {
 
     private void openRegistrationForm() {
         // Logic to open the registration form
-        new RegistrationGUI();
+        new RegistrationGUI(manager);
     }
     private void openSearchCompetitorDiaglog() {
         // Step 1: Get User Input for Category and Level
@@ -123,7 +125,5 @@ public class CompetitorGUI {
 
 
 
-    public static void main(String[] args) {
-        new CompetitorGUI();
-    }
+
 }

@@ -69,7 +69,7 @@ public class Main {
         System.out.println("Competitors after adding duplicate: " + competitorList.getAllCompetitors().size());
 
         // Remove a competitor
-        competitorList.removeCompetitor(gamer1);
+       // competitorList.removeCompetitor(gamer1);
         System.out.println("Competitors after removal: " + competitorList.getAllCompetitors().size());
 
         // Retrieve by Category

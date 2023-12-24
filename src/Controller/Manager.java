@@ -61,7 +61,7 @@ public class Manager {
     }
 
     public void writeToFile(String filename) {
-        try (FileWriter fileWriter = new FileWriter(filename, true);
+        try (FileWriter fileWriter = new FileWriter(filename, false);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
             for (Competitor competitor : competitorList.getAllCompetitors()) {
@@ -74,10 +74,10 @@ public class Manager {
         }
     }
 
+
     private String formatCompetitorData(Competitor competitor) {
-        System.out.println(competitor.getScores());
         return competitor.getCompetitorNumber() + "," +
-                competitor.getName() + "," +
+                competitor.getName().getFullName() + "," +
                 competitor.getEmail() + "," +
                 competitor.getAge() + "," +
                 competitor.getGender() + "," +
@@ -98,12 +98,20 @@ public class Manager {
     }
 
     // Delegated methods to CompetitorList
-    public void addCompetitor(Competitor competitor) {
-        competitorList.addCompetitor(competitor);
+    public boolean addCompetitor(Competitor newCompetitor) {
+        for (Competitor existingCompetitor : getAllCompetitors()) {
+            if (existingCompetitor.getEmail().equalsIgnoreCase(newCompetitor.getEmail()) &&
+                    existingCompetitor.getCategory().equalsIgnoreCase(newCompetitor.getCategory())) {
+                return false; // Competitor already exists, return false
+            }
+        }
+        competitorList.addCompetitor(newCompetitor);
+        return true;
     }
 
-    public void removeCompetitor(Competitor competitor) {
-        competitorList.removeCompetitor(competitor);
+
+    public boolean removeCompetitor(int competitorNumber) {
+        return  competitorList.removeCompetitor(competitorNumber);
     }
 
     public ArrayList<Competitor> getCompetitorsByCategory(String category) {
@@ -140,12 +148,13 @@ public class Manager {
         return allCompetitors;
     }
 
-    public void highestScoringCompetitor(String category, Level level)
+    public Competitor highestScoringCompetitor(String category, Level level)
     {
         CompetitorList newCompetitorListInstance = new CompetitorList();
         ArrayList<Competitor> competitorsInLevel=newCompetitorListInstance.searchCompetitorsByLevel("ICE SKATING",level);
         competitorsInLevel.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
-        System.out.println(competitorsInLevel.get(0).getFullDetails());
+
+       return competitorsInLevel.get(0);
     }
     public Competitor searchCompetitor(int id)
     {
@@ -194,9 +203,9 @@ public class Manager {
       new StaffGUI(manager);
     }
 
-    public void openCompetitorGUI() {
+    public void openCompetitorGUI(Manager manager) {
         // Directly create and display the StaffGUI
-        new CompetitorGUI();
+        new CompetitorGUI(manager);
     }
     public void openAudienceGUI(Manager manager) {
         // Directly create and display the StaffGUI

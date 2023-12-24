@@ -7,22 +7,21 @@ public class CompetitorList {
     private static ArrayList<Competitor> allCompetitors = new ArrayList<>();
 
     public void addCompetitor(Competitor newCompetitor) {
-        for (Competitor existingCompetitor : allCompetitors) {
-            // Check if the competitor already exists with the same email and category
-            if (existingCompetitor.getEmail().equalsIgnoreCase(newCompetitor.getEmail()) &&
-                    existingCompetitor.getCategory().equalsIgnoreCase(newCompetitor.getCategory())) {
-                //System.out.println("Competitor with the same email already exists in the same category.");
-                return; // Do not add the competitor
-            }
-        }
-        // Add the competitor if no duplicate is found in the same category
         allCompetitors.add(newCompetitor);
+
     }
 
     // Method to remove a competitor
-    public void removeCompetitor(Competitor competitor) {
-        allCompetitors.remove(competitor);
+    public boolean removeCompetitor(int competitorId) {
+        for (Competitor competitor : allCompetitors) {
+            if (competitor.getCompetitorNumber() == competitorId) {
+                allCompetitors.remove(competitor);
+                return true;
+            }
+        }
+        return false; // Competitor not found
     }
+
 
     // Method to get all competitors
     public ArrayList<Competitor> getAllCompetitors() {

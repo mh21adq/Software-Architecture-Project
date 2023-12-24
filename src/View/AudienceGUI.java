@@ -90,7 +90,7 @@ public class AudienceGUI {
                 String firstName = gamer.getName().getFirstName();
                 String initials = gamer.getName().getInitials();
                 gamersResults.append(competitorNumber).append(". ").append(firstName).append("(").append(initials).append(")").append("\t");
-                gamersResults.append(Arrays.toString(gamer.getScoresArray()).replace("[", "").replace("]", "")).append("\t");
+                //gamersResults.append(Arrays.toString(gamer.getScoresArray()).replace("[", "").replace("]", "")).append("\t");
                 gamersResults.append(String.format("%.2f", gamer.getOverallScore())).append("\n");
                 competitorNumber++;
             }
@@ -100,7 +100,7 @@ public class AudienceGUI {
                 String firstName = iceSkater.getName().getFirstName();
                 String initials = iceSkater.getName().getInitials();
                 iceSkatersResults.append(competitorNumber).append(". ").append(firstName).append("(").append(initials).append(")").append("\t");
-                iceSkatersResults.append(Arrays.toString(iceSkater.getScoresArray()).replace("[", "").replace("]", "")).append("\t");
+                //iceSkatersResults.append(Arrays.toString(iceSkater.getScoresArray()).replace("[", "").replace("]", "")).append("\t");
                 iceSkatersResults.append(String.format("%.2f", iceSkater.getOverallScore())).append("\n");
                 competitorNumber++;
             }

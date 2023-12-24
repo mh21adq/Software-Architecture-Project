@@ -96,18 +96,24 @@ public class StaffGUI {
         JButton btnEnterScore = new JButton("Enter Score");
         JButton btnViewAllCompetitors = new JButton("View All Competitors");
         JButton btnBrowseCategories = new JButton("Browse Competitors by Category");
+        JButton btnShowTopScorer = new JButton("Show Top Scorer");
+        JButton btnExitApp = new JButton("Exit Application");
 
         btnReadFile.addActionListener(createReadFileListener());
         btnSearchCompetitor.addActionListener(createSearchCompetitorListener());
         btnEnterScore.addActionListener(createEnterScoreListener());
         btnViewAllCompetitors.addActionListener(createViewAllCompetitorsListener());
         btnBrowseCategories.addActionListener(createBrowseCategoriesListener());
+        btnShowTopScorer.addActionListener(createShowTopScorerListener());
+        btnExitApp.addActionListener(createExitAppListener());
 
         frame.add(btnReadFile);
         frame.add(btnSearchCompetitor);
         frame.add(btnEnterScore);
         frame.add(btnViewAllCompetitors);
         frame.add(btnBrowseCategories);
+        frame.add(btnShowTopScorer);
+        frame.add(btnExitApp);
     }
 
     private ActionListener createReadFileListener() {
@@ -259,10 +265,186 @@ public class StaffGUI {
         };
     }
 
+    private ActionListener createShowTopScorerListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // First, ask for the category
+                String[] categories = {"Ice Skater", "Gamer"};
+                int categoryChoice = JOptionPane.showOptionDialog(
+                        frame,
+                        "Select a category:",
+                        "Category Selection",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        categories,
+                        categories[0]);
+
+                if (categoryChoice != JOptionPane.CLOSED_OPTION) {
+                    String selectedCategory = categories[categoryChoice];
+
+                    // Now, ask for the level
+                    Level[] levels = Level.values(); // Assuming Level is an enum
+                    Level selectedLevel = (Level) JOptionPane.showInputDialog(
+                            frame,
+                            "Select the level:",
+                            "Level Selection",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            levels,
+                            levels[0]);
+
+                    if (selectedLevel != null) {
+                        // Call the manager method to get the top scorer
+                        Competitor topScorer = manager.highestScoringCompetitor(selectedCategory, selectedLevel);
+                        if (topScorer != null) {
+                            JOptionPane.showMessageDialog(frame, "Top Scorer in " + selectedCategory + " at level " + selectedLevel + ": " + topScorer.getFullDetails(), "Top Scorer", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "No top scorer found for the selected category and level.", "No Top Scorer", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                }
+            }
+        };
+    }
+
+    private ActionListener createExitAppListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        frame,
+                        "Are you sure you want to close the application and save the data?",
+                        "Confirm Exit",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    // Assuming Manager's writeToFile method is properly implemented
+                    manager.writeToFile("competitor_report.txt");
+                    frame.dispose(); // Close the GUI window
+                }
+            }
+        };
+    }
 
     private void addOfficialsComponents() {
-        // Add components and actions for OFFICIALS role
+        //Officials can do all the work done by data entry staff
+        addDataEntryComponents();
+        JButton btnRegisterCompetitor = new JButton("Register Competitor");
+        JButton btnRemoveCompetitor = new JButton("Remove Competitor");
+        JButton btnUpdateCompetitorInfo = new JButton("Update Competitor Info");
+
+
+        btnRegisterCompetitor.addActionListener(createRegisterCompetitorListener());
+        btnRemoveCompetitor.addActionListener(createRemoveCompetitorListener());
+        btnUpdateCompetitorInfo.addActionListener(createUpdateCompetitorInfoListener());
+
+        frame.add(btnRegisterCompetitor);
+        frame.add(btnRemoveCompetitor);
+        frame.add(btnUpdateCompetitorInfo);
+
     }
+    private ActionListener createRegisterCompetitorListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RegistrationGUI(manager);
+
+            }
+        };
+    }
+    private ActionListener createRemoveCompetitorListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID to remove:");
+                if (competitorIdStr != null && !competitorIdStr.trim().isEmpty()) {
+                    try {
+                        int competitorId = Integer.parseInt(competitorIdStr);
+                        boolean isRemoved = manager.removeCompetitor(competitorId);
+                        if (isRemoved) {
+                            JOptionPane.showMessageDialog(frame, "Competitor with ID " + competitorId + " has been removed.", "Removal Successful", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, "No competitor found with ID " + competitorId + ".", "Removal Failed", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No Competitor ID entered.", "Operation Cancelled", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        };
+    }
+    private ActionListener createUpdateCompetitorInfoListener() {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID:");
+                if (competitorIdStr == null || competitorIdStr.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "No Competitor ID entered.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int competitorId;
+                try {
+                    competitorId = Integer.parseInt(competitorIdStr);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                Competitor competitor = manager.getCompetitor(competitorId);
+                if (competitor == null) {
+                    JOptionPane.showMessageDialog(frame, "No competitor found with ID: " + competitorId, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                String[] updateOptions = {"Name", "Email", "Age", "Gender", "Country"};
+                String selectedOption = (String) JOptionPane.showInputDialog(
+                        frame,
+                        "Select an attribute to update for Competitor ID " + competitorId + ":",
+                        "Update Competitor Information",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        updateOptions,
+                        updateOptions[0]
+                );
+
+                if (selectedOption != null && !selectedOption.isEmpty()) {
+                    String newValue = JOptionPane.showInputDialog(frame, "Enter new " + selectedOption.toLowerCase() + ":");
+                    if (newValue != null && !newValue.isEmpty()) {
+                        try {
+                            switch (selectedOption) {
+                                case "Name":
+                                    competitor.setName(new Name(newValue));
+                                    break;
+                                case "Email":
+                                    competitor.setEmail(newValue);
+                                    break;
+                                case "Age":
+                                    competitor.setAge(Integer.parseInt(newValue));
+                                    break;
+                                case "Gender":
+                                    competitor.setGender(newValue);
+                                    break;
+                                case "Country":
+                                    competitor.setCountry(newValue);
+                                    break;
+                            }
+                            JOptionPane.showMessageDialog(frame, "Competitor updated: " + competitor.getFullDetails(), "Update Successful", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(frame, "Invalid input for " + selectedOption.toLowerCase() + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+            }
+        };
+    }
+
 
     private void addEmergencyResponseComponents() {
         // Add components and actions for EMERGENCY_RESPONSE role
@@ -272,12 +454,5 @@ public class StaffGUI {
         // Add components and actions for REFEREE role
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new StaffGUI(new Manager()); // Assuming Manager is defined elsewhere
-            }
-        });
-    }
+
 }
