@@ -18,26 +18,27 @@ public class StaffList {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 3) {
-                    String[] nameParts = parts[0].trim().split("\\s+");
-                    Name name;
-
-                    // Handling different name formats
-                    if (nameParts.length == 1) {
-                        // Only first name
-                        name = new Name(nameParts[0]);
-                    } else if (nameParts.length == 2) {
-                        // First name and surname
-                        name = new Name(nameParts[0], nameParts[1]);
-                    } else {
-                        // First name, middle name, and surname
-                        name = new Name(nameParts[0], nameParts[1], nameParts[2]);
-                    }
-
+                    String nameString = parts[0].trim();
                     int id = Integer.parseInt(parts[1].trim());
                     Role role = Role.valueOf(parts[2].trim());
 
-                    Staff staff = new Staff(id, name, role);
+                    Name name;
+                    String[] nameParts = nameString.split(" ");
+                    if (nameParts.length == 1) {
+                        name = new Name(nameParts[0]);
+                    } else if (nameParts.length == 2) {
+                        name = new Name(nameParts[0], nameParts[1]);
+                    } else if (nameParts.length >= 3) {
+                        name = new Name(nameParts[0], nameParts[1], nameParts[2]);
+                    } else {
+                        System.err.println("Invalid name format: " + nameString);
+                        continue;
+                    }
+
+                    Staff staff = new Staff(name, id, role);
                     staffList.add(staff);
+                } else {
+                    System.err.println("Invalid line format: " + line);
                 }
             }
         } catch (IOException e) {
@@ -45,13 +46,13 @@ public class StaffList {
         }
     }
 
+
     public ArrayList<Staff> getStaffList() {
         return staffList;
     }
-
     public Staff findStaffById(int id) {
         for (Staff staff : staffList) {
-            if (staff.getStaffId() == id) {
+            if (staff.getStaffId()== id) {
                 return staff;
             }
         }

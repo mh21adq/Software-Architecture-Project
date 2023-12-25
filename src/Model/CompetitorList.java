@@ -5,10 +5,18 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class CompetitorList {
+    private static CompetitorList instance;
     private ArrayList<Competitor> allCompetitors;
 
-    public CompetitorList() {
+    private CompetitorList() {
         allCompetitors = new ArrayList<>();
+    }
+
+    public static CompetitorList getInstance() {
+        if (instance == null) {
+            instance = new CompetitorList();
+        }
+        return instance;
     }
 
     public void addCompetitor(Competitor newCompetitor) {

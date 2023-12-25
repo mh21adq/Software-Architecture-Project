@@ -56,7 +56,7 @@ public class CompetitorGUI {
 
     private void openRegistrationForm() {
         // Logic to open the registration form
-        new RegistrationGUI(manager);
+        new RegistrationForm(manager);
     }
     private void openSearchCompetitorDiaglog() {
         // Step 1: Get User Input for Category and Level

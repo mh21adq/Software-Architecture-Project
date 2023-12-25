@@ -14,13 +14,14 @@ public final class Name {
     }
 
     public Name(String firstName, String middleName, String surname) {
-        if (firstName == null || firstName.trim().isEmpty() || surname == null || surname.trim().isEmpty()) {
-            throw new IllegalArgumentException("First name and surname cannot be null or empty.");
+        if (firstName == null || firstName.trim().isEmpty()) {
+            throw new IllegalArgumentException("First name cannot be null or empty.");
         }
         this.firstName = firstName.trim();
         this.middleName = (middleName != null) ? middleName.trim() : null;
-        this.surname = surname.trim();
+        this.surname = (surname != null) ? surname.trim() : null;
     }
+
 
     public String getFirstName() {
         return firstName;
