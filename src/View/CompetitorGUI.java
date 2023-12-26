@@ -4,8 +4,6 @@ import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 public class CompetitorGUI {
 
@@ -21,44 +19,60 @@ public class CompetitorGUI {
     private void initializeGUI() {
         frame = new JFrame("Competitor Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout()); // Layout for the main window
-        frame.setSize(450, 800);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = frame.getSize().width;
-        int height = frame.getSize().height;
-        int xPosition = screenSize.width - width; // This will position the frame at the right edge of the screen
-        int yPosition = (screenSize.height - height) / 2; // This will center the frame vertically
+        frame.setLayout(new BorderLayout()); // Using BorderLayout
+        frame.setSize(300, 150); // Reduced size
 
-        // Set the location of the frame to the calculated position
-        frame.setLocation(xPosition, yPosition);
+        // Define colors and fonts
+        Color backgroundColor = new Color(245, 245, 245); // Light gray background
+        Color buttonColor = new Color(100, 149, 237); // Cornflower blue for buttons
+        Font buttonFont = new Font("Arial", Font.BOLD, 12); // Slightly smaller font
+
+        // Create a panel with padding for buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // Padding
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 0)); // GridLayout for buttons
+        buttonPanel.setBackground(backgroundColor);
 
         // Register button
-        registerButton = new JButton("Register Competitor");
-        btnSearchCompetitor=new JButton("Search Competitor");
-        frame.add(registerButton);
-        frame.add(btnSearchCompetitor);
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openRegistrationForm();
-            }
-        });
-        btnSearchCompetitor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                openSearchCompetitorDiaglog();
-            }
-        });
+        registerButton = createButton("Register", buttonColor, buttonFont);
 
+        // Search button
+        btnSearchCompetitor = createButton("Search", buttonColor, buttonFont);
 
+        // Add buttons to the panel
+        buttonPanel.add(registerButton);
+        buttonPanel.add(btnSearchCompetitor);
+
+        // Add the panel to the frame
+        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        // Center the frame on the screen
+        frame.setLocationRelativeTo(null);
+
+        // Add action listeners
+        registerButton.addActionListener(e -> openRegistrationForm());
+        btnSearchCompetitor.addActionListener(e -> openSearchCompetitorDialog());
+
+        // Display the frame
         frame.setVisible(true);
+    }
+
+    private JButton createButton(String text, Color color, Font font) {
+        JButton button = new JButton(text);
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setFont(font);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setOpaque(true);
+        return button;
     }
 
     private void openRegistrationForm() {
         // Logic to open the registration form
         new RegistrationForm(manager);
     }
-    private void openSearchCompetitorDiaglog() {
+    private void openSearchCompetitorDialog() {
         // Step 1: Get User Input for Category and Level
         JPanel panel = new JPanel(new GridLayout(0, 1));
         ButtonGroup categoryGroup = new ButtonGroup();

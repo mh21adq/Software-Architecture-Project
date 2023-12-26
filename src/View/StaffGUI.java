@@ -25,27 +25,74 @@ public class StaffGUI {
     private void initializeGUI() {
         frame = new JFrame("Staff Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(3, 2));
-        frame.setSize(400, 200);
+        frame.setLayout(new GridBagLayout()); // Use GridBagLayout for precise positioning
+        frame.setSize(600, 800);
         frame.setLocationRelativeTo(null);
 
+        Color backgroundColor = new Color(230, 230, 250); // Light lavender
+        Color labelColor = new Color(70, 130, 180); // Steel blue
+        Font labelFont = new Font("Arial", Font.BOLD, 12);
+
+        frame.getContentPane().setBackground(backgroundColor);
+
+        // Title
+        JLabel titleLabel = new JLabel("Registration Form");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setForeground(labelColor);
+        GridBagConstraints titleConstraints = new GridBagConstraints();
+        titleConstraints.gridx = 0;
+        titleConstraints.gridy = 0;
+        titleConstraints.gridwidth = 2;
+        titleConstraints.anchor = GridBagConstraints.CENTER;
+        frame.add(titleLabel, titleConstraints);
+
+        // Staff Name Label and Field
         JLabel nameLabel = new JLabel("Staff Name:");
+        nameLabel.setForeground(labelColor);
+        nameLabel.setFont(labelFont);
+        GridBagConstraints nameLabelConstraints = new GridBagConstraints();
+        nameLabelConstraints.gridx = 0;
+        nameLabelConstraints.gridy = 1;
+        nameLabelConstraints.anchor = GridBagConstraints.WEST;
+        frame.add(nameLabel, nameLabelConstraints);
+
         nameField = new JTextField();
+        GridBagConstraints nameFieldConstraints = new GridBagConstraints();
+        nameFieldConstraints.gridx = 1;
+        nameFieldConstraints.gridy = 1;
+        nameFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
+        frame.add(nameField, nameFieldConstraints);
+
+        // Staff ID Label and Field
         JLabel idLabel = new JLabel("Staff ID:");
+        idLabel.setForeground(labelColor);
+        idLabel.setFont(labelFont);
+        GridBagConstraints idLabelConstraints = new GridBagConstraints();
+        idLabelConstraints.gridx = 0;
+        idLabelConstraints.gridy = 2;
+        idLabelConstraints.anchor = GridBagConstraints.WEST;
+        frame.add(idLabel, idLabelConstraints);
+
         idField = new JTextField();
+        GridBagConstraints idFieldConstraints = new GridBagConstraints();
+        idFieldConstraints.gridx = 1;
+        idFieldConstraints.gridy = 2;
+        idFieldConstraints.fill = GridBagConstraints.HORIZONTAL;
+        frame.add(idField, idFieldConstraints);
 
+        // Open Staff Window Button
         JButton openButton = new JButton("Open Staff Window");
+        GridBagConstraints openButtonConstraints = new GridBagConstraints();
+        openButtonConstraints.gridx = 0;
+        openButtonConstraints.gridy = 3;
+        openButtonConstraints.gridwidth = 2;
+        openButtonConstraints.anchor = GridBagConstraints.CENTER;
         openButton.addActionListener(e -> handleStaffVerification());
-
-
-        frame.add(nameLabel);
-        frame.add(nameField);
-        frame.add(idLabel);
-        frame.add(idField);
-        frame.add(openButton);
+        frame.add(openButton, openButtonConstraints);
 
         frame.setVisible(true);
     }
+
 
     private void handleStaffVerification() {
         String name = nameField.getText();
@@ -78,13 +125,13 @@ public class StaffGUI {
 
 
     private void addDataEntryComponents() {
-        JButton btnReadFile = new JButton("Read from File");
-        JButton btnSearchCompetitor = new JButton("Search Competitor");
-        JButton btnEnterScore = new JButton("Enter Score");
-        JButton btnViewAllCompetitors = new JButton("View All Competitors");
-        JButton btnBrowseCategories = new JButton("Browse Competitors by Category");
-        JButton btnShowTopScorer = new JButton("Show Top Scorer");
-        JButton btnExitApp = new JButton("Exit Application");
+        JButton btnReadFile = createStyledButton("Read from File");
+        JButton btnSearchCompetitor = createStyledButton("Search Competitor");
+        JButton btnEnterScore = createStyledButton("Enter Score");
+        JButton btnViewAllCompetitors = createStyledButton("View All Competitors");
+        JButton btnBrowseCategories = createStyledButton("Browse Competitors by Category");
+        JButton btnShowTopScorer = createStyledButton("Show Top Scorer");
+        JButton btnExitApp = createStyledButton("Exit Application");
 
         btnReadFile.addActionListener(createReadFileListener());
         btnSearchCompetitor.addActionListener(createSearchCompetitorListener());
@@ -102,6 +149,30 @@ public class StaffGUI {
         frame.add(btnShowTopScorer);
         frame.add(btnExitApp);
     }
+
+    private JButton createStyledButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.BOLD, 14)); // Set the font
+        button.setBackground(new Color(0, 123, 255)); // Background color (Primary blue)
+        button.setForeground(Color.BLUE); // Text color
+        button.setFocusPainted(false); // Remove focus border
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor on hover
+        button.setPreferredSize(new Dimension(200, 40)); // Set preferred size
+
+        // Add hover effect
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(23, 162, 255)); // Lighter background color on hover
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(new Color(0, 123, 255)); // Restore original background color on exit
+            }
+        });
+
+        return button;
+    }
+
 
     private ActionListener createReadFileListener() {
         return e -> {

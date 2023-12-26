@@ -15,50 +15,61 @@ public class Manager {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                try {
-                    String[] data = line.split(",");
-
-                    // Parsing the name
-                    String[] nameParts = data[0].trim().split("\\s+");
-                    Name name = (nameParts.length == 1) ? new Name(nameParts[0]) :
-                            (nameParts.length == 2) ? new Name(nameParts[0], nameParts[1]) :
-                                    new Name(nameParts[0], nameParts[1], nameParts[2]);
-
-                    String email = data[1].trim();
-                    int age = Integer.parseInt(data[2].trim());
-                    String gender = data[3].trim();
-                    Level level = Level.valueOf(data[4].trim().toUpperCase());
-                    String category = data[5].trim();
-                    String country = data[6].trim();
-
-                    // Parsing the scores
-                    int[] scores = new int[data.length - 7];
-                    for (int i = 7; i < data.length; i++) {
-                        try {
-                            scores[i - 7] = Integer.parseInt(data[i].trim());
-                        } catch (NumberFormatException e) {
-                            scores[i - 7] = 0; // Default score in case of format error
-                        }
-                    }
-
-                    // Creating the competitor
-                    Competitor competitor = (ICE_SKATING.equalsIgnoreCase(category)) ?
-                            new IceSkater(name, email, age, gender, country, level) :
-                            new Gamer(name, email, age, gender, country, level);
-                    competitor.setScores(scores);
-
-                    competitorList.addCompetitor(competitor);
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Error processing line: " + line + "; Error: " + e.getMessage());
-                }
+                processLine(line);
             }
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found: " + fileName);
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
     }
 
+    private void processLine(String line) {
+        try {
+            String[] data = line.split(",");
+
+            Name name = parseName(data[0]);
+            String email = data[1].trim();
+            int age = Integer.parseInt(data[2].trim());
+            String gender = data[3].trim();
+            Level level = Level.valueOf(data[4].trim().toUpperCase());
+            String category = data[5].trim();
+            String country = data[6].trim();
+            int[] scores = parseScores(data);
+
+            Competitor competitor = createCompetitor(name, email, age, gender, country, level, category, scores);
+            addCompetitor(competitor);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error processing line: " + line + "; Error: " + e.getMessage());
+        }
+    }
+    private Name parseName(String nameData) {
+        String[] nameParts = nameData.trim().split("\\s+");
+        return switch (nameParts.length) {
+            case 1 -> new Name(nameParts[0]);
+            case 2 -> new Name(nameParts[0], nameParts[1]);
+            default -> new Name(nameParts[0], nameParts[1], nameParts[2]);
+        };
+    }
+
+
+    private int[] parseScores(String[] data) {
+        int[] scores = new int[data.length - 7];
+        for (int i = 7; i < data.length; i++) {
+            try {
+                scores[i - 7] = Integer.parseInt(data[i].trim());
+            } catch (NumberFormatException e) {
+                scores[i - 7] = 0; // Default score in case of format error
+            }
+        }
+        return scores;
+    }
+
+    private Competitor createCompetitor(Name name, String email, int age, String gender, String country, Level level, String category, int[] scores) {
+        Competitor competitor = ICE_SKATING.equalsIgnoreCase(category) ?
+                new IceSkater(name, email, age, gender, country, level) :
+                new Gamer(name, email, age, gender, country, level);
+        competitor.setScores(scores);
+        return competitor;
+    }
 
     public void writeToFile(String filename) {
         try (FileWriter fileWriter = new FileWriter(filename, false);
