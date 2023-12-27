@@ -245,27 +245,38 @@ public class StaffGUI {
                     return;
                 }
 
-                Manager manager = new Manager();
                 Competitor competitor = manager.getCompetitor(competitorId);
                 if (competitor != null) {
                     int numScores = competitor instanceof Gamer ? 5 : (competitor instanceof IceSkater ? 4 : 0);
+                    int maxScore = competitor instanceof Gamer ? 5 : 6;
                     int[] scores = new int[numScores];
 
                     for (int i = 0; i < numScores; i++) {
-                        int score = -1;
-                        while (score < 0) {
+                        boolean validScore = false;
+                        while (!validScore) {
                             String scoreStr = JOptionPane.showInputDialog(frame, "Enter score " + (i + 1) + " for " + competitor.getName().getFullName() + ":");
                             try {
-                                score = Integer.parseInt(scoreStr);
+                                int score = Integer.parseInt(scoreStr);
+                                if (score < 0 || score > maxScore) {
+                                    throw new IllegalArgumentException("Score must be between 0 and " + maxScore + ".");
+                                }
+                                scores[i] = score;
+                                validScore = true;
                             } catch (NumberFormatException ex) {
                                 JOptionPane.showMessageDialog(frame, "Invalid score format. Please enter a numeric score.", "Error", JOptionPane.ERROR_MESSAGE);
+                            } catch (IllegalArgumentException ex) {
+                                JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                             }
                         }
-
-                        scores[i] = score;
                     }
 
-                    competitor.setScores(scores); // Set the new scores
+                    try {
+                        competitor.setScores(scores); // Set the new scores
+                    } catch (IllegalArgumentException ex) {
+                        JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // Exit the method if the scores array is invalid
+                    }
+
                     double overallScore = competitor.getOverallScore();
                     JOptionPane.showMessageDialog(frame, "Updated Overall Score for " + competitor.getName().getFullName() + ": " + overallScore, "Overall Score", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -274,6 +285,7 @@ public class StaffGUI {
             }
         };
     }
+
 
     private JScrollPane createScrollPaneForText(String text) {
         JTextArea textArea = new JTextArea(text);

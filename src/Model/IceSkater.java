@@ -40,16 +40,25 @@ public class IceSkater extends Competitor {
     }
 
     @Override
-    public int[] getScoresArray() {
+    public int[] getScoreArray() {
         return scores;
     }
 
     public void setScores(int[] scores) {
-        if (scores == null || scores.length != SCORES_ARRAY_SIZE) {
-            throw new IllegalArgumentException("Scores array must not be null and must have " + SCORES_ARRAY_SIZE + " elements.");
+        if (scores == null) {
+            throw new IllegalArgumentException("Scores array must not be null.");
+        }
+        if (scores.length != SCORES_ARRAY_SIZE) {
+            throw new IllegalArgumentException("Scores array must have " + SCORES_ARRAY_SIZE + " elements.");
+        }
+        for (int score : scores) {
+            if (score < 0 || score > 6) {
+                throw new IllegalArgumentException("Each score must be between 0 and 6.");
+            }
         }
         this.scores = scores;
     }
+
 
     @Override
     public String getFullDetails() {

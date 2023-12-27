@@ -169,7 +169,7 @@ public class Manager {
     }
 
     private boolean isCompetitorScoreComplete(Competitor competitor) {
-        int[] scores = competitor.getScoresArray(); // Assuming Competitor class has this method
+        int[] scores = competitor.getScoreArray(); // Assuming Competitor class has this method
         if (scores == null || scores.length == 0) {
             return false;
         }

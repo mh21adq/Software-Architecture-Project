@@ -105,11 +105,11 @@ public abstract class Competitor {
     public abstract void setScores(int[] scores);
     public abstract String getCategory();
     public abstract Level getLevel();
-    public abstract int[] getScoresArray();
+    public abstract int[] getScoreArray();
 
     // Method for getting scores in a String format
     public String getScores() {
-        int[] scoresArray = getScoresArray();
+        int[] scoresArray = getScoreArray();
         if (scoresArray == null) {
             return "";
         }
