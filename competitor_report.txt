@@ -1,154 +1,162 @@
-Category: ICE SKATING
-Level: BEGINNER
 
+===== CATEGORY: ICE SKATING =====
+
+-- Level: BEGINNER --
+Competitors:
 
 Competitor Number 109, Name Mary Francis, Country UK.
 Mary is a BEGINNER aged 27.
 Received scores: 0, 2, 6, 6
 Overall score: 3.6
-
 
 Competitor Number 114, Name Methen George, Country UK.
 Methen is a BEGINNER aged 30.
 Received scores: 4, 3, 2, 6
 Overall score: 3.5
 
-
 Competitor Number 100, Name Ann Sthen, Country UK.
 Ann is a BEGINNER aged 23.
 Received scores: 5, 2, 1, 6
 Overall score: 3.1
-Highest Scorer: 
+
+Highest Scorer:
 
 Competitor Number 109, Name Mary Francis, Country UK.
 Mary is a BEGINNER aged 27.
 Received scores: 0, 2, 6, 6
 Overall score: 3.6
-Level: INTERMEDIATE
 
+-- Level: INTERMEDIATE --
+Competitors:
 
 Competitor Number 115, Name Scarlett John, Country UK.
 Scarlett is a INTERMEDIATE aged 25.
 Received scores: 3, 4, 6, 5
 Overall score: 4.8
-
 
 Competitor Number 105, Name Vicy Mathew, Country UK.
 Vicy is a INTERMEDIATE aged 33.
 Received scores: 6, 2, 5, 5
 Overall score: 4.4
 
-
 Competitor Number 113, Name Jojo Mony, Country UK.
 Jojo is a INTERMEDIATE aged 31.
 Received scores: 2, 3, 6, 5
 Overall score: 4.4
-Highest Scorer: 
+
+Highest Scorer:
 
 Competitor Number 115, Name Scarlett John, Country UK.
 Scarlett is a INTERMEDIATE aged 25.
 Received scores: 3, 4, 6, 5
 Overall score: 4.8
-Level: ADVANCED
 
+-- Level: ADVANCED --
+Competitors:
 
 Competitor Number 116, Name Patrick Shanon, Country US.
 Patrick is a ADVANCED aged 22.
 Received scores: 4, 3, 5, 1
 Overall score: 3.3
-
 
 Competitor Number 117, Name Rod Stod, Country UK.
 Rod is a ADVANCED aged 26.
 Received scores: 5, 2, 2, 4
 Overall score: 2.9
 
-
 Competitor Number 102, Name Kaith Andy Clos, Country UK.
 Kaith is a ADVANCED aged 29.
 Received scores: 4, 5, 2, 2
 Overall score: 2.8
 
-
 Competitor Number 110, Name Jomon Vicy, Country UK.
 Jomon is a ADVANCED aged 22.
 Received scores: 6, 3, 1, 2
 Overall score: 2.2
-Highest Scorer: 
+
+Highest Scorer:
 
 Competitor Number 116, Name Patrick Shanon, Country US.
 Patrick is a ADVANCED aged 22.
 Received scores: 4, 3, 5, 1
 Overall score: 3.3
-Level: NOVICE
-Level: EXPERT
-Category: GAMING
-Level: BEGINNER
-Level: INTERMEDIATE
-Level: ADVANCED
-Level: NOVICE
 
+-- Level: NOVICE --
+Competitors:
+
+-- Level: EXPERT --
+Competitors:
+
+===== CATEGORY: GAMING =====
+
+-- Level: BEGINNER --
+Competitors:
+
+-- Level: INTERMEDIATE --
+Competitors:
+
+-- Level: ADVANCED --
+Competitors:
+
+-- Level: NOVICE --
+Competitors:
 
 Competitor Number 101, Name George Beth Shon, Country UK.
 George is a NOVICE aged 31.
 Received scores: 2, 3, 5, 5, 5
 Overall score: 5.0
-
 
 Competitor Number 107, Name Susan Mathew, Country US.
 Susan is a NOVICE aged 28.
 Received scores: 5, 1, 5, 3, 4
 Overall score: 4.667
 
-
 Competitor Number 112, Name Aby Mathew, Country UK.
 Aby is a NOVICE aged 34.
 Received scores: 2, 3, 3, 5, 2
 Overall score: 3.667
-
 
 Competitor Number 118, Name Lijo Willams, Country UK.
 Lijo is a NOVICE aged 28.
 Received scores: 1, 2, 5, 0, 4
 Overall score: 3.667
 
-
 Competitor Number 104, Name Harry Patrick, Country UK.
 Harry is a NOVICE aged 32.
 Received scores: 2, 2, 5, 2, 1
 Overall score: 3.0
-Highest Scorer: 
+
+Highest Scorer:
 
 Competitor Number 101, Name George Beth Shon, Country UK.
 George is a NOVICE aged 31.
 Received scores: 2, 3, 5, 5, 5
 Overall score: 5.0
-Level: EXPERT
 
+-- Level: EXPERT --
+Competitors:
 
 Competitor Number 103, Name Mark Do Leno, Country UK.
 Mark is a EXPERT aged 22.
 Received scores: 5, 4, 4, 2, 1
 Overall score: 3.2
 
-
 Competitor Number 111, Name Catherin George, Country UAE.
 Catherin is a EXPERT aged 20.
 Received scores: 1, 4, 4, 2, 5
 Overall score: 3.2
-
 
 Competitor Number 106, Name Monica Loy, Country US.
 Monica is a EXPERT aged 29.
 Received scores: 4, 4, 2, 2, 3
 Overall score: 3.0
 
-
 Competitor Number 108, Name Andy Stov, Country US.
 Andy is a EXPERT aged 22.
 Received scores: 0, 2, 1, 5, 4
 Overall score: 2.4
-Highest Scorer: 
+
+Highest Scorer:
 
 Competitor Number 103, Name Mark Do Leno, Country UK.
 Mark is a EXPERT aged 22.

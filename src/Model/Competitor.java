@@ -119,7 +119,7 @@ public abstract class Competitor {
     }
 
     public String getFullDetails() {
-        return "\n\nCompetitor Number " + this.competitorNumber +
+        return "\nCompetitor Number " + this.competitorNumber +
                 ", Name " + this.name.getFullName() +
                 ", Country " + this.getCountry() +
                 ".\n" + this.name.getFirstName() +

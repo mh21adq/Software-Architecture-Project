@@ -77,28 +77,26 @@ public class Manager {
         StringBuilder report = new StringBuilder();
 
         for (String category : CATEGORIES) {
-            report.append("Category: ").append(category).append("\n");
+            report.append("\n===== CATEGORY: ").append(category.toUpperCase()).append(" =====\n");
             for (Level level : LEVELS) {
-                report.append("Level: ").append(level).append("\n");
+                report.append("\n-- Level: ").append(level).append(" --\n");
                 report.append(competitorsTable(category, level));
                 report.append(highestScoringCompetitorDetails(category, level));
-                // Add more specific reports as needed (summary statistics, frequency report, etc.)
+                // Placeholder for summary statistics and frequency report
             }
         }
 
-        // Output to System.out
-        System.out.println(report);
+        System.out.println(report); // Output to System.out
 
-        // Write to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write(report.toString());
+            writer.write(report.toString()); // Write to file
         } catch (IOException e) {
             System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
     private String competitorsTable(String category, Level level) {
-        StringBuilder table = new StringBuilder();
+        StringBuilder table = new StringBuilder("Competitors:\n");
         ArrayList<Competitor> competitors = competitorList.searchCompetitorsByLevel(category, level);
         for (Competitor competitor : competitors) {
             table.append(competitor.getFullDetails()).append("\n");
@@ -110,7 +108,7 @@ public class Manager {
         ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
         if (!competitorsInLevel.isEmpty()) {
             Competitor highestScorer = competitorsInLevel.get(0); // Assuming list is already sorted by score
-            return "Highest Scorer: " + highestScorer.getFullDetails() + "\n";
+            return "\nHighest Scorer:\n" + highestScorer.getFullDetails() + "\n";
         }
         return "";
     }
