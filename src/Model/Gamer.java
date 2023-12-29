@@ -2,6 +2,7 @@ package Model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 
 public class Gamer extends Competitor {
 
@@ -38,11 +39,23 @@ public class Gamer extends Competitor {
 
     @Override
     public double getOverallScore() {
-        double sum = 0;
-        for (int score : scores) {
-            sum += score;
+        int scoresToConsider;
+        if (this.level == Level.NOVICE) {
+            scoresToConsider = Math.min(3, scores.length);
+        } else {
+            scoresToConsider = scores.length;
         }
-        double average = sum / scores.length;
+
+        int[] sortedScores = Arrays.copyOf(scores, scores.length);
+        Arrays.sort(sortedScores);
+
+        double sum = 0;
+        for (int i = sortedScores.length - 1; i >= sortedScores.length - scoresToConsider; i--) {
+            sum += sortedScores[i];
+        }
+
+        double average = sum / scoresToConsider;
+
         return BigDecimal.valueOf(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
     }
 

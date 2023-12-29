@@ -385,7 +385,7 @@ public class StaffGUI {
 
                 if (confirm == JOptionPane.YES_OPTION) {
                     // Assuming Manager's writeToFile method is properly implemented
-                    manager.writeToFile("competitor_report.txt");
+                    manager.generateFinalReport("competitor_report.txt");
                     frame.dispose(); // Close the GUI window
                 }
         };

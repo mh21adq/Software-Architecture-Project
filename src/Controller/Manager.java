@@ -6,6 +6,8 @@ import java.util.*;
 public class Manager {
     private final CompetitorList competitorList;
     private static final String ICE_SKATING = "ICE SKATING";
+    private static final String[] CATEGORIES = {"ICE SKATING", "GAMING"}; // Example categories
+    private static final Level[] LEVELS = Level.values();
 
     public Manager() {
         competitorList = CompetitorList.getInstance();
@@ -71,36 +73,47 @@ public class Manager {
         return competitor;
     }
 
-    public void writeToFile(String filename) {
-        try (FileWriter fileWriter = new FileWriter(filename, false);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void generateFinalReport(String filename) {
+        StringBuilder report = new StringBuilder();
 
-            for (Competitor competitor : competitorList.getAllCompetitors()) {
-                String competitorData = formatCompetitorData(competitor);
-                bufferedWriter.write(competitorData);
-                bufferedWriter.newLine();
+        for (String category : CATEGORIES) {
+            report.append("Category: ").append(category).append("\n");
+            for (Level level : LEVELS) {
+                report.append("Level: ").append(level).append("\n");
+                report.append(competitorsTable(category, level));
+                report.append(highestScoringCompetitorDetails(category, level));
+                // Add more specific reports as needed (summary statistics, frequency report, etc.)
             }
+        }
+
+        // Output to System.out
+        System.out.println(report);
+
+        // Write to file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(report.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error writing to file: " + e.getMessage());
         }
     }
 
-
-    private String formatCompetitorData(Competitor competitor) {
-        return competitor.getCompetitorNumber() + "," +
-                competitor.getName().getFullName() + "," +
-                competitor.getEmail() + "," +
-                competitor.getAge() + "," +
-                competitor.getGender() + "," +
-                competitor.getCountry() + "," +
-                competitor.getCategory() + "," +
-                competitor.getLevel() + "," +competitor.getScores();
-
+    private String competitorsTable(String category, Level level) {
+        StringBuilder table = new StringBuilder();
+        ArrayList<Competitor> competitors = competitorList.searchCompetitorsByLevel(category, level);
+        for (Competitor competitor : competitors) {
+            table.append(competitor.getFullDetails()).append("\n");
+        }
+        return table.toString();
     }
 
-
-
-    // Delegated methods to CompetitorList
+    private String highestScoringCompetitorDetails(String category, Level level) {
+        ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
+        if (!competitorsInLevel.isEmpty()) {
+            Competitor highestScorer = competitorsInLevel.get(0); // Assuming list is already sorted by score
+            return "Highest Scorer: " + highestScorer.getFullDetails() + "\n";
+        }
+        return "";
+    }
     public boolean addCompetitor(Competitor competitor) {
         for (Competitor existingCompetitor : getAllCompetitors()) {
             if (existingCompetitor.getEmail().equalsIgnoreCase(competitor.getEmail()) &&

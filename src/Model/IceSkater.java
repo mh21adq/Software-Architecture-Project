@@ -36,8 +36,29 @@ public class IceSkater extends Competitor {
 
     @Override
     public double getOverallScore() {
-        return calculateAverageScore(scores);
+        double weightedSum = 0;
+        double totalWeight = 0;
+        double[] weights;
+
+        if (this.level == Level.BEGINNER) {
+            weights = new double[]{0.2, 0.3, 0.3, 0.2};
+        } else if (this.level == Level.INTERMEDIATE) {
+            weights = new double[]{0.15, 0.25, 0.35, 0.25};
+        } else if (this.level == Level.ADVANCED) {
+            weights = new double[]{0.1, 0.2, 0.4, 0.3};
+        } else {
+            throw new IllegalStateException("Unknown level: " + this.level);
+        }
+
+        for (int i = 0; i < SCORES_ARRAY_SIZE; i++) {
+            weightedSum += scores[i] * weights[i];
+            totalWeight += weights[i];
+        }
+
+        double weightedAverage = weightedSum / totalWeight;
+        return BigDecimal.valueOf(weightedAverage).setScale(3, RoundingMode.HALF_UP).doubleValue();
     }
+
 
     @Override
     public int[] getScoreArray() {
@@ -71,22 +92,5 @@ public class IceSkater extends Competitor {
         return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.getScores();
     }
 
-    // Overloaded method specific to IceSkater
-    public double getOverallScore(int top) {
-        if (top > scores.length) {
-            throw new IllegalArgumentException("Top scores requested exceeds the number of available scores.");
-        }
-        int[] sortedScores = Arrays.copyOf(scores, scores.length);
-        Arrays.sort(sortedScores);
-        return calculateAverageScore(Arrays.copyOfRange(sortedScores, 0, top));
-    }
 
-    private double calculateAverageScore(int[] scoresArray) {
-        double sum = 0;
-        for (int score : scoresArray) {
-            sum += score;
-        }
-        double average = sum / scoresArray.length;
-        return BigDecimal.valueOf(average).setScale(3, RoundingMode.HALF_UP).doubleValue();
-    }
 }
