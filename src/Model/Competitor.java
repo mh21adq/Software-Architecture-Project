@@ -2,10 +2,6 @@ package Model;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
-/**
- * Abstract class representing a competitor.
- */
 public abstract class Competitor {
     private static int lastNumber = 100;
     private final int competitorNumber;
@@ -15,15 +11,6 @@ public abstract class Competitor {
     private  String gender;
     private  String country;
 
-    /**
-     * Constructs a new Competitor instance.
-     *
-     * @param name    The name of the competitor.
-     * @param email   The email address of the competitor.
-     * @param age     The age of the competitor.
-     * @param gender  The gender of the competitor.
-     * @param country The country of the competitor.
-     */
     public Competitor(Name name, String email, int age, String gender, String country) {
         this.competitorNumber = lastNumber++;
         this.setName(name);
@@ -32,9 +19,6 @@ public abstract class Competitor {
         this.setGender(gender);
         this.setCountry(country);
     }
-
-    // Getters and Setters
-
     public int getCompetitorNumber() {
         return competitorNumber;
     }
@@ -100,36 +84,35 @@ public abstract class Competitor {
         }
         this.country = country;
     }
-    // Abstract methods
-    public abstract double getOverallScore();
+    public double getOverallScore() { return 5; }
     public abstract void setScores(int[] scores);
     public abstract String getCategory();
     public abstract Level getLevel();
     public abstract int[] getScoreArray();
 
     // Method for getting scores in a String format
-    public String getScores() {
-        int[] scoresArray = getScoreArray();
-        if (scoresArray == null) {
-            return "";
-        }
-        return Arrays.stream(scoresArray)
-                .mapToObj(String::valueOf)
-                .collect(Collectors.joining(", "));
-    }
 
     public String getFullDetails() {
-        return "\nCompetitor Number " + this.competitorNumber +
-                ", Name " + this.name.getFullName() +
-                ", Country " + this.getCountry() +
-                ".\n" + this.name.getFirstName() +
-                " is a " + this.getLevel() +
-                " aged " + this.getAge() + ".";
+        return "\nCompetitor Number: " + this.getCompetitorNumber() + "\n" +
+                "Name: " + this.name.getFullName() + "\n" +
+                "Email: " + this.getEmail() + "\n" +
+                "Gender: " + this.getGender() + "\n"+
+                "Age: " + this.getAge() + "\n"+
+                "Country: " + this.getCountry() + "\n" ;
     }
 
     public String getShortDetails() {
-        return "\n\nCN " + this.competitorNumber +
+        return "\nCN " + this.competitorNumber +
                 " (" + this.name.getInitials() + ")" +
                 " has an overall score of " + this.getOverallScore();
     }
+
+    //Extra method to format the scores only used by child classes;
+    protected String formatScores() {
+        String formattedScores = Arrays.stream(this.getScoreArray())
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining(", "));
+        return formattedScores;
+    }
+
 }

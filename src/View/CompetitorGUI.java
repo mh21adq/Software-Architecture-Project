@@ -112,8 +112,6 @@ public class CompetitorGUI {
             return;
         }
 
-        // Step 2: Check Competition Completion
-        Manager manager = new Manager();
         boolean isComplete = manager.isCompetitionCompleted(selectedCategory, Level.valueOf(selectedLevel.toUpperCase()));
         if (!isComplete) {
             JOptionPane.showMessageDialog(frame, "Competition in " + selectedCategory + " (" + selectedLevel + ") is not complete.", "Competition Status", JOptionPane.INFORMATION_MESSAGE);
@@ -127,7 +125,7 @@ public class CompetitorGUI {
                 int competitorId = Integer.parseInt(competitorIdStr);
                 Competitor competitor = manager.getCompetitor(competitorId);
                 if (competitor != null) {
-                    JOptionPane.showMessageDialog(frame, competitor.getFullDetails(), "Competitor Details", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, competitor.getShortDetails(), "Competitor Details", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Competitor not found.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
                 }

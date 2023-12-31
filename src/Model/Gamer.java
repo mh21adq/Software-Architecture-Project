@@ -3,9 +3,10 @@ package Model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
 
 public class Gamer extends Competitor {
-
     private static final int SCORES_ARRAY_SIZE = 5;
     private static final String CATEGORY = "GAMING";
 
@@ -24,7 +25,6 @@ public class Gamer extends Competitor {
     }
 
     public void setLevel(Level level) {
-        // Ensure that the level is either NOVICE or EXPERT
         if (level == Level.NOVICE || level == Level.EXPERT) {
             this.level = level;
         } else {
@@ -36,7 +36,20 @@ public class Gamer extends Competitor {
     public String getCategory() {
         return CATEGORY;
     }
-
+    public void setScores(int[] scores) {
+        if (scores == null) {
+            throw new IllegalArgumentException("Scores array must not be null.");
+        }
+        if (scores.length != SCORES_ARRAY_SIZE) {
+            throw new IllegalArgumentException("Scores array must have " + SCORES_ARRAY_SIZE + " elements.");
+        }
+        for (int score : scores) {
+            if (score < 0 || score > 5) {
+                throw new IllegalArgumentException("Each score must be between 0 and 5.");
+            }
+        }
+        this.scores = scores;
+    }
     @Override
     public double getOverallScore() {
         int scoresToConsider;
@@ -63,29 +76,20 @@ public class Gamer extends Competitor {
     public int[] getScoreArray() {
         return scores;
     }
-    public void setScores(int[] scores) {
-        if (scores == null) {
-            throw new IllegalArgumentException("Scores array must not be null.");
-        }
-        if (scores.length != SCORES_ARRAY_SIZE) {
-            throw new IllegalArgumentException("Scores array must have " + SCORES_ARRAY_SIZE + " elements.");
-        }
-        for (int score : scores) {
-            if (score < 0 || score > 5) {
-                throw new IllegalArgumentException("Each score must be between 0 and 5.");
-            }
-        }
-        this.scores = scores;
-    }
 
     @Override
     public String getFullDetails() {
-        return super.getFullDetails() + "\nReceived scores: " + this.getScores() +
-                "\nOverall score: " + this.getOverallScore();
+        return super.getFullDetails() +
+                "Category: " + this.getCategory() + "\n" +
+                "Level: " + this.getLevel() + "\n" +
+                "Received Scores: " + this.formatScores()+ "\n" +
+                "Overall Score: " + this.getOverallScore() + "\n" ;
     }
+
 
     @Override
     public String getShortDetails() {
-        return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.getScores();
+        return super.getShortDetails() + " in category " + CATEGORY +
+                ". Scores: " + this.formatScores();
     }
 }

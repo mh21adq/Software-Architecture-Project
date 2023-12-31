@@ -1,164 +1,375 @@
+==== Competitors in Category: ICE SKATING ====
+============= ICE SKATING ==============
+-------------- Level: BEGINNER -------------
 
-===== CATEGORY: ICE SKATING =====
+Competitor Number: 114
+Name: Methen George
+Email: mg999@herts.com
+Gender: Male
+Age: 30
+Country: UK
+Category: ICE SKATING
+Level: BEGINNER
+Received Scores: 4, 3, 2, 6
+Overall Score: 3.125
 
+
+Competitor Number: 100
+Name: Ann Sthen
+Email: as123@gmail.com
+Gender: Female
+Age: 23
+Country: UK
+Category: ICE SKATING
+Level: BEGINNER
+Received Scores: 5, 2, 1, 6
+Overall Score: 2.95
+
+
+Competitor Number: 109
+Name: Mary Francis
+Email: mf55@gmail.com
+Gender: Male
+Age: 27
+Country: UK
+Category: ICE SKATING
+Level: BEGINNER
+Received Scores: 0, 2, 6, 6
+Overall Score: 2.7
+
+-------------- Level: INTERMEDIATE -------------
+
+Competitor Number: 105
+Name: Vicy Mathew
+Email: vm99@gmail.com
+Gender: Male
+Age: 33
+Country: UK
+Category: ICE SKATING
+Level: INTERMEDIATE
+Received Scores: 6, 2, 5, 5
+Overall Score: 1.775
+
+
+Competitor Number: 115
+Name: Scarlett John
+Email: sj1111@gmail.com
+Gender: Female
+Age: 25
+Country: UK
+Category: ICE SKATING
+Level: INTERMEDIATE
+Received Scores: 3, 4, 6, 5
+Overall Score: 1.65
+
+
+Competitor Number: 113
+Name: Jojo Mony
+Email: jm555@gmail.com
+Gender: Male
+Age: 31
+Country: UK
+Category: ICE SKATING
+Level: INTERMEDIATE
+Received Scores: 2, 3, 6, 5
+Overall Score: 1.375
+
+-------------- Level: ADVANCED -------------
+
+Competitor Number: 116
+Name: Patrick Shanon
+Email: ps767@gmail.com
+Gender: Male
+Age: 22
+Country: US
+Category: ICE SKATING
+Level: ADVANCED
+Received Scores: 4, 3, 5, 1
+Overall Score: 2.219
+
+
+Competitor Number: 102
+Name: Kaith Andy Clos
+Email: kac123@yahoo.com
+Gender: Female
+Age: 29
+Country: UK
+Category: ICE SKATING
+Level: ADVANCED
+Received Scores: 4, 5, 2, 2
+Overall Score: 2.089
+
+
+Competitor Number: 117
+Name: Rod Stod
+Email: rs777@herts.acom
+Gender: Male
+Age: 26
+Country: UK
+Category: ICE SKATING
+Level: ADVANCED
+Received Scores: 5, 2, 2, 4
+Overall Score: 1.639
+
+
+Competitor Number: 110
+Name: Jomon Vicy
+Email: jv123@yahoo.com
+Gender: Male
+Age: 22
+Country: UK
+Category: ICE SKATING
+Level: ADVANCED
+Received Scores: 6, 3, 1, 2
+Overall Score: 1.416
+
+
+***** Top Scorers by Category and Level *****
+-- Category: ICE SKATING --
 -- Level: BEGINNER --
-Competitors:
-
-Competitor Number 109, Name Mary Francis, Country UK.
-Mary is a BEGINNER aged 27.
-Received scores: 0, 2, 6, 6
-Overall score: 3.6
-
-Competitor Number 114, Name Methen George, Country UK.
-Methen is a BEGINNER aged 30.
-Received scores: 4, 3, 2, 6
-Overall score: 3.5
-
-Competitor Number 100, Name Ann Sthen, Country UK.
-Ann is a BEGINNER aged 23.
-Received scores: 5, 2, 1, 6
-Overall score: 3.1
 
 Highest Scorer:
 
-Competitor Number 109, Name Mary Francis, Country UK.
-Mary is a BEGINNER aged 27.
-Received scores: 0, 2, 6, 6
-Overall score: 3.6
+Competitor Number: 114
+Name: Methen George
+Email: mg999@herts.com
+Gender: Male
+Age: 30
+Country: UK
+Category: ICE SKATING
+Level: BEGINNER
+Received Scores: 4, 3, 2, 6
+Overall Score: 3.125
 
+
+***** Top Scorers by Category and Level *****
+-- Category: ICE SKATING --
 -- Level: INTERMEDIATE --
-Competitors:
-
-Competitor Number 115, Name Scarlett John, Country UK.
-Scarlett is a INTERMEDIATE aged 25.
-Received scores: 3, 4, 6, 5
-Overall score: 4.8
-
-Competitor Number 105, Name Vicy Mathew, Country UK.
-Vicy is a INTERMEDIATE aged 33.
-Received scores: 6, 2, 5, 5
-Overall score: 4.4
-
-Competitor Number 113, Name Jojo Mony, Country UK.
-Jojo is a INTERMEDIATE aged 31.
-Received scores: 2, 3, 6, 5
-Overall score: 4.4
 
 Highest Scorer:
 
-Competitor Number 115, Name Scarlett John, Country UK.
-Scarlett is a INTERMEDIATE aged 25.
-Received scores: 3, 4, 6, 5
-Overall score: 4.8
+Competitor Number: 105
+Name: Vicy Mathew
+Email: vm99@gmail.com
+Gender: Male
+Age: 33
+Country: UK
+Category: ICE SKATING
+Level: INTERMEDIATE
+Received Scores: 6, 2, 5, 5
+Overall Score: 1.775
 
+
+***** Top Scorers by Category and Level *****
+-- Category: ICE SKATING --
 -- Level: ADVANCED --
-Competitors:
-
-Competitor Number 116, Name Patrick Shanon, Country US.
-Patrick is a ADVANCED aged 22.
-Received scores: 4, 3, 5, 1
-Overall score: 3.3
-
-Competitor Number 117, Name Rod Stod, Country UK.
-Rod is a ADVANCED aged 26.
-Received scores: 5, 2, 2, 4
-Overall score: 2.9
-
-Competitor Number 102, Name Kaith Andy Clos, Country UK.
-Kaith is a ADVANCED aged 29.
-Received scores: 4, 5, 2, 2
-Overall score: 2.8
-
-Competitor Number 110, Name Jomon Vicy, Country UK.
-Jomon is a ADVANCED aged 22.
-Received scores: 6, 3, 1, 2
-Overall score: 2.2
 
 Highest Scorer:
 
-Competitor Number 116, Name Patrick Shanon, Country US.
-Patrick is a ADVANCED aged 22.
-Received scores: 4, 3, 5, 1
-Overall score: 3.3
+Competitor Number: 116
+Name: Patrick Shanon
+Email: ps767@gmail.com
+Gender: Male
+Age: 22
+Country: US
+Category: ICE SKATING
+Level: ADVANCED
+Received Scores: 4, 3, 5, 1
+Overall Score: 2.219
 
+
+***** Top Scorers by Category and Level *****
+-- Category: ICE SKATING --
 -- Level: NOVICE --
-Competitors:
-
+No competitors found in the specified category and level.
+***** Top Scorers by Category and Level *****
+-- Category: ICE SKATING --
 -- Level: EXPERT --
-Competitors:
+No competitors found in the specified category and level.
+==== Summary Statistics ====
+Total Score: 52.74
+Average Score: 2.78
+Max Score: 5.00
+Min Score: 1.38
+==== Score Frequency Report ====
+Score 0: 3 times
+Score 1: 9 times
+Score 2: 22 times
+Score 3: 10 times
+Score 4: 14 times
+Score 5: 19 times
+Score 6: 8 times
+==== Competitors in Category: GAMING ====
+============= GAMING ==============
+-------------- Level: NOVICE -------------
 
-===== CATEGORY: GAMING =====
+Competitor Number: 101
+Name: George Beth Shon
+Email: gbs@gmail.com
+Gender: Male
+Age: 31
+Country: UK
+Category: GAMING
+Level: NOVICE
+Received Scores: 2, 3, 5, 5, 5
+Overall Score: 5.0
 
+
+Competitor Number: 107
+Name: Susan Mathew
+Email: sm66@example.com
+Gender: Female
+Age: 28
+Country: US
+Category: GAMING
+Level: NOVICE
+Received Scores: 5, 1, 5, 3, 4
+Overall Score: 4.667
+
+
+Competitor Number: 112
+Name: Aby Mathew
+Email: am333@example.com
+Gender: Male
+Age: 34
+Country: UK
+Category: GAMING
+Level: NOVICE
+Received Scores: 2, 3, 3, 5, 2
+Overall Score: 3.667
+
+
+Competitor Number: 118
+Name: Lijo Willams
+Email: lijo32@example.com
+Gender: Male
+Age: 28
+Country: UK
+Category: GAMING
+Level: NOVICE
+Received Scores: 1, 2, 5, 0, 4
+Overall Score: 3.667
+
+
+Competitor Number: 104
+Name: Harry Patrick
+Email: hp00@example.com
+Gender: Male
+Age: 32
+Country: UK
+Category: GAMING
+Level: NOVICE
+Received Scores: 2, 2, 5, 2, 1
+Overall Score: 3.0
+
+-------------- Level: EXPERT -------------
+
+Competitor Number: 103
+Name: Mark Do Leno
+Email: mdl123@herts.com
+Gender: Male
+Age: 22
+Country: UK
+Category: GAMING
+Level: EXPERT
+Received Scores: 5, 4, 4, 2, 1
+Overall Score: 3.2
+
+
+Competitor Number: 111
+Name: Catherin George
+Email: cg00@yahoo.com
+Gender: Male
+Age: 20
+Country: UAE
+Category: GAMING
+Level: EXPERT
+Received Scores: 1, 4, 4, 2, 5
+Overall Score: 3.2
+
+
+Competitor Number: 106
+Name: Monica Loy
+Email: mdl12@herts.com
+Gender: Female
+Age: 29
+Country: US
+Category: GAMING
+Level: EXPERT
+Received Scores: 4, 4, 2, 2, 3
+Overall Score: 3.0
+
+
+Competitor Number: 108
+Name: Andy Stov
+Email: as88@gmail.com
+Gender: Female
+Age: 22
+Country: US
+Category: GAMING
+Level: EXPERT
+Received Scores: 0, 2, 1, 5, 4
+Overall Score: 2.4
+
+
+***** Top Scorers by Category and Level *****
+-- Category: GAMING --
 -- Level: BEGINNER --
-Competitors:
-
+No competitors found in the specified category and level.
+***** Top Scorers by Category and Level *****
+-- Category: GAMING --
 -- Level: INTERMEDIATE --
-Competitors:
-
+No competitors found in the specified category and level.
+***** Top Scorers by Category and Level *****
+-- Category: GAMING --
 -- Level: ADVANCED --
-Competitors:
-
+No competitors found in the specified category and level.
+***** Top Scorers by Category and Level *****
+-- Category: GAMING --
 -- Level: NOVICE --
-Competitors:
-
-Competitor Number 101, Name George Beth Shon, Country UK.
-George is a NOVICE aged 31.
-Received scores: 2, 3, 5, 5, 5
-Overall score: 5.0
-
-Competitor Number 107, Name Susan Mathew, Country US.
-Susan is a NOVICE aged 28.
-Received scores: 5, 1, 5, 3, 4
-Overall score: 4.667
-
-Competitor Number 112, Name Aby Mathew, Country UK.
-Aby is a NOVICE aged 34.
-Received scores: 2, 3, 3, 5, 2
-Overall score: 3.667
-
-Competitor Number 118, Name Lijo Willams, Country UK.
-Lijo is a NOVICE aged 28.
-Received scores: 1, 2, 5, 0, 4
-Overall score: 3.667
-
-Competitor Number 104, Name Harry Patrick, Country UK.
-Harry is a NOVICE aged 32.
-Received scores: 2, 2, 5, 2, 1
-Overall score: 3.0
 
 Highest Scorer:
 
-Competitor Number 101, Name George Beth Shon, Country UK.
-George is a NOVICE aged 31.
-Received scores: 2, 3, 5, 5, 5
-Overall score: 5.0
+Competitor Number: 101
+Name: George Beth Shon
+Email: gbs@gmail.com
+Gender: Male
+Age: 31
+Country: UK
+Category: GAMING
+Level: NOVICE
+Received Scores: 2, 3, 5, 5, 5
+Overall Score: 5.0
 
+
+***** Top Scorers by Category and Level *****
+-- Category: GAMING --
 -- Level: EXPERT --
-Competitors:
-
-Competitor Number 103, Name Mark Do Leno, Country UK.
-Mark is a EXPERT aged 22.
-Received scores: 5, 4, 4, 2, 1
-Overall score: 3.2
-
-Competitor Number 111, Name Catherin George, Country UAE.
-Catherin is a EXPERT aged 20.
-Received scores: 1, 4, 4, 2, 5
-Overall score: 3.2
-
-Competitor Number 106, Name Monica Loy, Country US.
-Monica is a EXPERT aged 29.
-Received scores: 4, 4, 2, 2, 3
-Overall score: 3.0
-
-Competitor Number 108, Name Andy Stov, Country US.
-Andy is a EXPERT aged 22.
-Received scores: 0, 2, 1, 5, 4
-Overall score: 2.4
 
 Highest Scorer:
 
-Competitor Number 103, Name Mark Do Leno, Country UK.
-Mark is a EXPERT aged 22.
-Received scores: 5, 4, 4, 2, 1
-Overall score: 3.2
+Competitor Number: 103
+Name: Mark Do Leno
+Email: mdl123@herts.com
+Gender: Male
+Age: 22
+Country: UK
+Category: GAMING
+Level: EXPERT
+Received Scores: 5, 4, 4, 2, 1
+Overall Score: 3.2
+
+
+==== Summary Statistics ====
+Total Score: 52.74
+Average Score: 2.78
+Max Score: 5.00
+Min Score: 1.38
+==== Score Frequency Report ====
+Score 0: 3 times
+Score 1: 9 times
+Score 2: 22 times
+Score 3: 10 times
+Score 4: 14 times
+Score 5: 19 times
+Score 6: 8 times

@@ -2,7 +2,6 @@ package Model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Arrays;
 
 public class IceSkater extends Competitor {
     private static final int SCORES_ARRAY_SIZE = 4;
@@ -37,25 +36,22 @@ public class IceSkater extends Competitor {
     @Override
     public double getOverallScore() {
         double weightedSum = 0;
-        double totalWeight = 0;
         double[] weights;
-
+//Weights are put in such a way so that it cannot get over 5;
         if (this.level == Level.BEGINNER) {
-            weights = new double[]{0.2, 0.3, 0.3, 0.2};
+            weights = new double[]{1.0, 0.9, 0.8, 0.7};
         } else if (this.level == Level.INTERMEDIATE) {
-            weights = new double[]{0.15, 0.25, 0.35, 0.25};
+            weights = new double[]{0.6, 0.5, 0.3, 0.2};
         } else if (this.level == Level.ADVANCED) {
-            weights = new double[]{0.1, 0.2, 0.4, 0.3};
+            weights = new double[]{0.125, 0.975, 0.99, 0.5};
         } else {
             throw new IllegalStateException("Unknown level: " + this.level);
         }
-
         for (int i = 0; i < SCORES_ARRAY_SIZE; i++) {
             weightedSum += scores[i] * weights[i];
-            totalWeight += weights[i];
         }
 
-        double weightedAverage = weightedSum / totalWeight;
+        double weightedAverage = weightedSum / SCORES_ARRAY_SIZE;
         return BigDecimal.valueOf(weightedAverage).setScale(3, RoundingMode.HALF_UP).doubleValue();
     }
 
@@ -83,13 +79,17 @@ public class IceSkater extends Competitor {
 
     @Override
     public String getFullDetails() {
-        return super.getFullDetails() + "\nReceived scores: " + this.getScores() +
-                "\nOverall score: " + getOverallScore();
+        return super.getFullDetails() +
+                "Category: " + this.getCategory() + "\n" +
+                "Level: " + this.getLevel() + "\n" +
+                "Received Scores: " +this.formatScores() + "\n" +
+                "Overall Score: " + this.getOverallScore() + "\n" ;
     }
+
 
     @Override
     public String getShortDetails() {
-        return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.getScores();
+        return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.formatScores();
     }
 
 
