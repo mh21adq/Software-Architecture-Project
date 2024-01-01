@@ -3,10 +3,16 @@ import Model.*;
 import View.*;
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.function.Function;
+
 public class Manager {
     private final CompetitorList competitorList;
     private static final String[] CATEGORIES = {"ICE SKATING", "GAMING"};
     private static final Level[] LEVELS = Level.values();
+    private static final List<Level> GAMING_LEVELS = List.of(Level.NOVICE, Level.EXPERT);
+    private static final List<Level> ICE_SKATING_LEVELS = List.of(Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED);
+
 
     public Manager() {
         competitorList = CompetitorList.getInstance();
@@ -79,7 +85,7 @@ public class Manager {
         for (String category : CATEGORIES) {
             // Append the competitors table for the category
             report.append("==== Competitors in Category: ").append(category).append(" ====\n");
-            report.append(competitorList.getCompetitorsTable(category)).append("\n");
+            report.append(getCompetitorsTable(category)).append("\n");
 
             // Iterate through each level
             for (Level level : LEVELS) {
@@ -87,14 +93,14 @@ public class Manager {
                 report.append("***** Top Scorers by Category and Level *****\n");
                 report.append("-- Category: ").append(category).append(" --\n");
                 report.append("-- Level: ").append(level).append(" --\n");
-                report.append(competitorList.getTopScorerDetails(category, level)).append("\n");
+                report.append(getTopScorerDetails(category, level)).append("\n");
             }
 
             // Append summary statistics and score frequency report
             report.append("==== Summary Statistics ====\n");
-            report.append(competitorList.getSummaryStatistics()).append("\n");
+            report.append(getSummaryStatistics()).append("\n");
             report.append("==== Score Frequency Report ====\n");
-            report.append(competitorList.getScoreFrequencyReport()).append("\n");
+            report.append(getScoreFrequencyReport()).append("\n");
         }
 
         // Output to System.out
@@ -107,10 +113,83 @@ public class Manager {
             System.err.println("Error writing to file '" + filename + "': " + e.getMessage());
         }
     }
+    public String getCompetitorsTable(String category) {
+        StringBuilder detailsBuilder = new StringBuilder();
+        List<Level> relevantLevels;
+        if (CATEGORIES[0].equals(category)) {
+            relevantLevels = ICE_SKATING_LEVELS;
+        } else if (CATEGORIES[1].equals(category)) {
+            relevantLevels = GAMING_LEVELS;
+        } else {
+            relevantLevels = Arrays.asList(Level.values());
+        }
 
+        if (!relevantLevels.isEmpty()) {
+            String categoryLine = "============= " + category + " ==============";
+            detailsBuilder.append(categoryLine).append("\n");
+
+            for (Level level : relevantLevels) {
+                String levelLine = "-------------- Level: " + level + " -------------";
+                detailsBuilder.append(levelLine).append("\n");
+
+                ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
+
+                for (Competitor competitor : competitorsInLevel) {
+                    detailsBuilder.append(competitor.getFullDetails()).append("\n");
+                }
+            }
+        } else {
+            detailsBuilder.append("No competitors available.");
+        }
+
+        return detailsBuilder.toString();
+    }
+
+    public String getTopScorerDetails(String category, Level level) {
+        Competitor competitor =competitorList.highestScoringCompetitor(category,level);
+            return "\nHighest Scorer:\n" + competitor.getFullDetails() + "\n";
+    }
+
+    // Method to get summary statistics
+    public String getSummaryStatistics() {
+        ArrayList<Competitor> allCompetitors = competitorList.getAllCompetitors();
+
+        double totalScore = allCompetitors.stream()
+                .mapToDouble(Competitor::getOverallScore)
+                .sum();
+        double averageScore = allCompetitors.stream()
+                .mapToDouble(Competitor::getOverallScore)
+                .average()
+                .orElse(0);
+        double maxScore = allCompetitors.stream()
+                .mapToDouble(Competitor::getOverallScore)
+                .max()
+                .orElse(0);
+        double minScore = allCompetitors.stream()
+                .mapToDouble(Competitor::getOverallScore)
+                .min()
+                .orElse(0);
+
+        return String.format("Total Score: %.2f\nAverage Score: %.2f\nMax Score: %.2f\nMin Score: %.2f",
+                totalScore, averageScore, maxScore, minScore);
+    }
+
+    // Method to get score frequency report
+    public String getScoreFrequencyReport() {
+        ArrayList<Competitor> allCompetitors = competitorList.getAllCompetitors();
+
+        Map<Integer, Long> frequencyMap = allCompetitors.stream()
+                .flatMapToInt(c -> Arrays.stream(c.getScoreArray()))
+                .boxed()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return frequencyMap.entrySet().stream()
+                .map(entry -> "Score " + entry.getKey() + ": " + entry.getValue() + " times")
+                .collect(Collectors.joining("\n"));
+    }
 
     public boolean addCompetitor(Competitor competitor) {
-        for (Competitor existingCompetitor : getAllCompetitors()) {
+        for (Competitor existingCompetitor : competitorList.getAllCompetitors()) {
             if (existingCompetitor.getEmail().equalsIgnoreCase(competitor.getEmail()) &&
                     existingCompetitor.getCategory().equalsIgnoreCase(competitor.getCategory())) {
                 return false;
@@ -125,10 +204,6 @@ public class Manager {
         return  competitorList.removeCompetitor(competitorNumber);
     }
 
-    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
-        return competitorList.getCompetitorsByCategory(category);
-    }
-
     public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
         return competitorList.searchCompetitorsByLevel(category, level);
     }
@@ -141,11 +216,6 @@ public class Manager {
         return competitorList.getAllCompetitors();
     }
 
-
-    public String competitorsTable(String category) {
-
-        return competitorList.getCompetitorsTable(category);
-    }
     public Competitor highestScoringCompetitor(String category, Level level)
     {
        return competitorList.highestScoringCompetitor(category,level);
