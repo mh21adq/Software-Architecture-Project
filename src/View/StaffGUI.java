@@ -24,19 +24,26 @@ public class StaffGUI {
 
     private void initializeGUI() {
         frame = new JFrame("Staff Management");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridBagLayout()); // Use GridBagLayout for precise positioning
-        frame.setSize(600, 800);
-        frame.setLocationRelativeTo(null);
+        frame.setLayout(new GridBagLayout());
+        frame.setSize(500, 600);
 
-        Color backgroundColor = new Color(230, 230, 250); // Light lavender
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        int x = screenWidth - frame.getWidth();
+        int y = (screenHeight - frame.getHeight()) / 2;
+
+        frame.setLocation(x, y);
+
+       Color backgroundColor = new Color(230, 230, 250);
         Color labelColor = new Color(70, 130, 180); // Steel blue
         Font labelFont = new Font("Arial", Font.BOLD, 12);
 
         frame.getContentPane().setBackground(backgroundColor);
 
         // Title
-        JLabel titleLabel = new JLabel("Registration Form");
+        JLabel titleLabel = new JLabel("Staff Sign In");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(labelColor);
         GridBagConstraints titleConstraints = new GridBagConstraints();
@@ -89,8 +96,10 @@ public class StaffGUI {
         openButtonConstraints.anchor = GridBagConstraints.CENTER;
         openButton.addActionListener(e -> handleStaffVerification());
         frame.add(openButton, openButtonConstraints);
-
         frame.setVisible(true);
+        Timer focusTimer = new Timer(100, e -> nameField.requestFocusInWindow());
+        focusTimer.setRepeats(false);
+        focusTimer.start();
     }
 
 

@@ -23,12 +23,7 @@ public class AudienceGUI {
         frame = new JFrame("Live Competition Results");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setSize(550, 800);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        int x = (screenSize.width - 550) / 2;
-        int y = 0;
-        frame.setLocation(x, y);
+        frame.setSize(500, 600);
 
         // Font and Color Setup
         Font titleFont = new Font("Monospaced", Font.BOLD, 20);

@@ -225,28 +225,16 @@ public class Manager {
         }
 
         for (Competitor competitor : competitorsInLevel) {
-            if (!isCompetitorScoreComplete(competitor)) {
+            int[] scores = competitor.getScoreArray();
+            if (scores == null || scores.length == 0) {
                 return false;
             }
+
         }
 
         return true;
     }
 
-    private boolean isCompetitorScoreComplete(Competitor competitor) {
-        int[] scores = competitor.getScoreArray();
-        if (scores == null || scores.length == 0) {
-            return false;
-        }
-
-        for (int score : scores) {
-            if (score == 0) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
 
 
