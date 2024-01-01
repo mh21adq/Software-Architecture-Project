@@ -301,8 +301,8 @@ public class StaffGUI {
 
     private ActionListener createViewAllCompetitorsListener() {
         return e -> {
-            String iceSkaters = manager.competitorsTable("ICE SKATING");
-            String gamers = manager.competitorsTable("GAMING");
+            String iceSkaters = manager.getCompetitorsTable("ICE SKATING");
+            String gamers = manager.getCompetitorsTable("GAMING");
 
             JScrollPane scrollPane = createScrollPaneForText(iceSkaters + gamers);
             JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
@@ -324,7 +324,7 @@ public class StaffGUI {
 
             if (choice != JOptionPane.CLOSED_OPTION) {
                 String selectedCategory = options[choice];
-                String competitors = manager.competitorsTable(selectedCategory);
+                String competitors = manager.getCompetitorsTable(selectedCategory);
 
                 JScrollPane scrollPane = createScrollPaneForText(competitors);
                 JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);

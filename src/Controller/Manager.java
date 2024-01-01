@@ -83,36 +83,34 @@ public class Manager {
 
         // Iterate through each category
         for (String category : CATEGORIES) {
-            // Append the competitors table for the category
             report.append("==== Competitors in Category: ").append(category).append(" ====\n");
             report.append(getCompetitorsTable(category)).append("\n");
 
-            // Iterate through each level
+            // Iterate through each level within the category
             for (Level level : LEVELS) {
-                // Append top scorers by category and level
-                report.append("***** Top Scorers by Category and Level *****\n");
-                report.append("-- Category: ").append(category).append(" --\n");
-                report.append("-- Level: ").append(level).append(" --\n");
-                report.append(getTopScorerDetails(category, level)).append("\n");
+                // Check if there are competitors and a highest scorer in this level for the category
+                if (!competitorList.searchCompetitorsByLevel(category, level).isEmpty() &&
+                        competitorList.highestScoringCompetitor(category, level) != null) {
+                    report.append("-- Level: ").append(level).append(" --\n");
+                    report.append(getTopScorerDetails(category, level)).append("\n");
+                }
             }
 
-            // Append summary statistics and score frequency report
-            report.append("==== Summary Statistics ====\n");
-            report.append(getSummaryStatistics()).append("\n");
-            report.append("==== Score Frequency Report ====\n");
-            report.append(getScoreFrequencyReport()).append("\n");
+            // Append summary statistics and score frequency report for the entire category
+            report.append("==== Summary Statistics ====\n").append(getSummaryStatistics(category)).append("\n");
+            report.append("==== Score Frequency Report ====\n").append(getScoreFrequencyReport(category)).append("\n");
         }
 
-        // Output to System.out
+        // Output to System.out and Write to file
         System.out.println(report);
-
-        // Write to file
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(report.toString());
         } catch (IOException e) {
             System.err.println("Error writing to file '" + filename + "': " + e.getMessage());
         }
     }
+
+
     public String getCompetitorsTable(String category) {
         StringBuilder detailsBuilder = new StringBuilder();
         List<Level> relevantLevels;
@@ -146,26 +144,28 @@ public class Manager {
     }
 
     public String getTopScorerDetails(String category, Level level) {
-        Competitor competitor =competitorList.highestScoringCompetitor(category,level);
-            return "\nHighest Scorer:\n" + competitor.getFullDetails() + "\n";
+        Competitor highestScorer = competitorList.highestScoringCompetitor(category, level);
+        if (highestScorer == null) {
+            return "No highest scorer found for " + category + " in level " + level + "\n";
+        }
+        return "\nHighest Scorer:\n" + highestScorer.getFullDetails() + "\n";
     }
-
     // Method to get summary statistics
-    public String getSummaryStatistics() {
-        ArrayList<Competitor> allCompetitors = competitorList.getAllCompetitors();
+    public String getSummaryStatistics(String category) {
+        ArrayList<Competitor> competitorsInCategory = competitorList.getCompetitorsByCategory(category);
 
-        double totalScore = allCompetitors.stream()
+        double totalScore = competitorsInCategory.stream()
                 .mapToDouble(Competitor::getOverallScore)
                 .sum();
-        double averageScore = allCompetitors.stream()
+        double averageScore = competitorsInCategory.stream()
                 .mapToDouble(Competitor::getOverallScore)
                 .average()
                 .orElse(0);
-        double maxScore = allCompetitors.stream()
+        double maxScore = competitorsInCategory.stream()
                 .mapToDouble(Competitor::getOverallScore)
                 .max()
                 .orElse(0);
-        double minScore = allCompetitors.stream()
+        double minScore = competitorsInCategory.stream()
                 .mapToDouble(Competitor::getOverallScore)
                 .min()
                 .orElse(0);
@@ -174,16 +174,16 @@ public class Manager {
                 totalScore, averageScore, maxScore, minScore);
     }
 
-    // Method to get score frequency report
-    public String getScoreFrequencyReport() {
-        ArrayList<Competitor> allCompetitors = competitorList.getAllCompetitors();
+    public String getScoreFrequencyReport(String category) {
+        ArrayList<Competitor> competitorsInCategory = competitorList.getCompetitorsByCategory(category);
 
-        Map<Integer, Long> frequencyMap = allCompetitors.stream()
+        Map<Integer, Long> frequencyMap = competitorsInCategory.stream()
                 .flatMapToInt(c -> Arrays.stream(c.getScoreArray()))
                 .boxed()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
         return frequencyMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
                 .map(entry -> "Score " + entry.getKey() + ": " + entry.getValue() + " times")
                 .collect(Collectors.joining("\n"));
     }
@@ -212,9 +212,6 @@ public class Manager {
         return competitorList.getCompetitor(competitorId);
     }
 
-    public ArrayList<Competitor> getAllCompetitors() {
-        return competitorList.getAllCompetitors();
-    }
 
     public Competitor highestScoringCompetitor(String category, Level level)
     {
@@ -224,31 +221,31 @@ public class Manager {
     public boolean isCompetitionCompleted(String category, Level level) {
         ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
         if (competitorsInLevel.isEmpty()) {
-            return false; // No competitors in the given category and level
+            return false;
         }
 
         for (Competitor competitor : competitorsInLevel) {
             if (!isCompetitorScoreComplete(competitor)) {
-                return false; // Found a competitor with incomplete scores
+                return false;
             }
         }
 
-        return true; // All competitors in the specified category and level have complete scores
+        return true;
     }
 
     private boolean isCompetitorScoreComplete(Competitor competitor) {
-        int[] scores = competitor.getScoreArray(); // Assuming Competitor class has this method
+        int[] scores = competitor.getScoreArray();
         if (scores == null || scores.length == 0) {
             return false;
         }
 
         for (int score : scores) {
             if (score == 0) {
-                return false; // Score is incomplete
+                return false;
             }
         }
 
-        return true; // All scores are non-zero
+        return true;
     }
 
 
@@ -258,11 +255,9 @@ public class Manager {
     }
 
     public void openCompetitorGUI(Manager manager) {
-        // Directly create and display the StaffGUI
         new CompetitorGUI(manager);
     }
     public void openAudienceGUI(Manager manager) {
-        // Directly create and display the StaffGUI
 
        new AudienceGUI(manager);
     }

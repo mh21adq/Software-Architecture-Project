@@ -124,8 +124,6 @@ Received Scores: 6, 3, 1, 2
 Overall Score: 1.416
 
 
-***** Top Scorers by Category and Level *****
--- Category: ICE SKATING --
 -- Level: BEGINNER --
 
 Highest Scorer:
@@ -142,8 +140,6 @@ Received Scores: 4, 3, 2, 6
 Overall Score: 3.125
 
 
-***** Top Scorers by Category and Level *****
--- Category: ICE SKATING --
 -- Level: INTERMEDIATE --
 
 Highest Scorer:
@@ -160,8 +156,6 @@ Received Scores: 6, 2, 5, 5
 Overall Score: 1.775
 
 
-***** Top Scorers by Category and Level *****
--- Category: ICE SKATING --
 -- Level: ADVANCED --
 
 Highest Scorer:
@@ -178,26 +172,18 @@ Received Scores: 4, 3, 5, 1
 Overall Score: 2.219
 
 
-***** Top Scorers by Category and Level *****
--- Category: ICE SKATING --
--- Level: NOVICE --
-No competitors found in the specified category and level.
-***** Top Scorers by Category and Level *****
--- Category: ICE SKATING --
--- Level: EXPERT --
-No competitors found in the specified category and level.
 ==== Summary Statistics ====
-Total Score: 52.74
-Average Score: 2.78
-Max Score: 5.00
+Total Score: 20.94
+Average Score: 2.09
+Max Score: 3.13
 Min Score: 1.38
 ==== Score Frequency Report ====
-Score 0: 3 times
-Score 1: 9 times
-Score 2: 22 times
-Score 3: 10 times
-Score 4: 14 times
-Score 5: 19 times
+Score 0: 1 times
+Score 1: 3 times
+Score 2: 10 times
+Score 3: 5 times
+Score 4: 5 times
+Score 5: 8 times
 Score 6: 8 times
 ==== Competitors in Category: GAMING ====
 ============= GAMING ==============
@@ -312,20 +298,6 @@ Received Scores: 0, 2, 1, 5, 4
 Overall Score: 2.4
 
 
-***** Top Scorers by Category and Level *****
--- Category: GAMING --
--- Level: BEGINNER --
-No competitors found in the specified category and level.
-***** Top Scorers by Category and Level *****
--- Category: GAMING --
--- Level: INTERMEDIATE --
-No competitors found in the specified category and level.
-***** Top Scorers by Category and Level *****
--- Category: GAMING --
--- Level: ADVANCED --
-No competitors found in the specified category and level.
-***** Top Scorers by Category and Level *****
--- Category: GAMING --
 -- Level: NOVICE --
 
 Highest Scorer:
@@ -342,8 +314,6 @@ Received Scores: 2, 3, 5, 5, 5
 Overall Score: 5.0
 
 
-***** Top Scorers by Category and Level *****
--- Category: GAMING --
 -- Level: EXPERT --
 
 Highest Scorer:
@@ -361,15 +331,14 @@ Overall Score: 3.2
 
 
 ==== Summary Statistics ====
-Total Score: 52.74
-Average Score: 2.78
+Total Score: 31.80
+Average Score: 3.53
 Max Score: 5.00
-Min Score: 1.38
+Min Score: 2.40
 ==== Score Frequency Report ====
-Score 0: 3 times
-Score 1: 9 times
-Score 2: 22 times
-Score 3: 10 times
-Score 4: 14 times
-Score 5: 19 times
-Score 6: 8 times
+Score 0: 2 times
+Score 1: 6 times
+Score 2: 12 times
+Score 3: 5 times
+Score 4: 9 times
+Score 5: 11 times

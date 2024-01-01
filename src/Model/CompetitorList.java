@@ -9,7 +9,6 @@ import java.util.function.Function;
 public class CompetitorList {
     private static CompetitorList instance;
     private ArrayList<Competitor> allCompetitors;
-    private static final String[] CATEGORIES = {"ICE SKATING", "GAMING"};
 
     private CompetitorList() {
         allCompetitors = new ArrayList<>();
@@ -48,9 +47,11 @@ public class CompetitorList {
                 .sorted(Comparator.comparingDouble(Competitor::getOverallScore).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-    public Competitor highestScoringCompetitor(String category, Level level)
-    {
-        ArrayList<Competitor> competitorsInLevel=searchCompetitorsByLevel(category,level);
+    public Competitor highestScoringCompetitor(String category, Level level) {
+        ArrayList<Competitor> competitorsInLevel = searchCompetitorsByLevel(category, level);
+        if (competitorsInLevel.isEmpty()) {
+            return null;
+        }
         return competitorsInLevel.get(0);
     }
     public Competitor getCompetitor(int competitorId) {
