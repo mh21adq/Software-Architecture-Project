@@ -129,6 +129,17 @@ public class AudienceGUI{
         processCompetitors(iceSkatersTextArea, "Ice Skating", iceSkaterLevels);
     }
 
+    /**
+     * Processes and displays a sorted list of competitors by their scores within a specified category and levels.
+     * This method retrieves competitors from the manager, sorts them by their overall score for each level,
+     * and appends the results to the provided JTextArea.
+     * Each competitor's first name and initials, along with their overall score formatted to two decimal places,
+     * are displayed in a ranked list for each level.
+     *
+     * @param textArea The JTextArea component where the sorted competitors' information will be displayed.
+     * @param category The category of the competitors to be processed (e.g., ICE SKATING or GAMING).
+     * @param levels   An array of Level enums representing the competition levels to include in the processing.
+     */
     private void processCompetitors(JTextArea textArea, String category, Level[] levels) {
         StringBuilder results = new StringBuilder();
 

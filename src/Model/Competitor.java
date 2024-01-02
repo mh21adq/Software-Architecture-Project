@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  */
 public abstract class Competitor {
     private static int lastNumber = 100;
-    private final int competitorNumber;
+    private  int competitorNumber;
     private Name name;
     private String email;
     private int age;
@@ -16,8 +16,7 @@ public abstract class Competitor {
     private String country;
 
     /**
-     * Initializes a new competitor with the specified attributes and auto-generates a unique competitor number.
-     * This constructor is typically used when registering a new competitor where a competitor number has not yet been assigned.
+     * Initializes a new competitor with the specified attributes.
      *
      * @param name    The competitor's name.
      * @param email   The competitor's email address.
@@ -26,28 +25,25 @@ public abstract class Competitor {
      * @param country The competitor's country.
      */
     public Competitor(Name name, String email, int age, String gender, String country) {
-        this(lastNumber++, name, email, age, gender, country);
-    }
-
-    /**
-     * Initializes a new competitor with a pre-assigned competitor number and the specified attributes.
-     * This constructor is typically used when creating Competitor objects from data read from a file,
-     * where a competitor number is already determined.
-     *
-     * @param competitorNumber The pre-assigned unique identifier for the competitor.
-     * @param name             The competitor's name.
-     * @param email            The competitor's email address.
-     * @param age              The competitor's age.
-     * @param gender           The competitor's gender.
-     * @param country          The competitor's country.
-     */
-    public Competitor(int competitorNumber, Name name, String email, int age, String gender, String country) {
-        this.competitorNumber = competitorNumber;
+        this.competitorNumber = lastNumber++;
         this.setName(name);
         this.setEmail(email);
         this.setAge(age);
         this.setGender(gender);
         this.setCountry(country);
+    }
+
+    /**
+     * Sets the competitor's number and updates the static counter to the provided competitor number.
+     * This method is intended for use when reading competitor data from a file where competitor numbers
+     * are pre-assigned. It ensures that the next auto-generated competitor number continues from the
+     * last assigned number to maintain uniqueness.
+     *
+     * @param competitorNumber The pre-assigned unique identifier for the competitor.
+     */
+    public void setCompetitorNumber(int competitorNumber) {
+        this.competitorNumber = competitorNumber;
+        lastNumber = competitorNumber;
     }
     /**
      * Gets the competitor's unique number.

@@ -44,34 +44,38 @@ public class Manager {
     }
 
     /**
-     * Processes a line of competitor data from the input file.
+     * Processes a single line of input representing a competitor's data.
+     * This method extracts data from the line, creates a Competitor object, and adds it to the competition.
+     * If the data format is incorrect and causes an exception, an error message is printed.
      *
-     * @param line The line of data to process.
+     * @param line A string representing a line of input with competitor data.
      */
     private void processLine(String line) {
         try {
             String[] data = line.split(",");
-
-            Name name = parseName(data[0]);
-            String email = data[1].trim();
-            int age = Integer.parseInt(data[2].trim());
-            String gender = data[3].trim();
-            Level level = Level.valueOf(data[4].trim().toUpperCase());
-            String category = data[5].trim();
-            String country = data[6].trim();
+            int competitorNumber = Integer.parseInt(data[0].trim());
+            Name name = parseName(data[1]);
+            String email = data[2].trim();
+            int age = Integer.parseInt(data[3].trim());
+            String gender = data[4].trim();
+            Level level = Level.valueOf(data[5].trim().toUpperCase());
+            String category = data[6].trim();
+            String country = data[7].trim();
             int[] scores = parseScores(data);
 
-            Competitor competitor = createCompetitor(name, email, age, gender, country, level, category, scores);
+            Competitor competitor = createCompetitor(competitorNumber, name, email, age, gender, country, level, category, scores);
             addCompetitor(competitor);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             System.err.println("Error processing line: " + line + "; Error: " + e.getMessage());
         }
     }
 
     /**
-     * Parses a name from a string.
+     * Parses a string representing a name into a Name object.
+     * The string can contain first, middle, and last names separated by spaces.
+     * Depending on the number of space-separated values, different Name constructors are called.
      *
-     * @param nameData The string containing name data.
+     * @param nameData The string containing the name data.
      * @return A Name object representing the parsed name.
      */
     private Name parseName(String nameData) {
@@ -84,22 +88,24 @@ public class Manager {
     }
 
     /**
-     * Parses scores from an array of strings.
+     * Parses an array of strings representing score data into an array of integers.
+     * If a score cannot be parsed due to format issues, it is set to 0 by default.
      *
-     * @param data The array of strings containing scores.
+     * @param data The array of strings containing score data.
      * @return An array of integers representing the parsed scores.
      */
     private int[] parseScores(String[] data) {
-        int[] scores = new int[data.length - 7];
-        for (int i = 7; i < data.length; i++) {
+        int[] scores = new int[data.length - 8];
+        for (int i = 8; i < data.length; i++) {
             try {
-                scores[i - 7] = Integer.parseInt(data[i].trim());
+                scores[i - 8] = Integer.parseInt(data[i].trim());
             } catch (NumberFormatException e) {
-                scores[i - 7] = 0; // Default score in case of format error
+                scores[i - 8] = 0;
             }
         }
         return scores;
     }
+
 
     /**
      * Creates a Competitor object based on the provided data.
@@ -114,11 +120,12 @@ public class Manager {
      * @param scores   The scores of the competitor.
      * @return A Competitor object representing the competitor.
      */
-    private Competitor createCompetitor(Name name, String email, int age, String gender, String country, Level level, String category, int[] scores) {
+    private Competitor createCompetitor(int competitorNumber,Name name, String email, int age, String gender, String country, Level level, String category, int[] scores) {
         Competitor competitor = CATEGORIES[0].equalsIgnoreCase(category) ?
                 new IceSkater(name, email, age, gender, country, level) :
                 new Gamer(name, email, age, gender, country, level);
         competitor.setScores(scores);
+        competitor.setCompetitorNumber(competitorNumber);
         return competitor;
     }
 
