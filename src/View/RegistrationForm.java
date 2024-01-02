@@ -202,7 +202,23 @@ public class RegistrationForm {
     private void handleRegistration() {
         try {
             String name = nameField.getText();
-            Name competitorName = new Name(name); // Can throw IllegalArgumentException
+            String[] names = name.split(" ");
+            Name competitorName;
+            if (names.length==1)
+            {
+                competitorName = new Name(names[0]);
+            }
+            else if(names.length==2)
+            {
+                competitorName = new Name(names[0],names[1]);
+            }
+            else if(names.length==3)
+            {
+                competitorName=new Name(names[0],names[1],names[2]);
+            }
+            else {
+                competitorName = new Name(names[0]);
+            }
 
             String email = emailField.getText();
             int age = Integer.parseInt(ageField.getText()); // Can throw NumberFormatException
