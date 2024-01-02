@@ -204,7 +204,7 @@ public class Manager {
         return competitorList.sortByAge(category,level);
     }
     public ArrayList<Competitor> sortByFirstName(String category, Level level) {
-        return sortByFirstName(category,level);
+        return competitorList.sortByFirstName(category,level);
     }
 
     public Competitor getCompetitor(int competitorId) {

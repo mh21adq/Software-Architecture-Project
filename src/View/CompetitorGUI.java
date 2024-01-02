@@ -4,12 +4,10 @@ import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
 public class CompetitorGUI {
 
     private JFrame frame;
-    private JButton registerButton,btnSearchCompetitor;
-    private Manager manager;
+    private final Manager manager;
 
     public CompetitorGUI(Manager manager) {
         initializeGUI();
@@ -17,6 +15,7 @@ public class CompetitorGUI {
     }
 
     private void initializeGUI() {
+        JButton registerButton,btnSearchCompetitor,btnGenerateReport;
         frame = new JFrame("Competitor Management");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -42,8 +41,10 @@ public class CompetitorGUI {
 
         btnSearchCompetitor = createButton("Search", buttonColor, buttonFont);
 
+        btnGenerateReport = createButton("Print Reports", buttonColor, buttonFont);
         buttonPanel.add(registerButton);
         buttonPanel.add(btnSearchCompetitor);
+        buttonPanel.add(btnGenerateReport);
 
         // Add the panel to the frame
         frame.add(buttonPanel, BorderLayout.CENTER);
@@ -54,7 +55,7 @@ public class CompetitorGUI {
         // Add action listeners
         registerButton.addActionListener(e -> openRegistrationForm());
         btnSearchCompetitor.addActionListener(e -> openSearchCompetitorDialog());
-
+        btnGenerateReport.addActionListener(e -> openSearchCompetitorDialog());
         // Display the frame
         frame.setVisible(true);
     }
@@ -71,7 +72,6 @@ public class CompetitorGUI {
     }
 
     private void openRegistrationForm() {
-        // Logic to open the registration form
         new RegistrationForm(manager);
     }
     private void openSearchCompetitorDialog() {

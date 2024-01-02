@@ -14,6 +14,7 @@ public class StaffGUI {
     private JTextField nameField, idField;
     private final StaffList staffList;
     private final Manager manager;
+    private  final StringBuilder competitorTable = new StringBuilder();
 
     public StaffGUI(Manager manager) {
         this.manager = manager;
@@ -142,7 +143,7 @@ public class StaffGUI {
         JButton btnViewAllCompetitors = createStyledButton("View All Competitors");
         JButton btnBrowseCategories = createStyledButton("Competitors by Category");
         JButton btnSortByAge= createStyledButton("Sort by Age");
-        JButton btnSortByFirstName= createStyledButton("Sort by First Name");
+        JButton btnSortByFirstName= createStyledButton("Sort by Name");
         JButton btnShowTopScorer = createStyledButton("Show Top Scorer");
 
         btnExitApp.addActionListener(createExitAppListener());
@@ -163,6 +164,7 @@ public class StaffGUI {
         frame.add(btnViewAllCompetitors);
         frame.add(btnBrowseCategories);
         frame.add(btnSortByAge);
+        frame.add(btnSortByFirstName);
         frame.add(btnShowTopScorer);
     }
 
@@ -379,7 +381,7 @@ public class StaffGUI {
 
                 if (selectedLevel != null) {
                     ArrayList<Competitor> competitors = manager.sortByAge(selectedCategory, selectedLevel);
-                    StringBuilder competitorTable = new StringBuilder();
+                    competitorTable.setLength(0);
 
                     for (Competitor competitor : competitors) {
                         competitorTable.append(competitor.getFullDetails()).append("\n");
@@ -415,8 +417,6 @@ public class StaffGUI {
                     for (Competitor competitor : competitors) {
                         competitorTable.append(competitor.getFullDetails()).append("\n");
                     }
-
-                    System.out.println(selectedCategory + " " + selectedLevel);
                     JScrollPane scrollPane = createScrollPaneForText(competitorTable.toString());
                     JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -426,27 +426,9 @@ public class StaffGUI {
 
     private ActionListener createShowTopScorerListener() {
         return e -> {
-            // First, ask for the category
-            String[] categories = {"ICE SKATING", "GAMING"};
-            int categoryChoice = JOptionPane.showOptionDialog(
-                    frame,
-                    "Select a category:",
-                    "Category Selection",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    categories,
-                    categories[0]);
-
-            if (categoryChoice != JOptionPane.CLOSED_OPTION) {
-                String selectedCategory = categories[categoryChoice];
-                Level[] levels;
-                if (selectedCategory.equals(categories[0])) {
-                    levels = new Level[] { Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED };
-                } else {
-                    levels = new Level[] { Level.NOVICE, Level.EXPERT };
-
-                }
+            String selectedCategory = selectCategory(frame);
+            if (selectedCategory != null) {
+                Level[] levels = createLevelsBasedOnCategory(selectedCategory);
 
                 Level selectedLevel = (Level) JOptionPane.showInputDialog(
                         frame,
@@ -458,7 +440,6 @@ public class StaffGUI {
                         levels[0]);
 
                 if (selectedLevel != null) {
-                    // Call the manager method to get the top scorer
                     Competitor topScorer = manager.highestScoringCompetitor(selectedCategory, selectedLevel);
                     if (topScorer != null) {
                         JOptionPane.showMessageDialog(frame, "Top Scorer in " + selectedCategory + " at level " + selectedLevel + ": " + topScorer.getFullDetails(), "Top Scorer", JOptionPane.INFORMATION_MESSAGE);
@@ -469,6 +450,7 @@ public class StaffGUI {
             }
         };
     }
+
 
     private ActionListener createExitAppListener() {
         return e-> {
@@ -481,9 +463,8 @@ public class StaffGUI {
                 );
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    // Assuming Manager's writeToFile method is properly implemented
                     manager.generateFinalReport("Competitor_report.csv");
-                    frame.dispose(); // Close the GUI window
+                    frame.dispose();
                 }
         };
     }
@@ -491,6 +472,8 @@ public class StaffGUI {
     private void addOfficialsComponents() {
         //Officials can do all the work done by data entry staff
         addDataEntryComponents();
+
+        //Additional work can be done by Officials
         JButton btnRegisterCompetitor = createStyledButton("Register Competitor");
         JButton btnRemoveCompetitor = createStyledButton("Remove Competitor");
         JButton btnUpdateCompetitorInfo = createStyledButton("Update Competitor Info");
