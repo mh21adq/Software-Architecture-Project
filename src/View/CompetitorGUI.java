@@ -5,15 +5,32 @@ import Controller.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The CompetitorGUI class creates the graphical user interface for the competitor management system.
+ * It provides a window with options to register a new competitor, search for existing competitors,
+ * and generate reports. This class is part of the 'View' in the MVC pattern and interacts with
+ * the 'Controller' through a Manager instance.
+ * The GUI is composed of a JFrame to which a panel containing buttons is added. These buttons
+ * are associated with various functionalities of the application, each handled by separate private
+ * methods that instantiate different parts of the GUI as needed.
+ */
 public class CompetitorGUI {
     private JFrame frame;
     private final Manager manager;
 
+    /**
+     * Constructor that initializes the GUI and sets up the manager.
+     * @param manager The manager that handles business logic and data manipulation.
+     */
     public CompetitorGUI(Manager manager) {
         initializeGUI();
         this.manager=manager;
     }
 
+    /**
+     * Initializes the main GUI components, sets up the layout, and adds action listeners
+     * to the buttons for registering competitors, searching, and report generation.
+     */
     private void initializeGUI() {
         JButton registerButton,btnSearchCompetitor,btnGenerateReport;
         frame = new JFrame("Competitor Management");
@@ -60,6 +77,13 @@ public class CompetitorGUI {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates a button with specified text, color, and font, and applies default styling.
+     * @param text  The text to be displayed on the button.
+     * @param color The background color of the button.
+     * @param font  The font used for the button's text.
+     * @return A styled JButton with the specified properties.
+     */
     private JButton createButton(String text, Color color, Font font) {
         JButton button = new JButton(text);
         button.setBackground(color);
@@ -71,9 +95,17 @@ public class CompetitorGUI {
         return button;
     }
 
+    /**
+     * Opens the registration form dialog to register a new competitor.
+     */
     private void openRegistrationForm() {
         new RegistrationForm(manager);
     }
+
+    /**
+     * Opens a dialog to search for a competitor by ID, then displays the competitor's details
+     * or an appropriate message if the competitor is not found or the information is incomplete.
+     */
     private void openSearchCompetitorDialog() {
         String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID:", "Search Competitor", JOptionPane.QUESTION_MESSAGE);
         if (competitorIdStr == null || competitorIdStr.isEmpty()) {
@@ -99,6 +131,12 @@ public class CompetitorGUI {
             JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+
+    /**
+     * Displays a dialog allowing the user to select a category, then generates and displays a report
+     * for all competitors in that category, including summary statistics.
+     */
     private void openPrintReportDialog() {
         String[] categories = {"ICE SKATING", "GAMING"};
         int categoryChoice = JOptionPane.showOptionDialog(
