@@ -14,14 +14,6 @@ public enum Role {
      * Represents the role of an Officials personnel, responsible for managing official tasks in the system.
      */
     OFFICIALS,
-
-    /**
-     * Represents the role of an Emergency Response personnel, responsible for handling emergency situations.
-     */
     EMERGENCY_RESPONSE,
-
-    /**
-     * Represents the role of a Referee, responsible for officiating and making decisions in events.
-     */
     REFEREE
 }

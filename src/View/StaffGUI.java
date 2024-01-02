@@ -9,6 +9,17 @@ import java.io.File;
 import java.util.ArrayList;
 
 
+/**
+ * The StaffGUI class creates the graphical user interface for staff management in a competition system.
+ * It offers a window with functionalities tailored to staff roles, such as data entry, officials, emergency response,
+ * and referees. The class is responsible for handling staff sign-in and providing the appropriate user interface
+ * based on the staff's role.
+ * This class is part of the 'View' layer in the MVC pattern and interacts with the 'Controller' layer through
+ * a Manager instance. The GUI allows staff to perform various actions like reading competitor data from a file,
+ * registering and removing competitors, updating competitor information, and generating reports.
+ * The GUI is built using Java Swing and organizes its components using a combination of layout managers for
+ * a structured and user-friendly interface.
+ */
 public class StaffGUI {
     private JFrame frame;
     private JTextField nameField, idField;
@@ -16,6 +27,10 @@ public class StaffGUI {
     private final Manager manager;
     private  final StringBuilder competitorTable = new StringBuilder();
 
+    /**
+     * Constructor that initializes the GUI and sets up the manager.
+     * @param manager The manager that handles business logic and data manipulation.
+     */
     public StaffGUI(Manager manager) {
         this.manager = manager;
         staffList = new StaffList();
@@ -24,6 +39,11 @@ public class StaffGUI {
         initializeGUI();
     }
 
+    /**
+     * Initializes the GUI components for staff management. This includes setting up the main frame,
+     * input fields for staff name and ID, and buttons for different functionalities based on staff roles.
+     * It also sets the window's appearance and behavior.
+     */
     private void initializeGUI() {
         frame = new JFrame("Staff Management");
         frame.setLayout(new GridBagLayout());
@@ -104,10 +124,13 @@ public class StaffGUI {
         focusTimer.start();
     }
 
-
+    /**
+     * Handles the verification of staff based on the entered name and ID. If the credentials are valid,
+     * the GUI is updated to reflect the staff's role and associated functionalities.
+     */
     private void handleStaffVerification() {
         String name = nameField.getText();
-        int staffId = Integer.parseInt(idField.getText()); // Assuming ID is always a valid integer
+        int staffId = Integer.parseInt(idField.getText());
         Staff staff = staffList.findStaffById(staffId);
 
         if (staff != null && staff.getName().getFullName().equals(name)) {
@@ -119,6 +142,12 @@ public class StaffGUI {
         }
     }
 
+    /**
+     * Updates the user interface based on the staff's role. Different components are added to the frame
+     * depending on whether the staff is in data entry, an official, part of emergency response, or a referee.
+     *
+     * @param role The role of the staff which determines the UI components to display.
+     */
     private void updateUIForRole(Role role) {
         frame.getContentPane().removeAll();
         frame.setLayout(new FlowLayout());
@@ -134,7 +163,10 @@ public class StaffGUI {
         frame.repaint();
     }
 
-
+    /**
+     * Adds components specific to data entry staff role. This includes buttons for tasks like file reading,
+     * competitor searching, score entering, and viewing or sorting competitors.
+     */
     private void addDataEntryComponents() {
         JButton btnExitApp = createStyledButton("Close");
         JButton btnReadFile = createStyledButton("Read from File");
@@ -168,30 +200,42 @@ public class StaffGUI {
         frame.add(btnShowTopScorer);
     }
 
+    /**
+     * Creates a styled button with specified text. The button is customized with specific font, background
+     * color, text color, and mouse hover effects.
+     *
+     * @param text The text to display on the button.
+     * @return A JButton styled according to specifications.
+     */
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 14)); // Set the font
-        button.setBackground(new Color(0, 123, 255)); // Background color (Primary blue)
-        button.setForeground(Color.RED); // Text color
-        button.setFocusPainted(false); // Remove focus border
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor on hover
-        button.setPreferredSize(new Dimension(200, 40)); // Set preferred size
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(new Color(0, 123, 255));
+        button.setForeground(Color.RED);
+        button.setFocusPainted(false);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(200, 40));
 
         // Add hover effect
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(23, 162, 255)); // Lighter background color on hover
+                button.setBackground(new Color(23, 162, 255));
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(new Color(0, 123, 255)); // Restore original background color on exit
+                button.setBackground(new Color(0, 123, 255));
             }
         });
 
         return button;
     }
 
-
+    /**
+     * Creates an ActionListener for reading a file. It prompts the user to select a file or enter a file path.
+     * If a valid file path is provided, the method attempts to read from the file and handle any exceptions that occur.
+     *
+     * @return An ActionListener that handles file reading operations.
+     */
     private ActionListener createReadFileListener() {
         return e -> {
             String defaultFilePath = "src/RunCompetitor.csv";
@@ -230,6 +274,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener for searching a competitor by number. It prompts the user to enter a competitor number,
+     * then attempts to find and display the competitor's details.
+     *
+     * @return An ActionListener that handles searching for a competitor.
+     */
     private ActionListener createSearchCompetitorListener() {
         return e -> {
             String competitorNumber = JOptionPane.showInputDialog(frame, "Enter Competitor Number (Natural Number):");
@@ -251,6 +301,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener for entering scores for a competitor. It prompts the user to enter a competitor ID and scores,
+     * then updates the competitor's scores accordingly.
+     *
+     * @return An ActionListener that handles entering and updating competitor scores.
+     */
     private ActionListener createEnterScoreListener() {
         return e -> {
             String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID:");
@@ -304,7 +360,13 @@ public class StaffGUI {
         };
     }
 
-
+    /**
+     * Creates a JScrollPane containing a non-editable JTextArea displaying the provided text.
+     * This method is useful for displaying large text content in a scrollable area.
+     *
+     * @param text The text to be displayed in the JTextArea.
+     * @return A JScrollPane containing the JTextArea with the given text.
+     */
     private JScrollPane createScrollPaneForText(String text) {
         JTextArea textArea = new JTextArea(text);
         textArea.setEditable(false);
@@ -316,7 +378,12 @@ public class StaffGUI {
         return scrollPane;
     }
 
-
+    /**
+     * Creates an ActionListener that displays all competitors in different categories. It gathers and shows
+     * competitor information in a scrollable pane.
+     *
+     * @return An ActionListener that handles displaying all competitors.
+     */
     private ActionListener createViewAllCompetitorsListener() {
         return e -> {
             String iceSkaters = manager.getCompetitorsTable("ICE SKATING");
@@ -326,6 +393,14 @@ public class StaffGUI {
             JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
         };
     }
+
+    /**
+     * Prompts the user to select a category from a predefined list. This method displays a dialog box with
+     * options like "ICE SKATING", "GAMING", etc., for the user to choose from.
+     *
+     * @param frame The JFrame on which to display the dialog box.
+     * @return The selected category as a String. Returns null if the dialog is closed without a selection.
+     */
     private String selectCategory(JFrame frame) {
         String[] categories = {"ICE SKATING", "GAMING"};
         int categoryChoice = JOptionPane.showOptionDialog(
@@ -344,6 +419,15 @@ public class StaffGUI {
             return categories[categoryChoice];
         }
     }
+
+    /**
+     * Determines the levels available based on the selected category. For "ICE SKATING", levels such as
+     * BEGINNER, INTERMEDIATE, and ADVANCED are returned. For other categories like "GAMING", different
+     * levels like NOVICE and EXPERT are returned.
+     *
+     * @param selectedCategory The category based on which levels are determined.
+     * @return An array of Level enumerations applicable to the selected category.
+     */
     private Level[] createLevelsBasedOnCategory(String selectedCategory) {
         if (selectedCategory.equals("ICE SKATING")) {
             return new Level[]{Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED};
@@ -352,6 +436,12 @@ public class StaffGUI {
         }
     }
 
+    /**
+     * Creates an ActionListener that allows browsing through categories. It uses selectCategory to let the
+     * user pick a category and then displays competitors in that category.
+     *
+     * @return An ActionListener for browsing categories.
+     */
     private ActionListener createBrowseCategoriesListener() {
         return e -> {
             String selectedCategory = selectCategory(frame);
@@ -364,6 +454,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener for sorting competitors by age within a selected category and level. The user
+     * is first asked to select a category and level, and then competitors are displayed sorted by age.
+     *
+     * @return An ActionListener for sorting competitors by age.
+     */
     private ActionListener createSortByAgeListener() {
         return e -> {
             String selectedCategory = selectCategory(frame);
@@ -393,6 +489,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener for sorting competitors by first name. It prompts the user to select a category
+     * and level, then sorts and displays competitors based on their first names.
+     *
+     * @return An ActionListener for sorting competitors by their first names.
+     */
     private ActionListener createSortByFirstNameListener() {
         return e -> {
             String selectedCategory = selectCategory(frame);
@@ -422,6 +524,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener to show the top scorer in a selected category and level. It uses dialogs to
+     * allow the user to choose a category and level, then displays the top scorer's details.
+     *
+     * @return An ActionListener for displaying the top scorer in a category.
+     */
     private ActionListener createShowTopScorerListener() {
         return e -> {
             String selectedCategory = selectCategory(frame);
@@ -449,7 +557,12 @@ public class StaffGUI {
         };
     }
 
-
+    /**
+     * Creates an ActionListener for exiting the application. It prompts the user for confirmation and, upon
+     * confirmation, saves data to a file and closes the application.
+     *
+     * @return An ActionListener that handles the application exit process.
+     */
     private ActionListener createExitAppListener() {
         return e-> {
                 int confirm = JOptionPane.showConfirmDialog(
@@ -467,6 +580,10 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Adds components specific to officials to the frame. This includes buttons for registering, removing,
+     * and updating competitor information. It uses helper methods to create each component and action listener.
+     */
     private void addOfficialsComponents() {
         //Officials can do all the work done by data entry staff
         addDataEntryComponents();
@@ -486,10 +603,23 @@ public class StaffGUI {
         frame.add(btnUpdateCompetitorInfo);
 
     }
+
+    /**
+     * Creates an ActionListener for registering a new competitor. It opens a registration form for entering
+     * competitor details.
+     *
+     * @return An ActionListener that opens a registration form for new competitors.
+     */
     private ActionListener createRegisterCompetitorListener() {
         return e -> new RegistrationForm(manager);
     }
 
+    /**
+     * Creates an ActionListener for removing a competitor. It prompts the user to enter the ID of the
+     * competitor to be removed and then proceeds with the removal process.
+     *
+     * @return An ActionListener that handles the removal of a competitor.
+     */
     private ActionListener createRemoveCompetitorListener() {
         return e->{
                 String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID to remove:");
@@ -511,6 +641,12 @@ public class StaffGUI {
         };
     }
 
+    /**
+     * Creates an ActionListener for updating competitor information. It prompts the user to enter a competitor ID
+     * and the details to be updated, and then updates the competitor's information accordingly.
+     *
+     * @return An ActionListener that handles updating competitor information.
+     */
     private ActionListener createUpdateCompetitorInfoListener() {
         return e->{
                 String competitorIdStr = JOptionPane.showInputDialog(frame, "Enter Competitor ID:");
@@ -549,21 +685,11 @@ public class StaffGUI {
                     if (newValue != null && !newValue.isEmpty()) {
                         try {
                             switch (selectedOption) {
-                                case "Name":
-                                    competitor.setName(new Name(newValue));
-                                    break;
-                                case "Email":
-                                    competitor.setEmail(newValue);
-                                    break;
-                                case "Age":
-                                    competitor.setAge(Integer.parseInt(newValue));
-                                    break;
-                                case "Gender":
-                                   // competitor.setGender();
-                                    break;
-                                case "Country":
-                                    competitor.setCountry(newValue);
-                                    break;
+                                case "Name"    -> competitor.setName(new Name(newValue));
+                                case "Email"   -> competitor.setEmail(newValue);
+                                case "Age"     -> competitor.setAge(Integer.parseInt(newValue));
+                                case "Gender"  -> competitor.setGender(newValue);
+                                case "Country" -> competitor.setCountry(newValue);
                             }
                             JOptionPane.showMessageDialog(frame, "Competitor updated: " + competitor.getFullDetails(), "Update Successful", JOptionPane.INFORMATION_MESSAGE);
                         } catch (NumberFormatException ex) {
