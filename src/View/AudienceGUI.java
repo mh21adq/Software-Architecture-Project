@@ -6,16 +6,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+/**
+ * The AudienceGUI class creates and displays the graphical user interface for audience members
+ * to view live competition results. It provides separate sections for different categories of competitors.
+ */
 public class AudienceGUI{
     private JTextArea gamersTextArea;
     private JTextArea iceSkatersTextArea;
     private final Manager manager;
 
+    /**
+     * Constructs an AudienceGUI object with the specified Manager.
+     *
+     * @param manager The manager used to handle data interactions and updates.
+     */
     public AudienceGUI(Manager manager) {
         this.manager = manager;
         initializeGUI();
     }
 
+    /**
+     * Initializes the user interface components and layouts for the audience view.
+     * This includes setting up sections for gamers and ice skaters, and providing a refresh button.
+     */
     private void initializeGUI() {
         JFrame frame;
         frame = new JFrame("Live Competition Results");
@@ -30,29 +43,20 @@ public class AudienceGUI{
         Color textColor = new Color(255, 215, 0); // Gold text for contrast
 
         // Gamers Section
-        JLabel gamersLabel = new JLabel("Gamers", SwingConstants.CENTER);
-        gamersLabel.setFont(titleFont);
-        gamersLabel.setForeground(textColor);
-        gamersTextArea = new JTextArea();
-        gamersTextArea.setFont(textFont);
-        gamersTextArea.setForeground(textColor);
-        gamersTextArea.setBackground(backgroundColor);
+        JLabel gamersLabel = createLabel("Gamers", titleFont, textColor);
+        gamersTextArea = createTextArea(textFont, textColor, backgroundColor);
         JPanel gamersPanel = new JPanel(new BorderLayout());
         gamersPanel.setBackground(backgroundColor);
         gamersPanel.add(gamersLabel, BorderLayout.NORTH);
         gamersPanel.add(new JScrollPane(gamersTextArea), BorderLayout.CENTER);
-
         // Ice Skaters Section
-        JLabel iceSkatersLabel = new JLabel("Ice Skaters", SwingConstants.CENTER);
-        iceSkatersLabel.setFont(titleFont);
-        iceSkatersLabel.setForeground(textColor);
-        iceSkatersTextArea = new JTextArea();
-        iceSkatersTextArea.setFont(textFont);
-        iceSkatersTextArea.setForeground(textColor);
-        iceSkatersTextArea.setBackground(backgroundColor);
+        JLabel iceSkatersLabel = createLabel("Ice Skaters", titleFont, textColor);
+        iceSkatersTextArea = createTextArea(textFont, textColor, backgroundColor);
         JPanel iceSkatersPanel = new JPanel(new BorderLayout());
         iceSkatersPanel.setBackground(backgroundColor);
         iceSkatersPanel.add(iceSkatersLabel, BorderLayout.NORTH);
+        iceSkatersPanel.add(new JScrollPane(iceSkatersTextArea), BorderLayout.CENTER);
+
         iceSkatersPanel.add(new JScrollPane(iceSkatersTextArea), BorderLayout.CENTER);
 
         // Split Pane
@@ -73,7 +77,42 @@ public class AudienceGUI{
         frame.setVisible(true);
     }
 
+    /**
+     * Creates and returns a JLabel with specified text, font, and text color.
+     *
+     * @param text The text to be displayed on the label.
+     * @param font The font to be applied to the label text.
+     * @param textColor The color of the label text.
+     * @return A JLabel with the specified properties.
+     */
+    private JLabel createLabel(String text, Font font, Color textColor) {
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(font);
+        label.setForeground(textColor);
+        return label;
+    }
 
+    /**
+     * Creates and returns a JTextArea with specified font, text color, and background color.
+     *
+     * @param font The font to be applied to the text area.
+     * @param textColor The color of the text.
+     * @param backgroundColor The background color of the text area.
+     * @return A JTextArea with the specified properties.
+     */
+    private JTextArea createTextArea(Font font, Color textColor, Color backgroundColor) {
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(font);
+        textArea.setForeground(textColor);
+        textArea.setBackground(backgroundColor);
+        return textArea;
+    }
+
+
+    /**
+     * Refreshes the results displayed in the text areas, updating them with the latest competition results.
+     * It clears the previous results and fetches updated data for each category and level.
+     */
     private void refreshResults() {
         // Clear the previous results from the text areas
         gamersTextArea.setText("Gamers Results:\n");

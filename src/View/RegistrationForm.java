@@ -5,19 +5,31 @@ import java.awt.*;
 import Controller.Manager;
 import Model.*;
 
+/**
+ * This class represents the registration form GUI.
+ * It is responsible for creating and displaying the registration form for competitors.
+ */
 public class RegistrationForm {
     private JFrame frame;
     private JTextField nameField, emailField, ageField, countryField;
     private JComboBox<String> categoryComboBox, levelComboBox;
     private JRadioButton maleButton, femaleButton;
-    private JButton registerButton;
-    private Manager manager;
+    private final Manager manager;
 
+    /**
+     * Constructs a RegistrationForm with the specified Manager.
+     *
+     * @param manager The manager that interacts with this registration form.
+     */
     public RegistrationForm(Manager manager) {
         this.manager = manager;
         initializeGUI();
     }
 
+    /**
+     * Initializes the graphical user interface for the registration form.
+     * This includes setting up the layout, creating necessary components, and adding them to the frame.
+     */
     private void initializeGUI() {
         frame = new JFrame("Competitor Registration");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,8 +46,6 @@ public class RegistrationForm {
         Font labelFont = new Font("Arial", Font.BOLD, 12);
 
         frame.getContentPane().setBackground(backgroundColor);
-
-        // Title
         JLabel titleLabel = new JLabel("Registration Form");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(labelColor);
@@ -46,8 +56,7 @@ public class RegistrationForm {
         gbc.gridy++;
         gbc.gridwidth = 1;
         JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setForeground(labelColor);
-        nameLabel.setFont(labelFont);
+        configureLabel(nameLabel,labelColor,labelFont);
         frame.add(nameLabel, gbc);
 
         gbc.gridx = 1;
@@ -58,8 +67,7 @@ public class RegistrationForm {
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setForeground(labelColor);
-        emailLabel.setFont(labelFont);
+        configureLabel(emailLabel,labelColor,labelFont);
         frame.add(emailLabel, gbc);
 
         gbc.gridx = 1;
@@ -70,8 +78,7 @@ public class RegistrationForm {
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel ageLabel = new JLabel("Age:");
-        ageLabel.setForeground(labelColor);
-        ageLabel.setFont(labelFont);
+        configureLabel(ageLabel,labelColor,labelFont);
         frame.add(ageLabel, gbc);
 
         gbc.gridx = 1;
@@ -82,8 +89,7 @@ public class RegistrationForm {
         gbc.gridy++;
         gbc.gridx = 0;
         JLabel countryLabel = new JLabel("Country:");
-        countryLabel.setForeground(labelColor);
-        countryLabel.setFont(labelFont);
+        configureLabel(countryLabel,labelColor,labelFont);
         frame.add(countryLabel, gbc);
 
         gbc.gridx = 1;
@@ -140,6 +146,7 @@ public class RegistrationForm {
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
+        JButton registerButton;
         registerButton = new JButton("Register");
         registerButton.setForeground(Color.BLUE);
         registerButton.setBackground(new Color(100, 149, 237)); // Cornflower blue
@@ -158,7 +165,11 @@ public class RegistrationForm {
         frame.setVisible(true);
     }
 
-
+    /**
+     * Updates the level options in the level combo box based on the selected category.
+     *
+     * @param category The category selected in the category combo box.
+     */
     private void updateLevelOptions(String category) {
         levelComboBox.removeAllItems();
         if ("Gaming".equals(category)) {
@@ -171,6 +182,23 @@ public class RegistrationForm {
         }
     }
 
+    /**
+     * Configures the properties of a JLabel, setting its foreground color and font.
+     *
+     * @param label The label to be configured.
+     * @param color The color to set as the label's foreground.
+     * @param font  The font to be applied to the label.
+     */
+    private void configureLabel(JLabel label, Color color,Font font) {
+        label.setForeground(color);
+        label.setFont(font);
+
+    }
+
+    /**
+     * Handles the registration process when the registration button is clicked.
+     * This includes validating input data, creating a Competitor object, and attempting to add it to the manager.
+     */
     private void handleRegistration() {
         try {
             String name = nameField.getText();
@@ -192,9 +220,14 @@ public class RegistrationForm {
             }
 
             String category = (String) categoryComboBox.getSelectedItem();
-            Level levelEnum = Level.valueOf(((String) levelComboBox.getSelectedItem()).toUpperCase());
+            String levelString = (String) levelComboBox.getSelectedItem();
+            if (levelString == null) {
+                JOptionPane.showMessageDialog(frame, "Please select a level.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Level levelEnum = Level.valueOf(levelString.toUpperCase());
 
-            Competitor competitor = null;
+            Competitor competitor ;
             if ("Gaming".equals(category)) {
                 competitor = new Gamer(competitorName, email, age, gender, country, levelEnum);
             } else { // "Ice Skating"
@@ -213,4 +246,5 @@ public class RegistrationForm {
             JOptionPane.showMessageDialog(frame, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 }
