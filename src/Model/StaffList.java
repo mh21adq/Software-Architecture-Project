@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class StaffList {
-    private ArrayList<Staff> staffList;
+    private final ArrayList<Staff> staffList;
 
     public StaffList() {
         staffList = new ArrayList<>();
@@ -46,10 +46,6 @@ public class StaffList {
         }
     }
 
-
-    public ArrayList<Staff> getStaffList() {
-        return staffList;
-    }
     public Staff findStaffById(int id) {
         for (Staff staff : staffList) {
             if (staff.getStaffId()== id) {

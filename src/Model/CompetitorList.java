@@ -2,13 +2,13 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.*;
+
 import java.util.stream.Collectors;
-import java.util.function.Function;
+
 
 public class CompetitorList {
     private static CompetitorList instance;
-    private ArrayList<Competitor> allCompetitors;
+    private final ArrayList<Competitor> allCompetitors;
 
     private CompetitorList() {
         allCompetitors = new ArrayList<>();
@@ -21,10 +21,15 @@ public class CompetitorList {
         return instance;
     }
 
-    public void addCompetitor(Competitor newCompetitor) {
-        if (newCompetitor != null) {
-            allCompetitors.add(newCompetitor);
+    public boolean addCompetitor(Competitor competitor) {
+        for (Competitor existingCompetitor : getAllCompetitors()) {
+            if (existingCompetitor.getEmail().equalsIgnoreCase(competitor.getEmail()) &&
+                    existingCompetitor.getCategory().equalsIgnoreCase(competitor.getCategory())) {
+                return false;
+            }
         }
+        allCompetitors.add(competitor);
+        return true;
     }
 
     public boolean removeCompetitor(int competitorId) {
@@ -35,6 +40,7 @@ public class CompetitorList {
         return new ArrayList<>(allCompetitors);
     }
 
+
     public ArrayList<Competitor> getCompetitorsByCategory(String category) {
         return allCompetitors.stream()
                 .filter(competitor -> competitor.getCategory().equalsIgnoreCase(category))
@@ -44,11 +50,28 @@ public class CompetitorList {
     public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
         return getCompetitorsByCategory(category).stream()
                 .filter(competitor -> competitor.getLevel() == level)
-                .sorted(Comparator.comparingDouble(Competitor::getOverallScore).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+    public ArrayList<Competitor> sortCompetitorsByScore(String category, Level level) {
+        ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
+        competitors.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
+        return competitors;
+    }
+    public ArrayList<Competitor> sortByAge(String category, Level level) {
+        ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
+        competitors.sort(Comparator.comparingInt(Competitor::getAge));
+        return competitors;
+    }
+    public ArrayList<Competitor> sortByFirstName(String category, Level level) {
+        ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
+        competitors.sort(Comparator.comparing(competitor -> competitor.getName().getFirstName()));
+        return competitors;
+    }
+
+
+
     public Competitor highestScoringCompetitor(String category, Level level) {
-        ArrayList<Competitor> competitorsInLevel = searchCompetitorsByLevel(category, level);
+        ArrayList<Competitor> competitorsInLevel = sortCompetitorsByScore(category, level);
         if (competitorsInLevel.isEmpty()) {
             return null;
         }

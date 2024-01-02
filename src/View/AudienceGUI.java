@@ -95,7 +95,7 @@ public class AudienceGUI {
         StringBuilder results = new StringBuilder();
 
         for (Level level : levels) {
-            ArrayList<Competitor> competitors = manager.searchCompetitorsByLevel(category, level);
+            ArrayList<Competitor> competitors = manager.sortCompetitorsByScore(category, level);
             results.append(level.name()).append(":\n");
 
             int competitorNumber = 1;

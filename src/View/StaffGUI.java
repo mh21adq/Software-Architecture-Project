@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class StaffGUI {
@@ -134,36 +135,42 @@ public class StaffGUI {
 
 
     private void addDataEntryComponents() {
+        JButton btnExitApp = createStyledButton("Close");
         JButton btnReadFile = createStyledButton("Read from File");
         JButton btnSearchCompetitor = createStyledButton("Search Competitor");
         JButton btnEnterScore = createStyledButton("Enter Score");
         JButton btnViewAllCompetitors = createStyledButton("View All Competitors");
-        JButton btnBrowseCategories = createStyledButton("Browse Competitors by Category");
+        JButton btnBrowseCategories = createStyledButton("Competitors by Category");
+        JButton btnSortByAge= createStyledButton("Sort by Age");
+        JButton btnSortByFirstName= createStyledButton("Sort by First Name");
         JButton btnShowTopScorer = createStyledButton("Show Top Scorer");
-        JButton btnExitApp = createStyledButton("Exit Application");
 
+        btnExitApp.addActionListener(createExitAppListener());
         btnReadFile.addActionListener(createReadFileListener());
         btnSearchCompetitor.addActionListener(createSearchCompetitorListener());
         btnEnterScore.addActionListener(createEnterScoreListener());
         btnViewAllCompetitors.addActionListener(createViewAllCompetitorsListener());
         btnBrowseCategories.addActionListener(createBrowseCategoriesListener());
+        btnSortByAge.addActionListener(createSortByAgeListener());
+        btnSortByFirstName.addActionListener(createSortByFirstNameListener());
         btnShowTopScorer.addActionListener(createShowTopScorerListener());
-        btnExitApp.addActionListener(createExitAppListener());
 
+
+        frame.add(btnExitApp);
         frame.add(btnReadFile);
         frame.add(btnSearchCompetitor);
         frame.add(btnEnterScore);
         frame.add(btnViewAllCompetitors);
         frame.add(btnBrowseCategories);
+        frame.add(btnSortByAge);
         frame.add(btnShowTopScorer);
-        frame.add(btnExitApp);
     }
 
     private JButton createStyledButton(String text) {
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 14)); // Set the font
         button.setBackground(new Color(0, 123, 255)); // Background color (Primary blue)
-        button.setForeground(Color.BLUE); // Text color
+        button.setForeground(Color.RED); // Text color
         button.setFocusPainted(false); // Remove focus border
         button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Change cursor on hover
         button.setPreferredSize(new Dimension(200, 40)); // Set preferred size
@@ -317,22 +324,36 @@ public class StaffGUI {
             JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
         };
     }
+    private String selectCategory(JFrame frame) {
+        String[] categories = {"ICE SKATING", "GAMING"};
+        int categoryChoice = JOptionPane.showOptionDialog(
+                frame,
+                "Select a category:",
+                "Category Selection",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                categories,
+                categories[0]);
+
+        if (categoryChoice == JOptionPane.CLOSED_OPTION) {
+            return null; // Or handle the case where the user closes the dialog
+        } else {
+            return categories[categoryChoice];
+        }
+    }
+    private Level[] createLevelsBasedOnCategory(String selectedCategory) {
+        if (selectedCategory.equals("ICE SKATING")) {
+            return new Level[]{Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED};
+        } else {
+            return new Level[]{Level.NOVICE, Level.EXPERT};
+        }
+    }
 
     private ActionListener createBrowseCategoriesListener() {
         return e -> {
-            String[] options = {"ICE SKATING", "GAMING"};
-            int choice = JOptionPane.showOptionDialog(
-                    frame,
-                    "Select a category to browse:",
-                    "Browse Categories",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null,
-                    options,
-                    options[0]);
-
-            if (choice != JOptionPane.CLOSED_OPTION) {
-                String selectedCategory = options[choice];
+            String selectedCategory = selectCategory(frame);
+            if (selectedCategory != null) {
                 String competitors = manager.getCompetitorsTable(selectedCategory);
 
                 JScrollPane scrollPane = createScrollPaneForText(competitors);
@@ -341,10 +362,72 @@ public class StaffGUI {
         };
     }
 
+    private ActionListener createSortByAgeListener() {
+        return e -> {
+            String selectedCategory = selectCategory(frame);
+            if (selectedCategory != null) {
+                Level[] levels = createLevelsBasedOnCategory(selectedCategory);
+
+                Level selectedLevel = (Level) JOptionPane.showInputDialog(
+                        frame,
+                        "Select the level:",
+                        "Level Selection",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        levels,
+                        levels[0]);
+
+                if (selectedLevel != null) {
+                    ArrayList<Competitor> competitors = manager.sortByAge(selectedCategory, selectedLevel);
+                    StringBuilder competitorTable = new StringBuilder();
+
+                    for (Competitor competitor : competitors) {
+                        competitorTable.append(competitor.getFullDetails()).append("\n");
+                    }
+
+                    System.out.println(selectedCategory + " " + selectedLevel);
+                    JScrollPane scrollPane = createScrollPaneForText(competitorTable.toString());
+                    JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        };
+    }
+
+    private ActionListener createSortByFirstNameListener() {
+        return e -> {
+            String selectedCategory = selectCategory(frame);
+            if (selectedCategory != null) {
+                Level[] levels = createLevelsBasedOnCategory(selectedCategory);
+
+                Level selectedLevel = (Level) JOptionPane.showInputDialog(
+                        frame,
+                        "Select the level:",
+                        "Level Selection",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        levels,
+                        levels[0]);
+
+                if (selectedLevel != null) {
+                    ArrayList<Competitor> competitors = manager.sortByFirstName(selectedCategory, selectedLevel);
+                    StringBuilder competitorTable = new StringBuilder();
+
+                    for (Competitor competitor : competitors) {
+                        competitorTable.append(competitor.getFullDetails()).append("\n");
+                    }
+
+                    System.out.println(selectedCategory + " " + selectedLevel);
+                    JScrollPane scrollPane = createScrollPaneForText(competitorTable.toString());
+                    JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        };
+    }
+
     private ActionListener createShowTopScorerListener() {
         return e -> {
             // First, ask for the category
-            String[] categories = {"Ice Skater", "Gamer"};
+            String[] categories = {"ICE SKATING", "GAMING"};
             int categoryChoice = JOptionPane.showOptionDialog(
                     frame,
                     "Select a category:",
@@ -357,9 +440,14 @@ public class StaffGUI {
 
             if (categoryChoice != JOptionPane.CLOSED_OPTION) {
                 String selectedCategory = categories[categoryChoice];
+                Level[] levels;
+                if (selectedCategory.equals(categories[0])) {
+                    levels = new Level[] { Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED };
+                } else {
+                    levels = new Level[] { Level.NOVICE, Level.EXPERT };
 
-                // Now, ask for the level
-                Level[] levels = Level.values(); // Assuming Level is an enum
+                }
+
                 Level selectedLevel = (Level) JOptionPane.showInputDialog(
                         frame,
                         "Select the level:",
@@ -394,7 +482,7 @@ public class StaffGUI {
 
                 if (confirm == JOptionPane.YES_OPTION) {
                     // Assuming Manager's writeToFile method is properly implemented
-                    manager.generateFinalReport("competitor_report.txt");
+                    manager.generateFinalReport("Competitor_report.csv");
                     frame.dispose(); // Close the GUI window
                 }
         };
@@ -403,9 +491,9 @@ public class StaffGUI {
     private void addOfficialsComponents() {
         //Officials can do all the work done by data entry staff
         addDataEntryComponents();
-        JButton btnRegisterCompetitor = new JButton("Register Competitor");
-        JButton btnRemoveCompetitor = new JButton("Remove Competitor");
-        JButton btnUpdateCompetitorInfo = new JButton("Update Competitor Info");
+        JButton btnRegisterCompetitor = createStyledButton("Register Competitor");
+        JButton btnRemoveCompetitor = createStyledButton("Remove Competitor");
+        JButton btnUpdateCompetitorInfo = createStyledButton("Update Competitor Info");
 
 
         btnRegisterCompetitor.addActionListener(createRegisterCompetitorListener());
@@ -507,11 +595,11 @@ public class StaffGUI {
 
 
     private void addEmergencyResponseComponents() {
-        // Add components and actions for EMERGENCY_RESPONSE role
+        //There is not much information about this.So it has not been implemented.
     }
 
     private void addRefereeComponents() {
-        // Add components and actions for REFEREE role
+        ///There is not much information about this.So it has not been implemented.
     }
 
 

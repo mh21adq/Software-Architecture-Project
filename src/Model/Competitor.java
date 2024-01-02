@@ -90,8 +90,6 @@ public abstract class Competitor {
     public abstract Level getLevel();
     public abstract int[] getScoreArray();
 
-    // Method for getting scores in a String format
-
     public String getFullDetails() {
         return "\nCompetitor Number: " + this.getCompetitorNumber() + "\n" +
                 "Name: " + this.name.getFullName() + "\n" +

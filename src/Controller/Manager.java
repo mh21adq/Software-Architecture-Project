@@ -189,14 +189,7 @@ public class Manager {
     }
 
     public boolean addCompetitor(Competitor competitor) {
-        for (Competitor existingCompetitor : competitorList.getAllCompetitors()) {
-            if (existingCompetitor.getEmail().equalsIgnoreCase(competitor.getEmail()) &&
-                    existingCompetitor.getCategory().equalsIgnoreCase(competitor.getCategory())) {
-                return false;
-            }
-        }
-        competitorList.addCompetitor(competitor);
-        return true;
+        return competitorList.addCompetitor(competitor);
     }
 
 
@@ -204,8 +197,14 @@ public class Manager {
         return  competitorList.removeCompetitor(competitorNumber);
     }
 
-    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
-        return competitorList.searchCompetitorsByLevel(category, level);
+    public ArrayList<Competitor> sortCompetitorsByScore(String category, Level level) {
+        return competitorList.sortCompetitorsByScore(category,level);
+    }
+    public ArrayList<Competitor> sortByAge(String category, Level level) {
+        return competitorList.sortByAge(category,level);
+    }
+    public ArrayList<Competitor> sortByFirstName(String category, Level level) {
+        return sortByFirstName(category,level);
     }
 
     public Competitor getCompetitor(int competitorId) {
@@ -249,6 +248,7 @@ public class Manager {
 
        new AudienceGUI(manager);
     }
+
 
 
 }
