@@ -6,13 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class AudienceGUI {
-    private JFrame frame;
-    private JSplitPane splitPane;
+public class AudienceGUI{
     private JTextArea gamersTextArea;
     private JTextArea iceSkatersTextArea;
-    private JButton refreshButton;
-    private Manager manager;
+    private final Manager manager;
 
     public AudienceGUI(Manager manager) {
         this.manager = manager;
@@ -20,6 +17,7 @@ public class AudienceGUI {
     }
 
     private void initializeGUI() {
+        JFrame frame;
         frame = new JFrame("Live Competition Results");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
@@ -58,11 +56,12 @@ public class AudienceGUI {
         iceSkatersPanel.add(new JScrollPane(iceSkatersTextArea), BorderLayout.CENTER);
 
         // Split Pane
+        JSplitPane splitPane;
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gamersPanel, iceSkatersPanel);
         splitPane.setResizeWeight(0.5);
         splitPane.setBackground(backgroundColor);
-
         // Refresh Button
+        JButton refreshButton;
         refreshButton = new JButton("Refresh Results");
         refreshButton.setFont(titleFont);
         refreshButton.setForeground(Color.RED);

@@ -5,13 +5,25 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The StaffList class represents a collection of staff members in the system.
+ * It provides methods to read staff data from a file and search for staff members by their unique IDs.
+ */
 public class StaffList {
-    private final ArrayList<Staff> staffList;
+    private final ArrayList<Staff> staffList; // A list to store staff members.
 
+    /**
+     * Constructs a new StaffList object, initializing the list of staff members.
+     */
     public StaffList() {
         staffList = new ArrayList<>();
     }
 
+    /**
+     * Reads staff data from a file and populates the staff list.
+     *
+     * @param filePath The path to the file containing staff data.
+     */
     public void readFile(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
@@ -46,9 +58,15 @@ public class StaffList {
         }
     }
 
+    /**
+     * Finds a staff member by their unique ID.
+     *
+     * @param id The unique ID of the staff member to search for.
+     * @return The staff member with the specified ID, or null if not found.
+     */
     public Staff findStaffById(int id) {
         for (Staff staff : staffList) {
-            if (staff.getStaffId()== id) {
+            if (staff.getStaffId() == id) {
                 return staff;
             }
         }
