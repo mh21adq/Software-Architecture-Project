@@ -230,6 +230,30 @@ public class StaffGUI {
         return button;
     }
 
+
+    /**
+     * Creates an ActionListener for exiting the application. It prompts the user for confirmation and, upon
+     * confirmation, saves data to a file and closes the application.
+     *
+     * @return An ActionListener that handles the application exit process.
+     */
+    private ActionListener createExitAppListener() {
+        return e-> {
+            int confirm = JOptionPane.showConfirmDialog(
+                    frame,
+                    "Are you sure you want to close the application and save the data?",
+                    "Confirm Exit",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                manager.generateFinalReport("src/Competition_report.txt");
+                frame.dispose();
+            }
+        };
+    }
+
     /**
      * Creates an ActionListener for reading a file. It prompts the user to select a file or enter a file path.
      * If a valid file path is provided, the method attempts to read from the file and handle any exceptions that occur.
@@ -557,28 +581,6 @@ public class StaffGUI {
         };
     }
 
-    /**
-     * Creates an ActionListener for exiting the application. It prompts the user for confirmation and, upon
-     * confirmation, saves data to a file and closes the application.
-     *
-     * @return An ActionListener that handles the application exit process.
-     */
-    private ActionListener createExitAppListener() {
-        return e-> {
-                int confirm = JOptionPane.showConfirmDialog(
-                        frame,
-                        "Are you sure you want to close the application and save the data?",
-                        "Confirm Exit",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE
-                );
-
-                if (confirm == JOptionPane.YES_OPTION) {
-                    manager.generateFinalReport("Competitor_report.csv");
-                    frame.dispose();
-                }
-        };
-    }
 
     /**
      * Adds components specific to officials to the frame. This includes buttons for registering, removing,

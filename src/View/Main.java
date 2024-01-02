@@ -1,6 +1,7 @@
 package View;
 import Model.*;
 import java.util.ArrayList;
+import Controller.*;
 
 public class Main {
 
@@ -11,6 +12,9 @@ public class Main {
         testGamerClass();
         testIceSkaterClass();
         testCompetitorList();
+        testStaffClass();
+        testStaffList();
+        managerClassTest();
     }
 
     private static void testNameClass() {
@@ -97,4 +101,88 @@ public class Main {
         Competitor topScorer = competitorList.highestScoringCompetitor("GAMING", Level.EXPERT);
         System.out.println("Top Scorer in GAMING: " + (topScorer != null ? topScorer.getName().getFullName() : "Not Available"));
     }
+    private static void testStaffClass() {
+        Name staffName = new Name("John", "Doe");
+        Role staffRole = Role.DATA_ENTRY;
+        Staff staff = new Staff(staffName, 123, staffRole);
+
+        // Test getName method
+        System.out.println("Testing getName:");
+        System.out.println("Expected: John Doe, Actual: " + staff.getName().getFullName());
+
+        // Test setName method
+        System.out.println("\nTesting setName:");
+        Name newName = new Name("Jane", "Doe");
+        staff.setName(newName);
+        System.out.println("Expected: Jane Doe, Actual: " + staff.getName().getFullName());
+
+        // Test getStaffId method
+        System.out.println("\nTesting getStaffId:");
+        System.out.println("Expected: 123, Actual: " + staff.getStaffId());
+
+        // Test getStaffRole method
+        System.out.println("\nTesting getStaffRole:");
+        System.out.println("Expected: " + staffRole + ", Actual: " + staff.getStaffRole());
+    }
+    private static void testStaffList() {
+        String testFilePath = "src/RunStaff.csv";
+        StaffList staffList = new StaffList();
+        staffList.readFile(testFilePath);
+        int testStaffId = 1111;
+        Staff foundStaff = staffList.findStaffById(testStaffId);
+        if (foundStaff != null) {
+            System.out.println("Found Staff: " + foundStaff.getName().getFullName() + ", ID: " + foundStaff.getStaffId() + ", Role: " + foundStaff.getStaffRole());
+        } else {
+            System.out.println("Staff member with ID " + testStaffId + " not found.");
+        }
+    }
+
+    private static void managerClassTest() {
+        // Initialize Manager
+        Manager manager = new Manager();
+
+        // Test: Reading competitors from a file
+        String testFilePath = "src/RunCompetitor.csv";
+        manager.readFromFile(testFilePath);
+
+        // Test: Adding a new competitor
+        Name newName = new Name("Test", "User");
+        Competitor newCompetitor = new Gamer(newName, "test@example.com", 20, "Male", "TestCountry", Level.EXPERT);
+        boolean addResult = manager.addCompetitor(newCompetitor);
+        System.out.println("Add Competitor Result: " + addResult);
+
+        // Test: Removing a competitor (assuming a competitor with ID exists)
+        boolean removeResult = manager.removeCompetitor(100);
+        System.out.println("Remove Competitor Result: " + removeResult);
+
+        // Test: Retrieving a competitor
+        Competitor retrievedCompetitor = manager.getCompetitor(102);
+        if (retrievedCompetitor != null) {
+            System.out.println("Retrieved Competitor: " + retrievedCompetitor.getFullDetails());
+        } else {
+            System.out.println("Competitor not found.");
+        }
+
+        // Test: Sorting competitors by score
+        String category = "GAMING";
+        Level level = Level.EXPERT;
+        System.out.println("Sorted Competitors by Score:");
+        manager.sortCompetitorsByScore(category, level).forEach(c -> System.out.println(c.getName().getFullName()));
+
+        // Test: Finding @highest scoring competitor
+        Competitor highestScorer = manager.highestScoringCompetitor(category, level);
+        if (highestScorer != null) {
+            System.out.println("Highest Scorer: " + highestScorer.getName().getFullName());
+        } else {
+            System.out.println("No highest scorer found.");
+        }
+
+        // Test: Generating final report
+        String reportFileName = "Competitor_report.txt";
+        manager.generateFinalReport(reportFileName);
+        System.out.println("Generated report: " + reportFileName);
+
+    }
+
+
 }
