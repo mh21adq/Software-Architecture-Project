@@ -97,17 +97,14 @@ public class AudienceGUI {
         for (Level level : levels) {
             ArrayList<Competitor> competitors = manager.sortCompetitorsByScore(category, level);
             results.append(level.name()).append(":\n");
-
-            int competitorNumber = 1;
+            int ranking=1;
             for (Competitor competitor : competitors) {
                 String firstName = competitor.getName().getFirstName();
                 String initials = competitor.getName().getInitials();
-                results.append(competitorNumber++).append(". ").append(firstName).append(" (").append(initials).append(") ")
+                results.append(ranking++).append(". ").append(firstName).append(" (").append(initials).append(") ")
                         .append(String.format("%.2f", competitor.getOverallScore())).append("\n");
             }
         }
-
-        // Append the results to the text area
         textArea.append(results.toString());
     }
 

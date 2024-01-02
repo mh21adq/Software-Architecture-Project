@@ -339,7 +339,7 @@ public class StaffGUI {
                 categories[0]);
 
         if (categoryChoice == JOptionPane.CLOSED_OPTION) {
-            return null; // Or handle the case where the user closes the dialog
+            return null;
         } else {
             return categories[categoryChoice];
         }
@@ -386,8 +386,6 @@ public class StaffGUI {
                     for (Competitor competitor : competitors) {
                         competitorTable.append(competitor.getFullDetails()).append("\n");
                     }
-
-                    System.out.println(selectedCategory + " " + selectedLevel);
                     JScrollPane scrollPane = createScrollPaneForText(competitorTable.toString());
                     JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
                 }

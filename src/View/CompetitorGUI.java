@@ -4,8 +4,8 @@ import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
-public class CompetitorGUI {
 
+public class CompetitorGUI {
     private JFrame frame;
     private final Manager manager;
 
@@ -55,7 +55,7 @@ public class CompetitorGUI {
         // Add action listeners
         registerButton.addActionListener(e -> openRegistrationForm());
         btnSearchCompetitor.addActionListener(e -> openSearchCompetitorDialog());
-        btnGenerateReport.addActionListener(e -> openSearchCompetitorDialog());
+        btnGenerateReport.addActionListener(e -> openPrintReportDialog());
         // Display the frame
         frame.setVisible(true);
     }
@@ -88,7 +88,7 @@ public class CompetitorGUI {
                 boolean scoresComplete = competitor.getScoreArray() != null && competitor.getScoreArray().length > 0;
 
                 if (competitionCompleted && scoresComplete) {
-                    JOptionPane.showMessageDialog(frame, competitor.getFullDetails(), "Competitor Details", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, competitor.getShortDetails(), "Competitor Details", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Competition is not complete or scores are incomplete for this competitor.", "Search Result", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -99,7 +99,34 @@ public class CompetitorGUI {
             JOptionPane.showMessageDialog(frame, "Invalid ID format. Please enter a numeric ID.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    private void openPrintReportDialog() {
+        String[] categories = {"ICE SKATING", "GAMING"};
+        int categoryChoice = JOptionPane.showOptionDialog(
+                frame,
+                "Select a category:",
+                "Category Selection",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                categories,
+                categories[0]);
+
+        if (categoryChoice != JOptionPane.CLOSED_OPTION) {
+            String selectedCategory = categories[categoryChoice];
+            String competitorsTable = manager.getCompetitorsTable(selectedCategory);
+            String summaryStatistics=manager.getSummaryStatistics(selectedCategory);
+            String combinedText = competitorsTable + "\n\n" + summaryStatistics;
+            JTextArea textArea = new JTextArea(combinedText);
+            textArea.setEditable(false);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            JScrollPane scrollPane = new JScrollPane(textArea);
+            scrollPane.setPreferredSize(new Dimension(500, 300));
+            JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors in " + selectedCategory, JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
 
 
 }
+

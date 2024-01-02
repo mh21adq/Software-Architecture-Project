@@ -87,9 +87,4 @@ public class Gamer extends Competitor {
     }
 
 
-    @Override
-    public String getShortDetails() {
-        return super.getShortDetails() + " in category " + CATEGORY +
-                ". Scores: " + this.formatScores();
-    }
 }

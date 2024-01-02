@@ -150,7 +150,6 @@ public class Manager {
         }
         return "\nHighest Scorer:\n" + highestScorer.getFullDetails() + "\n";
     }
-    // Method to get summary statistics
     public String getSummaryStatistics(String category) {
         ArrayList<Competitor> competitorsInCategory = competitorList.getCompetitorsByCategory(category);
 

@@ -86,11 +86,4 @@ public class IceSkater extends Competitor {
                 "Overall Score: " + this.getOverallScore() + "\n" ;
     }
 
-
-    @Override
-    public String getShortDetails() {
-        return super.getShortDetails() + " in category " + CATEGORY + ". Scores: " + this.formatScores();
-    }
-
-
 }
