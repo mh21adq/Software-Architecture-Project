@@ -8,8 +8,6 @@ import java.math.RoundingMode;
  */
 public class IceSkater extends Competitor {
     private static final int SCORES_ARRAY_SIZE = 4;
-    private static final String CATEGORY = "ICE SKATING";
-
     private int[] scores;
     private Level level;
 
@@ -58,8 +56,8 @@ public class IceSkater extends Competitor {
      * @return The category.
      */
     @Override
-    public String getCategory() {
-        return CATEGORY;
+    public Category getCategory() {
+        return Category.ICE_SKATING;
     }
 
     /**

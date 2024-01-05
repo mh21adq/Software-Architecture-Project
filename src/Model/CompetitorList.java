@@ -39,14 +39,13 @@ public class CompetitorList {
     public boolean addCompetitor(Competitor competitor) {
         for (Competitor existingCompetitor : getAllCompetitors()) {
             if (existingCompetitor.getEmail().equalsIgnoreCase(competitor.getEmail()) &&
-                    existingCompetitor.getCategory().equalsIgnoreCase(competitor.getCategory())) {
+                    existingCompetitor.getCategory().equals(competitor.getCategory())) {
                 return false;
             }
         }
         allCompetitors.add(competitor);
         return true;
     }
-
     /**
      * Remove a competitor from the list by their competitor number.
      *
@@ -87,9 +86,9 @@ public class CompetitorList {
      * @param category The category to filter by.
      * @return An ArrayList containing competitors in the specified category.
      */
-    public ArrayList<Competitor> getCompetitorsByCategory(String category) {
+    public ArrayList<Competitor> getCompetitorsByCategory(Category category) {
         return allCompetitors.stream()
-                .filter(competitor -> competitor.getCategory().equalsIgnoreCase(category))
+                .filter(competitor -> competitor.getCategory().equals(category))
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
@@ -100,7 +99,7 @@ public class CompetitorList {
      * @param level    The level to filter by.
      * @return An ArrayList containing competitors in the specified category and level.
      */
-    public ArrayList<Competitor> searchCompetitorsByLevel(String category, Level level) {
+    public ArrayList<Competitor> searchCompetitorsByLevel(Category category, Level level) {
         return getCompetitorsByCategory(category).stream()
                 .filter(competitor -> competitor.getLevel() == level)
                 .collect(Collectors.toCollection(ArrayList::new));

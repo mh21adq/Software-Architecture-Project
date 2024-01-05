@@ -9,8 +9,6 @@ import java.util.Arrays;
  */
 public class Gamer extends Competitor {
     private static final int SCORES_ARRAY_SIZE = 5;
-    private static final String CATEGORY = "GAMING";
-
     private int[] scores;
     private Level level;
 
@@ -59,8 +57,8 @@ public class Gamer extends Competitor {
      * @return The category.
      */
     @Override
-    public String getCategory() {
-        return CATEGORY;
+    public Category getCategory() {
+        return Category.GAMING;
     }
 
     /**

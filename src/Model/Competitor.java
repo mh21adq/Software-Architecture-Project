@@ -185,7 +185,7 @@ public abstract class Competitor {
      *
      * @return The category.
      */
-    public abstract String getCategory();
+    public abstract Category getCategory();
 
     /**
      * Gets the level of the competitor.
