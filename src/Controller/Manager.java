@@ -14,7 +14,7 @@ public class Manager {
     private final CompetitorList competitorList;
 
     // Constants for competition categories and levels
-    private static final String[] CATEGORIES = {"ICE SKATING", "GAMING"};
+    private static final List<Category> CATEGORIES = List.of(Category.ICE_SKATING, Category.GAMING);
     private static final Level[] LEVELS = Level.values();
     private static final List<Level> GAMING_LEVELS = List.of(Level.NOVICE, Level.EXPERT);
     private static final List<Level> ICE_SKATING_LEVELS = List.of(Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED);
@@ -59,11 +59,12 @@ public class Manager {
             int age = Integer.parseInt(data[3].trim());
             String gender = data[4].trim();
             Level level = Level.valueOf(data[5].trim().toUpperCase());
-            String category = data[6].trim();
+            Category category = Category.valueOf(data[6].trim().toUpperCase());
             String country = data[7].trim();
             int[] scores = parseScores(data);
 
-            Competitor competitor = createCompetitor(competitorNumber, name, email, age, gender, country, level, category, scores);
+            Competitor competitor =
+                    createCompetitor(competitorNumber, name, email, age, gender, country, level, category, scores);
             addCompetitor(competitor);
         } catch (Exception e) {
             System.err.println("Error processing line: " + line + "; Error: " + e.getMessage());
@@ -120,14 +121,22 @@ public class Manager {
      * @param scores   The scores of the competitor.
      * @return A Competitor object representing the competitor.
      */
-    private Competitor createCompetitor(int competitorNumber,Name name, String email, int age, String gender, String country, Level level, String category, int[] scores) {
-        Competitor competitor = CATEGORIES[0].equalsIgnoreCase(category) ?
-                new IceSkater(name, email, age, gender, country, level) :
-                new Gamer(name, email, age, gender, country, level);
+    private Competitor createCompetitor(int competitorNumber, Name name,
+                                        String email, int age, String gender,
+                                        String country, Level level, Category category, int[] scores) {
+        Competitor competitor;
+
+        if (Category.ICE_SKATING.equals(category)) {
+            competitor = new IceSkater(name, email, age, gender, country, level);
+        } else {
+            competitor = new Gamer(name, email, age, gender, country, level);
+        }
+
         competitor.setScores(scores);
         competitor.setCompetitorNumber(competitorNumber);
         return competitor;
     }
+
 
     /**
      * Generates a final competition report and writes it to a file.
@@ -136,9 +145,7 @@ public class Manager {
      */
     public void generateFinalReport(String filename) {
         StringBuilder report = new StringBuilder();
-
-        // Iterate through each category
-        for (String category : CATEGORIES) {
+        for (Category category : ) {
             report.append("==== Competitors in Category: ").append(category).append(" ====\n");
             report.append(getCompetitorsTable(category)).append("\n");
 
@@ -225,7 +232,7 @@ public class Manager {
      * @param category The category for which to calculate summary statistics.
      * @return A formatted string containing summary statistics.
      */
-    public String getSummaryStatistics(String category) {
+    public String getSummaryStatistics(Category category) {
         ArrayList<Competitor> competitorsInCategory = competitorList.getCompetitorsByCategory(category);
 
         double totalScore = competitorsInCategory.stream()
@@ -254,7 +261,7 @@ public class Manager {
      * @param category The category for which to generate the score frequency report.
      * @return A string containing the score frequency report.
      */
-    public String getScoreFrequencyReport(String category) {
+    public String getScoreFrequencyReport(Category category) {
         ArrayList<Competitor> competitorsInCategory = competitorList.getCompetitorsByCategory(category);
 
         Map<Integer, Long> frequencyMap = competitorsInCategory.stream()
@@ -306,7 +313,7 @@ public class Manager {
      * @param level    The level within the category for sorting.
      * @return A sorted list of competitors.
      */
-    public ArrayList<Competitor> sortCompetitorsByScore(String category, Level level) {
+    public ArrayList<Competitor> sortCompetitorsByScore(Category category, Level level) {
         return competitorList.sortCompetitorsByScore(category,level);
     }
 
@@ -317,7 +324,7 @@ public class Manager {
      * @param level    The level within the category for sorting.
      * @return A sorted list of competitors.
      */
-    public ArrayList<Competitor> sortByAge(String category, Level level) {
+    public ArrayList<Competitor> sortByAge(Category category, Level level) {
         return competitorList.sortByAge(category,level);
     }
 
@@ -328,7 +335,7 @@ public class Manager {
      * @param level    The level within the category for sorting.
      * @return A sorted list of competitors.
      */
-    public ArrayList<Competitor> sortByFirstName(String category, Level level) {
+    public ArrayList<Competitor> sortByFirstName(Category category, Level level) {
         return competitorList.sortByFirstName(category,level);
     }
 
@@ -339,7 +346,7 @@ public class Manager {
      * @param level    The level within the category for which to find the highest scorer.
      * @return The highest-scoring Competitor object, or null if no such competitor exists.
      */
-    public Competitor highestScoringCompetitor(String category, Level level)
+    public Competitor highestScoringCompetitor(Category category, Level level)
     {
        return competitorList.highestScoringCompetitor(category,level);
     }
@@ -351,7 +358,7 @@ public class Manager {
      * @param level    The level within the category for which to check completion.
      * @return True if the competition for the given category and level is completed, false otherwise.
      */
-    public boolean isCompetitionCompleted(String category, Level level) {
+    public boolean isCompetitionCompleted(Category category, Level level) {
         ArrayList<Competitor> competitorsInLevel = competitorList.searchCompetitorsByLevel(category, level);
         if (competitorsInLevel.isEmpty()) {
             return false;

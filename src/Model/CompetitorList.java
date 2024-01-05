@@ -112,7 +112,7 @@ public class CompetitorList {
      * @param level    The level to filter by.
      * @return An ArrayList containing competitors sorted by overall score in descending order.
      */
-    public ArrayList<Competitor> sortCompetitorsByScore(String category, Level level) {
+    public ArrayList<Competitor> sortCompetitorsByScore(Category category, Level level) {
         ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
         competitors.sort(Comparator.comparingDouble(Competitor::getOverallScore).reversed());
         return competitors;
@@ -125,7 +125,7 @@ public class CompetitorList {
      * @param level    The level to filter by.
      * @return An ArrayList containing competitors sorted by age in ascending order.
      */
-    public ArrayList<Competitor> sortByAge(String category, Level level) {
+    public ArrayList<Competitor> sortByAge(Category category, Level level) {
         ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
         competitors.sort(Comparator.comparingInt(Competitor::getAge));
         return competitors;
@@ -138,7 +138,7 @@ public class CompetitorList {
      * @param level    The level to filter by.
      * @return An ArrayList containing competitors sorted by first name in ascending order.
      */
-    public ArrayList<Competitor> sortByFirstName(String category, Level level) {
+    public ArrayList<Competitor> sortByFirstName(Category category, Level level) {
         ArrayList<Competitor> competitors = searchCompetitorsByLevel(category, level);
         competitors.sort(Comparator.comparing(competitor -> competitor.getName().getFirstName()));
         return competitors;
@@ -150,7 +150,7 @@ public class CompetitorList {
      * @param level    The level to filter by.
      * @return The highest scoring competitor in the specified category and level, or null if no competitors are found.
      */
-    public Competitor highestScoringCompetitor(String category, Level level) {
+    public Competitor highestScoringCompetitor(Category category, Level level) {
         ArrayList<Competitor> competitorsInLevel = sortCompetitorsByScore(category, level);
         if (competitorsInLevel.isEmpty()) {
             return null;
