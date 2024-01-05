@@ -1,4 +1,6 @@
-package Model;
+package Model.Participant;
+
+import Model.Name;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

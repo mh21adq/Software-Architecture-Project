@@ -1,6 +1,14 @@
 package View;
 import Controller.*;
 import Model.*;
+import Model.Participant.Category;
+import Model.Participant.Level;
+import Model.Participant.Competitor;
+import Model.Participant.Gamer;
+import Model.Participant.IceSkater;
+import Model.Staff.Role;
+import Model.Staff.Staff;
+import Model.Staff.StaffList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -285,7 +293,7 @@ public class StaffGUI {
             if (choice == 0) {  // RunCompetitor.csv selected
                 filePath = defaultFilePath;
             } else if (choice == 1) {  // Enter file path selected
-                filePath = JOptionPane.showInputDialog(frame, "Enter file path:");
+                filePath = JOptionPane.showInputDialog(frame, "Enter file path eg. src/Gamers.txt:");
                 if (filePath == null || filePath.trim().isEmpty()) {
                     return;  // No file path entered, exit listener
                 }
@@ -356,13 +364,14 @@ public class StaffGUI {
                 Competitor competitor = manager.getCompetitor(competitorId);
                 if (competitor != null) {
                     int numScores = competitor instanceof Gamer ? 5 : (competitor instanceof IceSkater ? 4 : 0);
-                    int maxScore = competitor instanceof Gamer ? 5 : 6;
+                    int maxScore = competitor instanceof Gamer ? 5 : 4;
                     int[] scores = new int[numScores];
 
                     for (int i = 0; i < numScores; i++) {
                         boolean validScore = false;
                         while (!validScore) {
-                            String scoreStr = JOptionPane.showInputDialog(frame, "Enter score " + (i + 1) + " for " + competitor.getName().getFullName() + ":");
+                            String scoreStr = JOptionPane.showInputDialog(frame, "Enter score " + (i + 1) + " for " +
+                                    competitor.getName().getFullName() +"(0-"+maxScore +"):");
                             try {
                                 int score = Integer.parseInt(scoreStr);
                                 if (score < 0 || score > maxScore) {

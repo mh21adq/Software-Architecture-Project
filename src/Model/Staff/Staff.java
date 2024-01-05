@@ -1,4 +1,6 @@
-package Model;
+package Model.Staff;
+
+import Model.Name;
 
 /**
  * The Staff class represents personnel in the system with a name, unique staff ID, and a designated role.

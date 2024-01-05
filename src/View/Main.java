@@ -2,6 +2,8 @@ package View;
 import Model.*;
 import java.util.ArrayList;
 import Controller.*;
+import Model.Participant.*;
+import Model.Staff.*;
 
 public class Main {
 
@@ -54,7 +56,7 @@ public class Main {
     private static void testIceSkaterClass() {
         System.out.println("Testing IceSkater Class");
         IceSkater iceSkater = new IceSkater(new Name("Charlie"), "charlie@example.com", 22, "Non-Binary", "Canada", Level.BEGINNER);
-        iceSkater.setScores(new int[]{6, 5, 4, 3});
+        iceSkater.setScores(new int[]{1, 2, 4, 3});
         System.out.println("Overall Score: " + iceSkater.getOverallScore());
         System.out.println("Ice Skater Category: " + iceSkater.getCategory());
         System.out.println();

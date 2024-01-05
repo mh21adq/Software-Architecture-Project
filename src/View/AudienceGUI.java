@@ -1,6 +1,8 @@
 package View;
 import Controller.Manager;
-import Model.*;
+import Model.Participant.Category;
+import Model.Participant.Level;
+import Model.Participant.Competitor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -145,7 +147,7 @@ public class AudienceGUI{
 
         for (Level level : levels) {
             ArrayList<Competitor> competitors = manager.sortCompetitorsByScore(category, level);
-            results.append("Level: ").append(level.name()).append("\n");
+            results.append("\n").append(level.name()).append("\n\n");
 
             int ranking = 1;
             for (Competitor competitor : competitors) {

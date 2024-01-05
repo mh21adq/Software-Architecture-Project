@@ -1,4 +1,4 @@
-package Model;
+package Model.Participant;
 
 import java.util.ArrayList;
 import java.util.Comparator;

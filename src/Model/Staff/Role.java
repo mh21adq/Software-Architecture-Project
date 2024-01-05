@@ -1,4 +1,4 @@
-package Model;
+package Model.Staff;
 
 /**
  * The Role enum represents various roles that can be assigned to individuals in the system.

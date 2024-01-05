@@ -1,5 +1,6 @@
-package Model;
+package Model.Staff;
 
+import Model.Name;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package Model;
+package Model.Participant;
 
 public enum Category {
     GAMING,

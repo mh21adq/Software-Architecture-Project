@@ -1,6 +1,7 @@
 package View;
-import Model.*;
 import Controller.*;
+import Model.Participant.Category;
+import Model.Participant.Competitor;
 
 import javax.swing.*;
 import java.awt.*;

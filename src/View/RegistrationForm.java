@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import Controller.Manager;
 import Model.*;
+import Model.Participant.Level;
+import Model.Participant.Competitor;
+import Model.Participant.Gamer;
+import Model.Participant.IceSkater;
 
 /**
  * This class represents the registration form GUI.

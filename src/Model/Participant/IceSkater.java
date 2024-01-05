@@ -1,4 +1,6 @@
-package Model;
+package Model.Participant;
+
+import Model.Name;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -79,9 +81,9 @@ public class IceSkater extends Competitor {
         double[] weights;
         // Weights are put in such a way so that it cannot get over 5;
         if (this.level == Level.BEGINNER) {
-            weights = new double[]{1.0, 0.9, 0.8, 0.7};
+            weights = new double[]{1.0, 0.7, 1.1, 1.2};
         } else if (this.level == Level.INTERMEDIATE) {
-            weights = new double[]{0.6, 0.5, 0.3, 0.2};
+            weights = new double[]{0.7, 0.8, 1.2, 1.3};
         } else if (this.level == Level.ADVANCED) {
             weights = new double[]{0.125, 0.975, 0.99, 0.5};
         } else {
@@ -118,8 +120,8 @@ public class IceSkater extends Competitor {
             throw new IllegalArgumentException("Scores array must have " + SCORES_ARRAY_SIZE + " elements.");
         }
         for (int score : scores) {
-            if (score < 0 || score > 6) {
-                throw new IllegalArgumentException("Each score must be between 0 and 6.");
+            if (score < 0 || score > 4) {
+                throw new IllegalArgumentException("Each score must be between 0 and 4.");
             }
         }
         this.scores = scores;

@@ -1,5 +1,11 @@
 package Controller;
 import Model.*;
+import Model.Participant.Category;
+import Model.Participant.Level;
+import Model.Participant.Competitor;
+import Model.Participant.CompetitorList;
+import Model.Participant.Gamer;
+import Model.Participant.IceSkater;
 import View.*;
 import java.io.*;
 import java.util.*;

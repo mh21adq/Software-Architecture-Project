@@ -1,19 +1,20 @@
-100,Ann Sthen,       as123@gmail.com,  23,Female,  BEGINNER,      Ice_Skating,UK,5,2,1,6
+100,Ann Sthen,       as123@gmail.com,  23,Female,  BEGINNER,      Ice_Skating,UK,4,2,1,4
 101,George Beth Shon,gbs@gmail.com,    31,Male,    NOVICE,        Gaming,     UK,2,3,5,5,5
-102,Kaith Andy Clos, kac123@yahoo.com, 29,Female,  ADVANCED,      Ice_Skating,UK,4,5,2,2
+102,Kaith Andy Clos, kac123@yahoo.com, 29,Female,  ADVANCED,      Ice_Skating,UK,4,4,2,2
 103,Mark Do Leno,    mdl123@herts.com, 22,Male,    EXPERT,        Gaming,     UK,5,4,4,2,1
-104,Harry Patrick,   hp00@example.com, 32,Male,    NOVICE,        Gaming,     UK,2,2,5,2,1
-105,Vicy Mathew,     vm99@gmail.com,   33,Male,   INTERMEDIATE,   Ice_Skating,UK,6,2,5,5
-105,Monica Loy,      mdl12@herts.com, 29,Female,     EXPERT,      Gaming,     US,4,4,2,2,3
+104,Harry Patrick,   hp00@example.com, 32,Male,    NOVICE,        Gaming,     UK,2,2,4,2,1
+105,Vicy Mathew,     vm99@gmail.com,   33,Male,   INTERMEDIATE,   Ice_Skating,UK,4,2,4,4
+106,Monica Loy,      mdl12@herts.com, 29,Female,     EXPERT,      Gaming,     US,4,4,2,2,3
 107,Susan Mathew,    sm66@example.com, 28,Female,  NOVICE,        Gaming,     US,5,1,5,3,4
 108,Andy Stov,       as88@gmail.com,   22,Female,  EXPERT,        Gaming,     US,0,2,1,5,4
-109,Mary Francis,    mf55@gmail.com,   27,Male,     BEGINNER,     Ice_Skating,UK,0,2,6,6
-110,Jomon Vicy,      jv123@yahoo.com,  22,Male,    ADVANCED,      Ice_Skating,UK,6,3,1,2
+109,Mary Francis,    mf55@gmail.com,   27,Male,     BEGINNER,     Ice_Skating,UK,0,2,3,4
+110,Jomon Vicy,      jv123@yahoo.com,  22,Male,    ADVANCED,      Ice_Skating,UK,4,3,1,2
 111,Catherin George, cg00@yahoo.com,   20,Male,    EXPERT,        Gaming,     UAE,1,4,4,2,5
 112,Aby Mathew,      am333@example.com,34,Male,     NOVICE,       Gaming,     UK,2,3,3,5,2
-113,Jojo Mony,       jm555@gmail.com,  31,Male,   INTERMEDIATE,   Ice_Skating,UK,2,3,6,5
-114,Methen George,   mg999@herts.com,  30,Male,   BEGINNER,       Ice_Skating,UK,4,3,2,6
-115,Scarlett John,   sj1111@gmail.com, 25,Female, INTERMEDIATE,   Ice_Skating,UK,3,4,6,5
-116,Patrick Shanon,  ps767@gmail.com,  22,Male,     ADVANCED,     Ice_Skating,US,4,3,5,1
-117,Rod Stod,        rs777@herts.acom, 26,Male,   ADVANCED,       Ice_Skating,UK,5,2,2,4
+113,Jojo Mony,       jm555@gmail.com,  31,Male,   INTERMEDIATE,   Ice_Skating,UK,2,3,1,4
+114,Methen George,   mg999@herts.com,  30,Male,   BEGINNER,       Ice_Skating,UK,4,3,2,1
+115,Scarlett John,   sj1111@gmail.com, 25,Female, INTERMEDIATE,   Ice_Skating,UK,3,4,2,3
+116,Patrick Shanon,  ps767@gmail.com,  22,Male,     ADVANCED,     Ice_Skating,US,4,3,2,1
+117,Rod Stod,        rs777@herts.acom, 26,Male,   ADVANCED,       Ice_Skating,UK,4,2,2,4
 118,Lijo Willams,   lijo32@example.com,28,Male,     NOVICE,       Gaming,     UK,1,2,5,0,4
+119,MD Numan Hussain,mh21adq@herts.ac.uk,23,Male,  EXPERT,        Gaming,     UK,1,2,5,0,3

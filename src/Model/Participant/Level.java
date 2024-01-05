@@ -1,4 +1,4 @@
-package Model;
+package Model.Participant;
 /**
  * Enumeration representing different levels for competitors.
  * First three is for Gaming category

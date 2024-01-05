@@ -1,4 +1,6 @@
-package Model;
+package Model.Participant;
+
+import Model.Name;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -46,7 +48,7 @@ public abstract class Competitor {
      */
     public void setCompetitorNumber(int competitorID) {
         this.competitorNumber = competitorID;
-        nextNumber.set(competitorID + 1);
+        nextNumber.set(competitorID+1);
     }
     /**
      * Gets the competitor's unique number.

@@ -1,10 +1,10 @@
-2000, Alex Turner, alex2000@gmail.com, 27, Male, BEGINNER, Ice_Skating, UK, 0, 2, 6, 6
-2001, Brian Cook, bcook2001@yahoo.com, 22, Male, ADVANCED, Ice_Skating, UK, 6, 3, 1, 2
-2002, Charlie Reed, creed2002@gmail.com, 31, Male, INTERMEDIATE, Ice_Skating, UK, 2, 3, 6, 5
+2000, Alex Turner, alex2000@gmail.com, 27, Male, BEGINNER, Ice_Skating, UK, 0, 2, 1, 4
+2001, Brian Cook, bcook2001@yahoo.com, 22, Male, ADVANCED, Ice_Skating, UK, 2, 3, 1, 2
+2002, Charlie Reed, creed2002@gmail.com, 31, Male, INTERMEDIATE, Ice_Skating, UK, 2, 3, 3, 4
 2003, David Green, dgreen2003@gmail.com, 24, Male, INTERMEDIATE, Ice_Skating, UK, 3, 4, 2, 1
-2004, Ethan Hall, ehall2004@yahoo.com, 29, Male, BEGINNER, Ice_Skating, UK, 5, 5, 5, 5
+2004, Ethan Hall, ehall2004@yahoo.com, 29, Male, BEGINNER, Ice_Skating, UK, 1, 3, 4, 4
 2005, Fiona Knight, fknight2005@gmail.com, 26, Female, BEGINNER, Ice_Skating, UK, 1, 3, 4, 2
 2006, George Long, glong2006@yahoo.com, 23, Male, ADVANCED, Ice_Skating, UK, 4, 4, 3, 3
-2007, Hannah Scott, hscott2007@gmail.com, 30, Female, INTERMEDIATE, Ice_Skating, UK, 2, 2, 5, 4
+2007, Hannah Scott, hscott2007@gmail.com, 30, Female, INTERMEDIATE, Ice_Skating, UK, 2, 2, 3, 4
 2008, Ian Foster, ifoster2008@yahoo.com, 25, Male, BEGINNER, Ice_Skating, UK, 3, 1, 4, 3
-2009, Julia Perez, jperez2009@gmail.com, 28, Female, BEGINNER, Ice_Skating, UK, 5, 4, 3, 2
+2009, Julia Perez, jperez2009@gmail.com, 28, Female, BEGINNER, Ice_Skating, UK, 1, 4, 3, 2
