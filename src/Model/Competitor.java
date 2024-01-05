@@ -43,7 +43,7 @@ public abstract class Competitor {
      */
     public void setCompetitorNumber(int competitorNumber) {
         this.competitorNumber = competitorNumber;
-        lastNumber = competitorNumber;
+        lastNumber = competitorNumber+1;
     }
     /**
      * Gets the competitor's unique number.

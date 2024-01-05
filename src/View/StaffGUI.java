@@ -63,7 +63,6 @@ public class StaffGUI {
         Font labelFont = new Font("Arial", Font.BOLD, 12);
 
         frame.getContentPane().setBackground(backgroundColor);
-
         // Title
         JLabel titleLabel = new JLabel("Staff Sign In");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -118,6 +117,17 @@ public class StaffGUI {
         openButtonConstraints.anchor = GridBagConstraints.CENTER;
         openButton.addActionListener(e -> handleStaffVerification());
         frame.add(openButton, openButtonConstraints);
+
+        // Helper for the StaffGUI testers
+        GridBagConstraints welcomeLabelConstraints = new GridBagConstraints();
+        welcomeLabelConstraints.gridx = 0;
+        welcomeLabelConstraints.gridy = 4;
+        welcomeLabelConstraints.gridwidth = 2;
+        welcomeLabelConstraints.anchor = GridBagConstraints.CENTER;
+        JLabel welcomeLabel = new JLabel("Data Entry:John 1111," +
+                "Official:Numan 2222");
+
+        frame.add(welcomeLabel, welcomeLabelConstraints);
         frame.setVisible(true);
         Timer focusTimer = new Timer(100, e -> nameField.requestFocusInWindow());
         focusTimer.setRepeats(false);
