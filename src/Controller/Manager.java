@@ -145,7 +145,7 @@ public class Manager {
      */
     public void generateFinalReport(String filename) {
         StringBuilder report = new StringBuilder();
-        for (Category category : ) {
+        for (Category category : Category.values()) {
             report.append("==== Competitors in Category: ").append(category).append(" ====\n");
             report.append(getCompetitorsTable(category)).append("\n");
 
@@ -179,12 +179,12 @@ public class Manager {
      * @param category The category for which to get the competitors' table.
      * @return A string containing the formatted table of competitors.
      */
-    public String getCompetitorsTable(String category) {
+    public String getCompetitorsTable(Category category) {
         StringBuilder detailsBuilder = new StringBuilder();
         List<Level> relevantLevels;
-        if (CATEGORIES[0].equals(category)) {
+        if (Category.ICE_SKATING.equals(category)) {
             relevantLevels = ICE_SKATING_LEVELS;
-        } else if (CATEGORIES[1].equals(category)) {
+        } else if (Category.GAMING.equals(category)) {
             relevantLevels = GAMING_LEVELS;
         } else {
             relevantLevels = Arrays.asList(Level.values());
@@ -218,7 +218,7 @@ public class Manager {
      * @param level    The level for which to find the highest scorer.
      * @return A string containing the details of the highest scorer.
      */
-    public String getTopScorerDetails(String category, Level level) {
+    public String getTopScorerDetails(Category category, Level level) {
         Competitor highestScorer = competitorList.highestScoringCompetitor(category, level);
         if (highestScorer == null) {
             return "No highest scorer found for " + category + " in level " + level + "\n";
