@@ -34,7 +34,7 @@ public class AudienceGUI{
         frame = new JFrame("Live Competition Results");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
-        frame.setSize(500, 600);
+        frame.setSize(620, 600);
 
         // Font and Color Setup
         Font titleFont = new Font("Monospaced", Font.BOLD, 20);
@@ -145,17 +145,22 @@ public class AudienceGUI{
 
         for (Level level : levels) {
             ArrayList<Competitor> competitors = manager.sortCompetitorsByScore(category, level);
-            results.append(level.name()).append(":\n");
-            int ranking=1;
+            results.append("Level: ").append(level.name()).append("\n");
+
+            int ranking = 1;
             for (Competitor competitor : competitors) {
                 String firstName = competitor.getName().getFirstName();
                 String initials = competitor.getName().getInitials();
-                results.append(ranking++).append(". ").append(firstName).append(" (").append(initials).append(") ")
-                        .append(String.format("%.2f", competitor.getOverallScore())).append("\n");
+                results.append(String.format("%d.[%d] %s (%s) - %.2f\n",
+                        ranking++, competitor.getCompetitorNumber(),
+                        firstName, initials,
+                        competitor.getOverallScore()));
             }
+            results.append("\n");
         }
         textArea.append(results.toString());
     }
+
 
 
 }

@@ -1,0 +1,10 @@
+1000, Alice Johnson, alice1000@example.com, 20, Female, EXPERT, Gaming, US, 3, 3, 3, 3, 3
+1001, Bob Smith, bob1001@example.com, 22, Male, NOVICE, Gaming, US, 4, 4, 4, 4, 4
+1002, Carol White, carol1002@example.com, 24, Female, EXPERT, Gaming, US, 5, 5, 5, 5, 5
+1003, David Brown, david1003@example.com, 26, Male, NOVICE, Gaming, US, 3, 3, 3, 3, 3
+1004, Emily Clark, emily1004@example.com, 28, Female, EXPERT, Gaming, US, 4, 4, 4, 4, 4
+1005, Frank Miller, frank1005@example.com, 20, Male, NOVICE, Gaming, US, 5, 5, 5, 5, 5
+1006, Grace Davis, grace1006@example.com, 22, Female, EXPERT, Gaming, US, 3, 3, 3, 3, 3
+1007, Henry Wilson, henry1007@example.com, 24, Male, NOVICE, Gaming, US, 4, 4, 4, 4, 4
+1008, Isabella Martinez, isabella1008@example.com, 26, Female, EXPERT, Gaming, US, 5, 5, 5, 5, 5
+1009, Jack Taylor, jack1009@example.com, 28, Male, NOVICE, Gaming, US, 3, 3, 3, 3, 3

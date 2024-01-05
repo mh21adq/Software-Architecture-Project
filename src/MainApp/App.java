@@ -14,16 +14,20 @@ public class App {
             // Create the main application window
             JFrame mainFrame = new JFrame("Competition Management System");
             mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainFrame.setSize(800, 800); // Set the size of the main window
-            mainFrame.setLayout(new BorderLayout()); // Set the layout
+            mainFrame.setSize(800, 800);
+            mainFrame.setLayout(new BorderLayout());
+
+            // Customize the frame background
+            mainFrame.getContentPane().setBackground(new Color(255, 255, 224)); // Light Yellow
 
             // Create a panel for buttons
-            JPanel buttonPanel = new JPanel(new GridLayout(3, 1)); // 3 rows, 1 column
+            JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
+            buttonPanel.setBackground(new Color(173, 216, 230)); // Light Blue
 
-            // Create buttons
-            JButton audienceButton = new JButton("Open Audience GUI");
-            JButton competitorButton = new JButton("Open Competitor GUI");
-            JButton staffButton = new JButton("Open Staff GUI");
+            // Create buttons with colors and fonts
+            JButton audienceButton = createCustomButton("Open Audience GUI");
+            JButton competitorButton = createCustomButton("Open Competitor GUI");
+            JButton staffButton = createCustomButton("Open Staff GUI");
 
             // Add action listeners to buttons
             audienceButton.addActionListener(e -> manager.openAudienceGUI(manager));
@@ -44,5 +48,13 @@ public class App {
             // Display the main frame
             mainFrame.setVisible(true);
         });
+    }
+
+    private static JButton createCustomButton(String text) {
+        JButton button = new JButton(text);
+        button.setBackground(new Color(100, 149, 237)); // Cornflower Blue
+        button.setForeground(Color.blue); // White text
+        button.setFont(new Font("Arial", Font.BOLD, 16));
+        return button;
     }
 }

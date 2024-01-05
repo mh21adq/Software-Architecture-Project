@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 /**
@@ -25,7 +26,6 @@ public class StaffGUI {
     private JTextField nameField, idField;
     private final StaffList staffList;
     private final Manager manager;
-    private  final StringBuilder competitorTable = new StringBuilder();
 
     /**
      * Constructor that initializes the GUI and sets up the manager.
@@ -435,8 +435,10 @@ public class StaffGUI {
      * @param frame The JFrame on which to display the dialog box.
      * @return The selected category as a String. Returns null if the dialog is closed without a selection.
      */
-    private String selectCategory(JFrame frame) {
-        String[] categories = {"ICE SKATING", "GAMING"};
+    private Category selectCategory(JFrame frame) {
+        Category[] categories = Category.values();
+        String[] categoryNames = Arrays.stream(categories).map(Enum::name).toArray(String[]::new);
+
         int categoryChoice = JOptionPane.showOptionDialog(
                 frame,
                 "Select a category:",
@@ -444,8 +446,8 @@ public class StaffGUI {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                categories,
-                categories[0]);
+                categoryNames,
+                categoryNames[0]);
 
         if (categoryChoice == JOptionPane.CLOSED_OPTION) {
             return null;
@@ -453,6 +455,7 @@ public class StaffGUI {
             return categories[categoryChoice];
         }
     }
+
 
     /**
      * Determines the levels available based on the selected category. For "ICE SKATING", levels such as
@@ -462,8 +465,8 @@ public class StaffGUI {
      * @param selectedCategory The category based on which levels are determined.
      * @return An array of Level enumerations applicable to the selected category.
      */
-    private Level[] createLevelsBasedOnCategory(String selectedCategory) {
-        if (selectedCategory.equals("ICE SKATING")) {
+    private Level[] createLevelsBasedOnCategory(Category selectedCategory) {
+        if (selectedCategory.equals(Category.ICE_SKATING)) {
             return new Level[]{Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED};
         } else {
             return new Level[]{Level.NOVICE, Level.EXPERT};
@@ -478,13 +481,13 @@ public class StaffGUI {
      */
     private ActionListener createBrowseCategoriesListener() {
         return e -> {
-            String selectedCategory = selectCategory(frame);
+            Category selectedCategory = selectCategory(frame);
 
             if (selectedCategory != null) {
                 String competitors = manager.getCompetitorsTable(selectedCategory);
 
                 JScrollPane scrollPane = createScrollPaneForText(competitors);
-                JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors in " + selectedCategory.name(), JOptionPane.INFORMATION_MESSAGE);
             }
         };
     }
@@ -497,7 +500,7 @@ public class StaffGUI {
      */
     private ActionListener createSortByAgeListener() {
         return e -> {
-            String selectedCategory = selectCategory(frame);
+            Category selectedCategory = selectCategory(frame);
             if (selectedCategory != null) {
                 Level[] levels = createLevelsBasedOnCategory(selectedCategory);
 
@@ -512,13 +515,13 @@ public class StaffGUI {
 
                 if (selectedLevel != null) {
                     ArrayList<Competitor> competitors = manager.sortByAge(selectedCategory, selectedLevel);
-                    competitorTable.setLength(0);
+                    StringBuilder competitorTable = new StringBuilder();
 
                     for (Competitor competitor : competitors) {
                         competitorTable.append(competitor.getFullDetails()).append("\n");
                     }
                     JScrollPane scrollPane = createScrollPaneForText(competitorTable.toString());
-                    JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, scrollPane, "Competitors Sorted by Age in " + selectedCategory.name(), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         };
@@ -532,7 +535,7 @@ public class StaffGUI {
      */
     private ActionListener createSortByFirstNameListener() {
         return e -> {
-            String selectedCategory = selectCategory(frame);
+            Category selectedCategory = selectCategory(frame);
             if (selectedCategory != null) {
                 Level[] levels = createLevelsBasedOnCategory(selectedCategory);
 
@@ -567,7 +570,7 @@ public class StaffGUI {
      */
     private ActionListener createShowTopScorerListener() {
         return e -> {
-            String selectedCategory = selectCategory(frame);
+            Category selectedCategory = selectCategory(frame);
             if (selectedCategory != null) {
                 Level[] levels = createLevelsBasedOnCategory(selectedCategory);
 
