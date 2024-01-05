@@ -4,6 +4,7 @@ import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * The CompetitorGUI class creates the graphical user interface for the competitor management system.
@@ -138,7 +139,9 @@ public class CompetitorGUI {
      * for all competitors in that category, including summary statistics.
      */
     private void openPrintReportDialog() {
-        String[] categories = {"ICE SKATING", "GAMING"};
+        Category[] categories = Category.values();
+        String[] categoryNames = Arrays.stream(categories).map(Enum::name).toArray(String[]::new);
+
         int categoryChoice = JOptionPane.showOptionDialog(
                 frame,
                 "Select a category:",
@@ -146,13 +149,13 @@ public class CompetitorGUI {
                 JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
-                categories,
-                categories[0]);
+                categoryNames,
+                categoryNames[0]);
 
         if (categoryChoice != JOptionPane.CLOSED_OPTION) {
-            String selectedCategory = categories[categoryChoice];
+            Category selectedCategory = categories[categoryChoice];
             String competitorsTable = manager.getCompetitorsTable(selectedCategory);
-            String summaryStatistics=manager.getSummaryStatistics(selectedCategory);
+            String summaryStatistics = manager.getSummaryStatistics(selectedCategory);
             String combinedText = competitorsTable + "\n\n" + summaryStatistics;
             JTextArea textArea = new JTextArea(combinedText);
             textArea.setEditable(false);
@@ -160,7 +163,7 @@ public class CompetitorGUI {
             textArea.setWrapStyleWord(true);
             JScrollPane scrollPane = new JScrollPane(textArea);
             scrollPane.setPreferredSize(new Dimension(500, 300));
-            JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors in " + selectedCategory, JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors in " + selectedCategory.name(), JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

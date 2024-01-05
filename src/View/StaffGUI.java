@@ -420,8 +420,8 @@ public class StaffGUI {
      */
     private ActionListener createViewAllCompetitorsListener() {
         return e -> {
-            String iceSkaters = manager.getCompetitorsTable("ICE SKATING");
-            String gamers = manager.getCompetitorsTable("GAMING");
+            String iceSkaters = manager.getCompetitorsTable(Category.ICE_SKATING);
+            String gamers = manager.getCompetitorsTable(Category.GAMING);
 
             JScrollPane scrollPane = createScrollPaneForText(iceSkaters + gamers);
             JOptionPane.showMessageDialog(frame, scrollPane, "All Competitors", JOptionPane.INFORMATION_MESSAGE);
@@ -479,6 +479,7 @@ public class StaffGUI {
     private ActionListener createBrowseCategoriesListener() {
         return e -> {
             String selectedCategory = selectCategory(frame);
+
             if (selectedCategory != null) {
                 String competitors = manager.getCompetitorsTable(selectedCategory);
 

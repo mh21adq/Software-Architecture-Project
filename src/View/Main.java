@@ -87,18 +87,18 @@ public class Main {
 
         // Get competitors by category
         System.out.println("Competitors in GAMING category: ");
-        competitorList.getCompetitorsByCategory("GAMING").forEach(c -> System.out.println(c.getName().getFullName()));
+        competitorList.getCompetitorsByCategory(Category.GAMING).forEach(c -> System.out.println(c.getName().getFullName()));
 
         // Sort by age
         System.out.println("Competitors sorted by age in GAMING:");
-        competitorList.sortByAge("GAMING", Level.EXPERT).forEach(c -> System.out.println(c.getName().getFullName() + ", Age: " + c.getAge()));
+        competitorList.sortByAge(Category.GAMING, Level.EXPERT).forEach(c -> System.out.println(c.getName().getFullName() + ", Age: " + c.getAge()));
 
         // Sort by first name
         System.out.println("Competitors sorted by first name in ICE SKATING:");
-        competitorList.sortByFirstName("ICE SKATING", Level.ADVANCED).forEach(c -> System.out.println(c.getName().getFullName()));
+        competitorList.sortByFirstName(Category.ICE_SKATING, Level.ADVANCED).forEach(c -> System.out.println(c.getName().getFullName()));
 
         // Find @highest scoring competitor
-        Competitor topScorer = competitorList.highestScoringCompetitor("GAMING", Level.EXPERT);
+        Competitor topScorer = competitorList.highestScoringCompetitor(Category.GAMING, Level.EXPERT);
         System.out.println("Top Scorer in GAMING: " + (topScorer != null ? topScorer.getName().getFullName() : "Not Available"));
     }
     private static void testStaffClass() {
@@ -164,13 +164,12 @@ public class Main {
         }
 
         // Test: Sorting competitors by score
-        String category = "GAMING";
         Level level = Level.EXPERT;
         System.out.println("Sorted Competitors by Score:");
-        manager.sortCompetitorsByScore(category, level).forEach(c -> System.out.println(c.getName().getFullName()));
+        manager.sortCompetitorsByScore(Category.GAMING, level).forEach(c -> System.out.println(c.getName().getFullName()));
 
         // Test: Finding @highest scoring competitor
-        Competitor highestScorer = manager.highestScoringCompetitor(category, level);
+        Competitor highestScorer = manager.highestScoringCompetitor(Category.GAMING, level);
         if (highestScorer != null) {
             System.out.println("Highest Scorer: " + highestScorer.getName().getFullName());
         } else {

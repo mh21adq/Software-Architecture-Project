@@ -12,9 +12,6 @@ import java.util.function.Function;
  */
 public class Manager {
     private final CompetitorList competitorList;
-
-    // Constants for competition categories and levels
-    private static final List<Category> CATEGORIES = List.of(Category.ICE_SKATING, Category.GAMING);
     private static final Level[] LEVELS = Level.values();
     private static final List<Level> GAMING_LEVELS = List.of(Level.NOVICE, Level.EXPERT);
     private static final List<Level> ICE_SKATING_LEVELS = List.of(Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED);

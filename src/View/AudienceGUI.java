@@ -123,10 +123,10 @@ public class AudienceGUI{
         Level[] iceSkaterLevels = {Level.BEGINNER, Level.INTERMEDIATE, Level.ADVANCED};
 
         // Process Gamers
-        processCompetitors(gamersTextArea, "Gaming", gamerLevels);
+        processCompetitors(gamersTextArea, Category.GAMING, gamerLevels);
 
         // Process Ice Skaters
-        processCompetitors(iceSkatersTextArea, "Ice Skating", iceSkaterLevels);
+        processCompetitors(iceSkatersTextArea, Category.ICE_SKATING, iceSkaterLevels);
     }
 
     /**
@@ -140,7 +140,7 @@ public class AudienceGUI{
      * @param category The category of the competitors to be processed (e.g., ICE SKATING or GAMING).
      * @param levels   An array of Level enums representing the competition levels to include in the processing.
      */
-    private void processCompetitors(JTextArea textArea, String category, Level[] levels) {
+    private void processCompetitors(JTextArea textArea, Category category, Level[] levels) {
         StringBuilder results = new StringBuilder();
 
         for (Level level : levels) {
