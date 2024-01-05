@@ -177,7 +177,7 @@ public class Main {
         }
 
         // Test: Generating final report
-        String reportFileName = "Competitor_report.txt";
+        String reportFileName = "Test_report_writing_in_Main.txt";
         manager.generateFinalReport(reportFileName);
         System.out.println("Generated report: " + reportFileName);
 

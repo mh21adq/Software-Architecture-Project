@@ -52,8 +52,8 @@ public class App {
 
     private static JButton createCustomButton(String text) {
         JButton button = new JButton(text);
-        button.setBackground(new Color(100, 149, 237)); // Cornflower Blue
-        button.setForeground(Color.blue); // White text
+        button.setBackground(new Color(100, 149, 237));
+        button.setForeground(Color.blue);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         return button;
     }

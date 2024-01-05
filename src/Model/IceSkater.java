@@ -61,9 +61,17 @@ public class IceSkater extends Competitor {
     }
 
     /**
-     * Calculates the overall score of the Ice Skater.
+     * Calculates the overall score of a competitor based on their scores and level using a weighted average algorithm.
+     * This method applies different weight factors to the scores depending on the competitor's level.
+     * For BEGINNER level, weights are {1.0, 0.9, 0.8, 0.7}.
+     * For INTERMEDIATE level, weights are {0.6, 0.5, 0.3, 0.2}.
+     * For ADVANCED level, weights are {0.125, 0.975, 0.99, 0.5}.
+     * Each score is multiplied by its corresponding weight, and the results are summed to get a weighted sum.
+     * The weighted average is then calculated by dividing this sum by the number of scores.
+     * The final result is rounded to three decimal places.
      *
-     * @return The overall score.
+     * @return The weighted average score, rounded to three decimal places.
+     * @throws IllegalStateException if the level is unknown.
      */
     @Override
     public double getOverallScore() {

@@ -82,9 +82,12 @@ public class Gamer extends Competitor {
     }
 
     /**
-     * Calculates the overall score of the Gamer.
+     * Calculates the overall score of the Gamer based on their scores and level.
+     * If the Gamer is at the NOVICE level, only the top 3 scores are considered for the calculation.
+     * For other levels, all scores are considered. The method calculates the average of these scores
+     * and rounds it to three decimal places.
      *
-     * @return The overall score.
+     * @return The overall score, averaged and rounded to three decimal places.
      */
     @Override
     public double getOverallScore() {

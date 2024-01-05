@@ -2,13 +2,15 @@ package Model;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * An abstract class representing a competitor.
+ * This class provides a base structure for managing competitor details in a competition.
  */
 public abstract class Competitor {
-    private static int lastNumber = 100;
-    private  int competitorNumber;
+    private static final AtomicInteger nextNumber = new AtomicInteger(100);
+    private int competitorNumber;
     private Name name;
     private String email;
     private int age;
@@ -17,6 +19,7 @@ public abstract class Competitor {
 
     /**
      * Initializes a new competitor with the specified attributes.
+     * The competitor number is auto-generated and incremented for each new instance.
      *
      * @param name    The competitor's name.
      * @param email   The competitor's email address.
@@ -25,7 +28,7 @@ public abstract class Competitor {
      * @param country The competitor's country.
      */
     public Competitor(Name name, String email, int age, String gender, String country) {
-        this.competitorNumber = lastNumber++;
+        setCompetitorNumber(nextNumber.getAndIncrement());
         this.setName(name);
         this.setEmail(email);
         this.setAge(age);
@@ -39,11 +42,11 @@ public abstract class Competitor {
      * are pre-assigned. It ensures that the next auto-generated competitor number continues from the
      * last assigned number to maintain uniqueness.
      *
-     * @param competitorNumber The pre-assigned unique identifier for the competitor.
+     * @param competitorID The pre-assigned unique identifier for the competitor.
      */
-    public void setCompetitorNumber(int competitorNumber) {
-        this.competitorNumber = competitorNumber;
-        lastNumber = competitorNumber+1;
+    public void setCompetitorNumber(int competitorID) {
+        this.competitorNumber = competitorID;
+        nextNumber.set(competitorID + 1);
     }
     /**
      * Gets the competitor's unique number.
